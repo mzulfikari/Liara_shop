@@ -15,6 +15,7 @@ class Utm_info(admin.ModelAdmin):
         "utm_source",
         "platform",
         )
+    readonly_fields = ['sharing_url', 'created_at']
 
 @admin.register(models.Utm_access)
 class Utm_Admin(admin.ModelAdmin):

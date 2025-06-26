@@ -5,7 +5,7 @@ from .import views
 app_name="Product"
 
 urlpatterns = [
-   path('product',views.ProductDetails.as_view(), name='product-details'),
+   path('product/<int:pk>',views.ProductDetails.as_view(), name='Product_details'),
 
 
 ]

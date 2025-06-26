@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import  AbstractBaseUser
 from account.managment.managment import UserManager
-
+from django.utils.translation import gettext as _
 
 #پروفایل کاربر
 class User(AbstractBaseUser):
@@ -36,6 +36,9 @@ class User(AbstractBaseUser):
         )
     password = models.CharField(
         max_length=300
+        )
+    last_login = models.DateTimeField(
+        _("last login"), blank=True, null=True
         )
     objects = UserManager()
 

@@ -14,7 +14,8 @@ class Platform(models.Model):
                  ("ایتا", "Eita"),
                  ("روبیکا", "Rubika"),
                  ])
-    
+    def __str__(self):
+        return self.title
 
 
     class Meta:

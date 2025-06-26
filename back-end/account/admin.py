@@ -34,7 +34,10 @@ class UserAdmin(BaseUserAdmin):
     ordering = ["phone"]
     filter_horizontal = []
 
+@admin.register(Otp)
+class OTPAdmin(admin.ModelAdmin):
+    list_display = ("phone", "code",)
 
 admin.site.register(User, UserAdmin)
-admin.site.register(Otp)
+
 admin.site.unregister(Group)

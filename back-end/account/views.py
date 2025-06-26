@@ -86,6 +86,9 @@ class CheckOtp(View):
     def post(self,request):
         token = request.GET.get('token')
         form = CheckOtpform(request.POST)
+
+        Otp.objects.filter(expiration_date__lt=timezone.now()).delete()
+
         if form.is_valid():
             valid = form.cleaned_data
             # expiration_date = timezone.now() - timedelta (minutes=1)
@@ -93,7 +96,7 @@ class CheckOtp(View):
               token=token,
             ).exists():
              otp = Otp.objects.get(token=token)
-             user , is_created = User.objects.get_or_create(phone=otp.phone)
+             user , is_created = User.objects.get_or_create(phone=otp.phone,)
 
              login(request,
                    user,
