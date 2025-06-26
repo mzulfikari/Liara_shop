@@ -12,8 +12,8 @@ class ProductAdmin(admin.ModelAdmin):
         "title",
         "price",
         "value",
-        "show_image",
-        )
+        "show_image",)
+
     list_editable=(
         "price",
         "value",
@@ -21,6 +21,9 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields=(
         "title",
         )
+    list_filter = (
+            "Category",
+            )
 
 admin.site.register(Category)
 list_display = (

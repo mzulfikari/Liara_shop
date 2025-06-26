@@ -15,6 +15,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "دسته بندی ها"
 
+
 class Size(models.Model):
     title = models.CharField(max_length=30)
 
@@ -24,21 +25,28 @@ class Size(models.Model):
         verbose_name_plural ="سایز"
 
 
+
 class Color(models.Model):
-    title = models.CharField(max_length=30,verbose_name="عنوان رنگ")
+    title = models.CharField(
+        max_length=30,verbose_name="عنوان رنگ",blank=True,null=True
+        )
 
     def __str__(self):
         return self.title
     class Meta:
         verbose_name_plural = "رنگ بندی "
 
+
 class Brand(models.Model):
-    title = models.CharField(max_length=60,verbose_name="برند")
+    title = models.CharField(
+        max_length=60,verbose_name="برند",blank=True,null=True
+        )
 
     def __str__(self):
         return self.title
     class Meta:
         verbose_name_plural = "برند ها "
+
 
 class Products(models.Model):
     title = models.CharField(
@@ -58,7 +66,7 @@ class Products(models.Model):
         Category, related_name="Category",verbose_name="دسته بندی ها"
         )
     size = models.ManyToManyField(
-        Size,blank=True,related_name='product',verbose_name="سایز"
+        Size,blank=True,related_name='product'
         )
     color = models.ManyToManyField(
         Color,related_name='product',verbose_name="رنگ بندی ها"
@@ -75,6 +83,7 @@ class Products(models.Model):
 
     class Meta:
         verbose_name_plural = "محصولات"
+
 
 
 class Comment(models.Model):

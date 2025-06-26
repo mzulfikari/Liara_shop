@@ -1,4 +1,3 @@
-from datetime import timedelta, timezone
 from django.contrib.auth import authenticate , login, logout
 from django.shortcuts import render , redirect
 from django.views import View
@@ -14,7 +13,6 @@ from .forms import LoginForm,RegisterForm
 from django.urls import reverse
 import ghasedakpack
 from uuid import uuid4
-
 
 #Api  رمز یکبار مصرف
 # sms_api = ghasedakpack.Ghasedak(
@@ -42,6 +40,8 @@ class UserLogin(View):
         return render(request,'login.html',{'form':form})
 
 class UserRegister(View):
+    """User login through phone number and email"""
+
     def get (self,request):
         form = RegisterForm()
         return render (request,'login-register.html',
@@ -53,30 +53,28 @@ class UserRegister(View):
         if form.is_valid():
             valid = form.cleaned_data
             randcode = randint(1000,9999)
-
             #دریافت رمز یکبار مصرف
             # sms_api.verification({
             #     'receptor':valid["phone"],'type':'1','template':'randcode','param1':randcode
             # })
-
             token = str(uuid4())
 
             Otp.objects.create(phone=valid['phone'],
                 code=randcode,
                 token=token
                 )
-
             # print(randcode)   # print(randcode) # =>  برای پرینت کد ارسال شده
-
             return redirect(reverse('account:Verify') + f'?token={token}')
-
         else:
                 form.add_error('phone', "اطلاعات وارد شده صحیح نمی باشد ")
-
         return render(request,"verify.html",{'form':form,'phone': phone})
 
 
 class CheckOtp(View):
+    """
+    To authenticate the entered number and expire
+    the one-time code within 2 minutes
+    """
 
     def get(self, request):
         form = CheckOtpform()
@@ -87,21 +85,25 @@ class CheckOtp(View):
         token = request.GET.get('token')
         form = CheckOtpform(request.POST)
 
-        Otp.objects.filter(expiration_date__lt=timezone.now()).delete()
-
         if form.is_valid():
             valid = form.cleaned_data
-            # expiration_date = timezone.now() - timedelta (minutes=1)
+
             if Otp.objects.filter(code=valid['code'],
               token=token,
             ).exists():
              otp = Otp.objects.get(token=token)
+
+             if otp.is_expired:
+                    form.add_error('code', "کد منقضی شده است")
+                    return render(request, 'verify.html', {'form': form})
              user , is_created = User.objects.get_or_create(phone=otp.phone,)
 
              login(request,
                    user,
                    backend="django.contrib.auth.backends.ModelBackend")
              return redirect('/')
+
+            Otp.delete()
 
         else:
             form.add_error(None, "اطلاعات وارد شده صحیح نمی باشد ")

@@ -1,10 +1,16 @@
+from datetime import timedelta, timezone
 from django.db import models
 from django.contrib.auth.models import  AbstractBaseUser
 from account.managment.managment import UserManager
 from django.utils.translation import gettext as _
+from django.core.validators import MinValueValidator, MaxValueValidator
+from  utils.validator import *
 
 #پروفایل کاربر
 class User(AbstractBaseUser):
+    """User profile that authenticates and
+    logs in with a phone number or email"""
+
     phone = models.CharField(
         verbose_name="شماره تلفن",
         max_length=255,
@@ -65,10 +71,33 @@ class User(AbstractBaseUser):
 
 #ریجستر و احراز هویت شماره تلفن
 class Otp(models.Model):
-    token = models.CharField(max_length=200, null=True,verbose_name='توکن')
-    phone = models.CharField(max_length=11,verbose_name='شماره تلفن')
-    code = models.SmallIntegerField(verbose_name='کد یکبار مصرف')
-    expiration_date = models.DateTimeField(auto_now_add=True,verbose_name='مدت زمان اعتبار کد')
+    """ Authentication related model
+    with token creation feature
+    """
+    token = models.CharField(
+        max_length=200, null=True, verbose_name='توکن'
+        )
+    phone = models.CharField(
+    max_length=11,
+    validators=[persian_phone_number_validation,],
+    verbose_name='شماره تلفن'
+        )
+
+    code = models.SmallIntegerField(
+        verbose_name='کد یکبار مصرف'
+        )
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="تاریخ ایجاد"
+        )
+    expiry_minutes = models.IntegerField(
+        default=2,verbose_name='مدت زمان اعتبار',
+         # حداکثر مقدار
+        )
+#بررسی مدت اعتبار کد احراز هویت
+    @property
+    def is_expired(self):
+
+        return timezone.now() > self.created_at + timedelta(minutes=self.expiry_minutes)
 
     def __str__(self):
         return self.phone
