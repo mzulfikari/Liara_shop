@@ -14,6 +14,7 @@ class Platform(models.Model):
                  ("ایتا", "Eita"),
                  ("روبیکا", "Rubika"),
                  ])
+    
 
 
     class Meta:

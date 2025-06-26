@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'admin_persian',
 
     #libray
-    'django_social_share'
+    'django_social_share',
+    
 ]
 
 MIDDLEWARE = [

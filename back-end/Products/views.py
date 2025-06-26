@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
+from django.views.generic import DetailView,TemplateView
 from Products.models import Products
 
 
-class ProductDetails(DetailView):
-    template_name = "product\single-product.html"
+class ProductDetails(TemplateView):
+    template_name = "Product\single-product.html"
     model = Products
 
