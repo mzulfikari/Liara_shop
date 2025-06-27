@@ -1,12 +1,10 @@
-{% extends "admin/base.html" %}
-
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% extends "admin/base_site.html" %}
+{% load static %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">مدیریت فروشگاه</a></h1>
-{% if user.is_anonymous %}
-  {% include "admin/color_theme_toggle.html" %}
-{% endif %}
-{% endblock %}
 
-{% block nav-global %}{% endblock %}
+<h1 id="site-name"><a href="http://patterndp.ir"><img src="{% static 'image\logo\logo.jpg' %}" alt="Site Logo" style="height: 50px;"/>
+    </br> {{ site_header|default:_('Django administration') }}</a></h1>
+
+{% endblock %}
+</br>

@@ -22,14 +22,17 @@ class ProductAdmin(admin.ModelAdmin):
         "title",
         )
     list_filter = (
-            "Category",
+            "category",
             "price",
+            'inventory',
             )
 
-admin.site.register(Category)
-list_display = (
-        "title",
-        )
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("title", "created")
+    list_filter = ("created",)
+    search_fields = ("title",)
+
 admin.site.register(Size)
 list_display = (
         "title",

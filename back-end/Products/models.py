@@ -13,8 +13,6 @@ class Category(models.Model):
         auto_now_add=True,verbose_name="تاریخ ایجاد"
         )
 
-    def __str__(self):
-        return self.title
     class Meta:
         verbose_name_plural = "دسته بندی ها"
 
@@ -70,8 +68,8 @@ class Products(models.Model):
     value = models.SmallIntegerField(
         verbose_name="مقدار"
         )
-    Category = models.ManyToManyField(
-        Category, related_name="Category",verbose_name="دسته بندی ها"
+    category = models.ForeignKey(
+    Category,on_delete=models.SET_NULL,null=True,blank=True,verbose_name="دسته بندی"
         )
     size = models.ManyToManyField(
         Size,blank=True,related_name='product'
@@ -80,11 +78,14 @@ class Products(models.Model):
         Color,related_name='product',verbose_name="رنگ بندی ها"
         )
     slug = models.SlugField(
-        blank=True , unique=True ,verbose_name="به صورت خودکار از عنوان محصول استفاده میشود",null=True
+        blank=True , unique=False ,verbose_name="به صورت خودکار از عنوان محصول استفاده میشود",null=True
         )
     inventory = models.BooleanField(
         default=True,verbose_name="موجودیت"
         )
+    # brand = models.ForeignKey(
+    #     Brand,verbose_name='برند'
+    # )
 
     def __str__(self):
         return self.title
