@@ -23,6 +23,7 @@ class ProductAdmin(admin.ModelAdmin):
         )
     list_filter = (
             "Category",
+            "price",
             )
 
 admin.site.register(Category)

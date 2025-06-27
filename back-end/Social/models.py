@@ -2,7 +2,7 @@ from django.db import models
 from django.forms import ValidationError
 from account.models import User
 from account.managment.managment import UserManager
-
+from django.contrib.auth import get_user_model
 
 # پلتفرم مربوطه
 class Platform(models.Model):
@@ -43,6 +43,7 @@ class Utm_info(models.Model):
     sharing_url = models.URLField(
         blank=True,verbose_name="لینک اشتراک گذاری"
         )
+    
 
 
     def __str__(self):
