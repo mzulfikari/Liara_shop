@@ -21,14 +21,15 @@ class Utm_info(admin.ModelAdmin):
 class Utm_Admin(admin.ModelAdmin):
     list_display = (
         "user_admin",
-        "utm_info",
+        "get_utm_info",
         "access_level",
         "granted_at",
         )
-    list_editable = (
-        "access_level",
 
-        )
+    def get_utm_info(self, obj):
+        return str(obj.utm_info)
+    get_utm_info.short_description = 'utm_info'
+
 
 @admin.register(models.Log_Utm)
 class Utm_Logs(admin.ModelAdmin):
@@ -42,7 +43,7 @@ class Utm_Logs(admin.ModelAdmin):
         )
 
 @admin.register(models.Platform)
-class Utm_Admin(admin.ModelAdmin):
+class Platform_Admin(admin.ModelAdmin):
     list_display = (
         "title",
         )

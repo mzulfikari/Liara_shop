@@ -41,9 +41,8 @@ class Utm_info(models.Model):
     base_url = models.URLField(verbose_name="لینک اصلی")
 
     sharing_url = models.URLField(
-        blank=True,verbose_name="لینک اشتراک گذاری"
+        blank=True,verbose_name="لینک اشتراک گذاری",primary_key=True,unique=True
         )
-    
 
 
     def __str__(self):
@@ -58,12 +57,14 @@ class Utm_access (models.Model):
     ACCESS_LEVELS = [
         ("view", "مشاهده"),
         ("edit", "ویرایش"),
+        ("delete", "pbt"),
+
     ]
     user_admin = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.SET_NULL,verbose_name="انتخاب کاربر ادمین"
         )
-    utm_info = models.ForeignKey(
-        Utm_info,on_delete=models.SET_NULL,null=True,verbose_name="لینک های قابل دسترس"
+    utm_info = models.ManyToManyField(
+        Utm_info,verbose_name="لینک های قابل دسترس"
 
         )
     access_level = models.CharField(
@@ -81,7 +82,7 @@ class Log_Utm(models.Model):
         Platform, on_delete=models.SET_NULL,null=True,verbose_name="عنوان رسانه"
         )
     url = models.ForeignKey(
-        Utm_info,on_delete=models.SET_NULL,null=True,verbose_name="لینک رسانه"
+        Utm_info,null=True,on_delete=models.SET_NULL,verbose_name="لینک رسانه"
         )
     views = models.SmallIntegerField(
         verbose_name="بازدید ها"

@@ -46,6 +46,12 @@ class User(AbstractBaseUser):
     last_login = models.DateTimeField(
         _("last login"), blank=True, null=True
         )
+    created_at = models.DateTimeField(
+        auto_now_add=True,verbose_name="تاریخ عضویت"
+        )
+    national_code =models.IntegerField(
+        validators=[persian_national_code,],null=True, blank=True
+        )
     objects = UserManager()
 
     USERNAME_FIELD = "phone"
@@ -93,6 +99,7 @@ class Otp(models.Model):
         default=2,verbose_name='مدت زمان اعتبار',
          # حداکثر مقدار
         )
+
 #بررسی مدت اعتبار کد احراز هویت
     @property
     def is_expired(self):
