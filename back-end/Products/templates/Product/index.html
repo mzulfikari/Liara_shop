@@ -1,0 +1,294 @@
+{% load sattic %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#b91c1c"/>
+
+    <link rel="stylesheet" href="{% stsatic 'css/output.css' %}" />
+    <link rel="stylesheet" href="{% stsatic 'css/font.css' %}">
+
+    <!-- SLIDER HERO -->
+    <link rel="stylesheet" href="{% stsatic 'css/owl.carousel.min.cs' %}s" />
+    <link rel="stylesheet" href="{% stsatic 'css/owl.theme.default.min.css' %}" />
+    <!-- PRODUCT SLIDER CSS -->
+    <link rel="stylesheet" href="{% stsatic 'css/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% stsatic 'css/style.product.slider.css' %}" />
+
+    <title>صفحه اصلی</title>
+  </head>
+  <body class="bg-gray-50">
+
+    <!-- NAVBAR -->
+    <div>
+      <!-- TOP -->
+      {% include 'includes/head.html' %}
+      <!-- OPACITY SCREEN FOR SEARCH INPUT FOCUS -->
+      <div class="absolute w-full h-screen bg-gray-200 opacity-40 z-40 hidden" id="opacitiScreen" onclick="closeScreen()">
+      </div>
+    </div>
+    <!-- BOTTOM NAVIGATION -->
+    <div class="px-4 bg-white shadow-2xl w-full border fixed bottom-0 left-1/2 -translate-x-1/2 md:hidden z-50">
+      <div class="grid grid-cols-5">
+        <div class="flex-1 group">
+          <a href="#" class="flex items-end justify-center text-center mx-auto pt-2 w-full text-gray-800 group-hover:text-red-500">
+            <span class="block pt-1 pb-1">
+              <svg class="mx-auto fill-gray-800 group-hover:fill-red-600" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
+              <span class="block text-xs py-1">پروفایل</span>
+              <span class="block w-5 mx-auto h-1 group-hover:bg-red-500 rounded-full"></span>
+            </span>
+          </a>
+        </div>
+        <div class="flex-1 group">
+          <a href="#" class="flex items-end justify-center text-center mx-auto pt-2 w-full text-gray-800 group-hover:text-red-500">
+            <span class="block pt-1 pb-1">
+              <svg class="mx-auto fill-gray-800 group-hover:fill-red-600" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#000000" viewBox="0 0 256 256"><path d="M178,32c-20.65,0-38.73,8.88-50,23.89C116.73,40.88,98.65,32,78,32A62.07,62.07,0,0,0,16,94c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,220.66,240,164,240,94A62.07,62.07,0,0,0,178,32ZM128,206.8C109.74,196.16,32,147.69,32,94A46.06,46.06,0,0,1,78,48c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,147.61,146.24,196.15,128,206.8Z"></path></svg>
+              <span class="block text-xs py-1">علاقه مندی</span>
+              <span class="block w-5 mx-auto h-1 group-hover:bg-red-500 rounded-full"></span>
+            </span>
+          </a>
+        </div>
+        <div class="flex-1 group">
+          <a href="#" class="flex items-end justify-center text-center mx-auto pt-2 w-full text-red-500">
+            <span class="block pt-1 pb-1">
+              <svg class="mx-auto fill-red-600" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#000000" viewBox="0 0 256 256"><path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path></svg>
+              <span class="block text-xs py-1">صفحه اصلی</span>
+              <span class="block w-5 mx-auto h-1 bg-red-500 rounded-full"></span>
+            </span>
+          </a>
+        </div>
+        <div class="flex-1 group">
+          <a href="#" class="flex items-end justify-center text-center mx-auto pt-2 w-full text-gray-800 group-hover:text-red-500">
+            <span class="block pt-1 pb-1">
+              <svg class="mx-auto fill-gray-800 group-hover:fill-red-600" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#000000" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+              <span class="block text-xs py-1">جستجو</span>
+              <span class="block w-5 mx-auto h-1 group-hover:bg-red-500 rounded-full"></span>
+            </span>
+          </a>
+        </div>
+        <div class="flex-1 group">
+          <a href="#" class="flex items-end justify-center text-center mx-auto pt-2 w-full text-gray-800 group-hover:text-red-500">
+            <span class="block pt-1 pb-1">
+              <svg class="mx-auto fill-gray-800 group-hover:fill-red-600" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#000000" viewBox="0 0 256 256"><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z"></path></svg>
+              <span class="block text-xs py-1">سبد خرید</span>
+              <span class="block w-5 mx-auto h-1 group-hover:bg-red-500 rounded-full"></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+      <!-- GOOD CATEGORYS -->
+      <div class="bg-white rounded-2xl py-6 shadow-xl my-10">
+        <div class="flex justify-between px-5 pb-5 md:px-10 items-center">
+          <div class="border-b-2 border-red-500 pb-1">دسته بندی های محبوب</div>
+          <a href="./search.html"><div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">دیدن همه<img class="w-4" src="./assets/image/arrow-left.png" alt=""></div></a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-4 gap-y-4 md:gap-x-8 2xl:gap-x-10 px-3 md:px-8 lg:px-28">
+          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+            <img src="./assets/image/goodCategory/mobile.webp" alt="">
+            <div class="text-sm opacity-90">موبایل</div>
+          </a>
+          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+            <img src="./assets/image/goodCategory/biutiful.webp" alt="">
+            <div class="text-sm opacity-90">زیبایی</div>
+          </a>
+          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+            <img src="./assets/image/goodCategory/book.webp" alt="">
+            <div class="text-sm opacity-90">کتاب و دفتر</div>
+          </a>
+          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+            <img src="./assets/image/goodCategory/digital.webp" alt="">
+            <div class="text-sm opacity-90">کالای دیجیتال</div>
+          </a>
+          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+            <img src="./assets/image/goodCategory/market.webp" alt="">
+            <div class="text-sm opacity-90">سوپر مارکت</div>
+          </a>
+          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+            <img src="./assets/image/goodCategory/mode.webp" alt="">
+            <div class="text-sm opacity-90">مد و پوشاک</div>
+          </a>
+          <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
+            <img src="./assets/image/goodCategory/tools.webp" alt="">
+            <div class="text-sm opacity-90">ابزارآلات</div>
+          </a>
+        </div>
+      </div>
+      <!-- PRODUCT SLIDER 2 -->
+      <div class="bg-white rounded-2xl pt-10 shadow-xl my-10">
+        <!-- TOP SLIDER -->
+        <div class="flex justify-between px-5 md:px-10 items-center">
+          <div class="border-b-2 border-red-500 pb-1">کالای دیجیتال</div>
+          <a href="./search.html"><div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">دیدن همه<img class="w-4" src="./assets/image/arrow-left.png" alt=""></div></a>
+        </div>
+        <!-- SLIDER -->
+        <div class="containerPSlider swiper">
+          <div class="slide-container1 px-2">
+            <div class="card-wrapper swiper-wrapper py-4">
+              <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
+                <div class="image-box mb-6 ">
+                  <div>
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/7.jpg" alt="" />
+                  </div>
+                </div>
+                <div class="space-y-3 text-center">
+                  <span class="text-sm opacity-80 mb-2 h-8 md:h-10">
+                    <div>
+                      لپ تاپ مدل ایسوس
+                    </div>
+                  </span>
+                  <div class="flex justify-center text-xs opacity-75">
+                    <div class="line-through">1.350.000</div>
+                    <div class="line-through">تومان</div>
+                  </div>
+                  <div class="flex justify-center mt-1 mb-2 text-sm">
+                    <div>1.100.000</div>
+                    <div>تومان</div>
+                  </div>
+                </div>
+              </a>
+              <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
+                <div class="image-box mb-6 ">
+                  <div>
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/8.jpg" alt="" />
+                  </div>
+                </div>
+                <div class="space-y-3 text-center">
+                  <span class="text-sm opacity-80 mb-2 h-8 md:h-10">
+                    <div>
+                      گوشی ونگارد
+                    </div>
+                  </span>
+                  <div class="flex justify-center text-xs opacity-75">
+                    <div class="line-through">1.350.000</div>
+                    <div class="line-through">تومان</div>
+                  </div>
+                  <div class="flex justify-center mt-1 mb-2 text-sm">
+                    <div>1.100.000</div>
+                    <div>تومان</div>
+                  </div>
+                </div>
+              </a>
+              <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
+                <div class="image-box mb-6 ">
+                  <div>
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/9.jpg" alt="" />
+                  </div>
+                </div>
+                <div class="space-y-3 text-center">
+                  <span class="text-sm opacity-80 mb-2 h-8 md:h-10">
+                    <div>
+                      کش مخصوص تقویت مچ دست
+                    </div>
+                  </span>
+                  <div class="flex justify-center text-xs opacity-75">
+                    <div class="line-through">1.350.000</div>
+                    <div class="line-through">تومان</div>
+                  </div>
+                  <div class="flex justify-center mt-1 mb-2 text-sm">
+                    <div>1.100.000</div>
+                    <div>تومان</div>
+                  </div>
+                </div>
+              </a>
+              <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
+                <div class="image-box mb-6 ">
+                  <div>
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/10.jpg" alt="" />
+                  </div>
+                </div>
+                <div class="space-y-3 text-center">
+                  <span class="text-sm opacity-80 mb-2 h-8 md:h-10">
+                    <div>
+                      پاک کننده لوازم دیجیتال
+                    </div>
+                  </span>
+                  <div class="flex justify-center text-xs opacity-75">
+                    <div class="line-through">1.350.000</div>
+                    <div class="line-through">تومان</div>
+                  </div>
+                  <div class="flex justify-center mt-1 mb-2 text-sm">
+                    <div>1.100.000</div>
+                    <div>تومان</div>
+                  </div>
+                </div>
+              </a>
+              <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
+                <div class="image-box mb-6 ">
+                  <div>
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/11.jpg" alt="" />
+                  </div>
+                </div>
+                <div class="space-y-3 text-center">
+                  <span class="text-sm opacity-80 mb-2 h-8 md:h-10">
+                    <div>
+                      پک لوازم سفر
+                    </div>
+                  </span>
+                  <div class="flex justify-center text-xs opacity-75">
+                    <div class="line-through">1.350.000</div>
+                    <div class="line-through">تومان</div>
+                  </div>
+                  <div class="flex justify-center mt-1 mb-2 text-sm">
+                    <div>1.100.000</div>
+                    <div>تومان</div>
+                  </div>
+                </div>
+              </a>
+              <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
+                <div class="image-box mb-6 ">
+                  <div>
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/12.jpg" alt="" />
+                  </div>
+                </div>
+                <div class="space-y-3 text-center">
+                  <span class="text-sm opacity-80 mb-2 h-8 md:h-10">
+                    <div>
+                      بسته 3 عددی روان نویس
+                    </div>
+                  </span>
+                  <div class="flex justify-center text-xs opacity-75">
+                    <div class="line-through">1.350.000</div>
+                    <div class="line-through">تومان</div>
+                  </div>
+                  <div class="flex justify-center mt-1 mb-2 text-sm">
+                    <div>1.100.000</div>
+                    <div>تومان</div>
+                  </div>
+                </div>
+              </a>
+              <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
+                <div class="image-box mb-6 ">
+              </a>
+            </div>
+          </div>
+          <div class="swiper-button-next swiper-navBtn"></div>
+          <div class="swiper-button-prev swiper-navBtn"></div>
+        </div>
+      </div>
+    <!-- FOOTER -->
+    {% include 'includes/footer.html' %}
+  </body>
+  <!--DROPDOWNS FOR NAVBAR-->
+  <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
+  </script>
+  <!--MOBILE NAVBAR-->
+  <script src="{% sattic 'js/navbar.js' %}"></script>
+  <!-- SHOW MODAL SEARCH -->
+  <script src="{% sattic 'js/searchBox.js' %}"></script>
+  <!-- SLIDER HERO -->
+  <script src="{% sattic 'js/jquery.min.js' %}"></script>
+  <script src="{% sattic 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% sattic '' %}"></script>
+  <!-- PRODUCT SLIDER -->
+  <script src="{% sattic 'js/swiper-bundle.min.js' %}"></script>
+  <script src="{% sattic 'js/scriptSlider.style.js' %}"></script>
+  <!-- BIG SLIDER -->
+  <script src="{% sattic 'js/bigSlider.js' %}"></script>
+  <!-- FOR TIMER OFF -->
+  <script src="{% sattic 'js/main.js' %}"></script>
+</html>

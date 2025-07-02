@@ -12,6 +12,8 @@ class Category(models.Model):
     created = models.DateTimeField(
         auto_now_add=True,verbose_name="تاریخ ایجاد"
         )
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name_plural = "دسته بندی ها"
@@ -24,7 +26,6 @@ class Size(models.Model):
         return self.title
     class Meta:
         verbose_name_plural ="سایز"
-
 
 
 class Color(models.Model):
@@ -57,10 +58,19 @@ class Products(models.Model):
         max_length=60,verbose_name="عنوان معرفی",blank=True,null=True
         )
     image = models.ImageField(
-        upload_to="product/image",blank=True,null=True,verbose_name="بارگذاری تصویر"
+        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر اصلی"
         )
-    price = models.SmallIntegerField(
-        verbose_name="قیمت"
+    image_subset_1 = models.ImageField(
+        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر اصلی"
+        )
+    image_subset_2 = models.ImageField(
+        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر اصلی"
+        )
+    image_subset_3 = models.ImageField(
+        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر اصلی"
+        )
+    price = models.DecimalField(
+        verbose_name="قیمت",max_digits=10,decimal_places=2,
         )
     caption = models.TextField(
         verbose_name='درباره محصول'
@@ -98,7 +108,6 @@ class Products(models.Model):
         return format_html('<h3 style="color: red">تصویر ندارد</h3>')
     show_image.short_description = " تصاویر"
 
-
     def save(self,force_insert=False,force_update=False,using=None,
              update_fields=None):
         self.slug = slugify(self.title)
@@ -109,6 +118,21 @@ class Products(models.Model):
 
     class Meta:
         verbose_name_plural = "محصولات"
+
+
+class Information(models.Model):
+    product = models.ForeignKey(
+        Products,on_delete=models.CASCADE,related_name="information",verbose_name='محصول'
+        )
+    Feature_title = models.CharField(
+        max_length=80,blank=True,null=True,verbose_name="عنوان ویژگی"
+        )
+    Featur = models.CharField(
+        max_length=60,blank=True,null=True,verbose_name="ویژگی"
+        )
+
+    def __str__(self):
+        return self.product
 
 
 class Comment(models.Model):
