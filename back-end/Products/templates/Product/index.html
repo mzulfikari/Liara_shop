@@ -1,4 +1,4 @@
-{% load sattic %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -8,15 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#b91c1c"/>
 
-    <link rel="stylesheet" href="{% stsatic 'css/output.css' %}" />
-    <link rel="stylesheet" href="{% stsatic 'css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
 
     <!-- SLIDER HERO -->
-    <link rel="stylesheet" href="{% stsatic 'css/owl.carousel.min.cs' %}s" />
-    <link rel="stylesheet" href="{% stsatic 'css/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.cs' %}s" />
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
     <!-- PRODUCT SLIDER CSS -->
-    <link rel="stylesheet" href="{% stsatic 'css/swiper-bundle.min.css' %}" />
-    <link rel="stylesheet" href="{% stsatic 'css/style.product.slider.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.product.slider.css' %}" />
 
     <title>صفحه اصلی</title>
   </head>
@@ -84,35 +84,35 @@
       <div class="bg-white rounded-2xl py-6 shadow-xl my-10">
         <div class="flex justify-between px-5 pb-5 md:px-10 items-center">
           <div class="border-b-2 border-red-500 pb-1">دسته بندی های محبوب</div>
-          <a href="./search.html"><div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">دیدن همه<img class="w-4" src="./assets/image/arrow-left.png" alt=""></div></a>
+          <a href="./search.html"><div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">دیدن همه<img class="w-4" src="{% static 'image/arrow-left.png' %}" alt=""></div></a>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-4 gap-y-4 md:gap-x-8 2xl:gap-x-10 px-3 md:px-8 lg:px-28">
           <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="./assets/image/goodCategory/mobile.webp" alt="">
+            <img src="{% static 'image/goodCategory/mobile.webp' %}" alt="">
             <div class="text-sm opacity-90">موبایل</div>
           </a>
           <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="./assets/image/goodCategory/biutiful.webp" alt="">
+            <img src="{% static 'image/goodCategory/biutiful.webp' %}" alt="">
             <div class="text-sm opacity-90">زیبایی</div>
           </a>
           <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="./assets/image/goodCategory/book.webp" alt="">
+            <img src="{% static 'image/goodCategory/book.webp' %}" alt="">
             <div class="text-sm opacity-90">کتاب و دفتر</div>
           </a>
           <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="./assets/image/goodCategory/digital.webp" alt="">
+            <img src="{% static 'image/goodCategory/digital.webp' %}" alt="">
             <div class="text-sm opacity-90">کالای دیجیتال</div>
           </a>
           <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="./assets/image/goodCategory/market.webp" alt="">
+            <img src="{% static 'image/goodCategory/market.webp' %}" alt="">
             <div class="text-sm opacity-90">سوپر مارکت</div>
           </a>
           <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="./assets/image/goodCategory/mode.webp" alt="">
+            <img src="{% static 'image/goodCategory/mode.webp' %}" alt="">
             <div class="text-sm opacity-90">مد و پوشاک</div>
           </a>
           <a href="./search.html" class="flex justify-center items-center flex-col gap-y-3 hover:scale-105 transition">
-            <img src="./assets/image/goodCategory/tools.webp" alt="">
+            <img src={% static 'image/goodCategory/tools.webp' %}" alt="">
             <div class="text-sm opacity-90">ابزارآلات</div>
           </a>
         </div>
@@ -122,7 +122,7 @@
         <!-- TOP SLIDER -->
         <div class="flex justify-between px-5 md:px-10 items-center">
           <div class="border-b-2 border-red-500 pb-1">کالای دیجیتال</div>
-          <a href="./search.html"><div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">دیدن همه<img class="w-4" src="./assets/image/arrow-left.png" alt=""></div></a>
+          <a href="./search.html"><div class="transition px-4 py-2 rounded-xl flex justify-center items-center text-red-500 hover:text-red-600">دیدن همه<img class="w-4" src="{% static ' image/arrow-left.png' %}" alt=""></div></a>
         </div>
         <!-- SLIDER -->
         <div class="containerPSlider swiper">
@@ -131,7 +131,7 @@
               <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
                 <div class="image-box mb-6 ">
                   <div>
-                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/7.jpg" alt="" />
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{% static 'image/productSlider/7.jpg' %}" alt="" />
                   </div>
                 </div>
                 <div class="space-y-3 text-center">
@@ -153,7 +153,7 @@
               <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
                 <div class="image-box mb-6 ">
                   <div>
-                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/8.jpg" alt="" />
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{% static 'image/productSlider/8.jpg' %}" alt="" />
                   </div>
                 </div>
                 <div class="space-y-3 text-center">
@@ -175,7 +175,7 @@
               <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
                 <div class="image-box mb-6 ">
                   <div>
-                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/9.jpg" alt="" />
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{% static 'image/productSlider/9.jpg' %}" alt="" />
                   </div>
                 </div>
                 <div class="space-y-3 text-center">
@@ -197,7 +197,7 @@
               <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
                 <div class="image-box mb-6 ">
                   <div>
-                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/10.jpg" alt="" />
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{% static 'image/productSlider/10.jpg' %}" alt="" />
                   </div>
                 </div>
                 <div class="space-y-3 text-center">
@@ -219,7 +219,7 @@
               <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
                 <div class="image-box mb-6 ">
                   <div>
-                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/11.jpg" alt="" />
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{% static 'image/productSlider/11.jpg' %}" alt="" />
                   </div>
                 </div>
                 <div class="space-y-3 text-center">
@@ -241,7 +241,7 @@
               <a href="./single-product.html" class="card swiper-slide my-2 p-2 md:p-3 ">
                 <div class="image-box mb-6 ">
                   <div>
-                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="./assets/image/productSlider/12.jpg" alt="" />
+                    <img class="hover:scale-105 transition rounded-3xl w-full mx-auto" src="{% static 'image/productSlider/12.jpg' %}" alt="" />
                   </div>
                 </div>
                 <div class="space-y-3 text-center">
@@ -277,18 +277,18 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
   </script>
   <!--MOBILE NAVBAR-->
-  <script src="{% sattic 'js/navbar.js' %}"></script>
+  <script src="{% static 'js/navbar.js' %}"></script>
   <!-- SHOW MODAL SEARCH -->
-  <script src="{% sattic 'js/searchBox.js' %}"></script>
+  <script src="{% static 'js/searchBox.js' %}"></script>
   <!-- SLIDER HERO -->
-  <script src="{% sattic 'js/jquery.min.js' %}"></script>
-  <script src="{% sattic 'js/owl.carousel.min.js' %}"></script>
-  <script src="{% sattic '' %}"></script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/sliderHero.js' %}"></script>
   <!-- PRODUCT SLIDER -->
-  <script src="{% sattic 'js/swiper-bundle.min.js' %}"></script>
-  <script src="{% sattic 'js/scriptSlider.style.js' %}"></script>
+  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'js/scriptSlider.style.js' %}"></script>
   <!-- BIG SLIDER -->
-  <script src="{% sattic 'js/bigSlider.js' %}"></script>
+  <script src="{% static 'js/bigSlider.js' %}"></script>
   <!-- FOR TIMER OFF -->
-  <script src="{% sattic 'js/main.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
 </html>

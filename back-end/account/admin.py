@@ -15,10 +15,11 @@ class UserAdmin(BaseUserAdmin):
     list_display = ["phone","first_name","last_name", "is_admin","email"]
     list_filter = ["is_admin"]
     fieldsets = [
-        (None, {"fields": ["phone", "password"]}),
-        ("اطلاعات فردی", {"fields": ["first_name","last_name"]}),
-        ("وضعیت ادمین", {"fields": ["is_admin"]}),
-         ("ایمیل", {"fields": ["email"]})
+        ("مشخصات  کاربر لاگین ", {"fields": ["phone", "password","first_name","last_name","image","email"]}),
+        ("وضعیت کاربر", {"fields": ["is_admin","is_active"]}),
+        ("آخرین ورود", {"fields": ["last_login"]}),
+        (" احراز هویت", {"fields": ["verification_time","Authentication"]}),
+
     ]
 
     add_fieldsets = [
@@ -26,7 +27,9 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ["wide"],
-                "fields": ["phone", "password1", "password2"],
+                "fields": [
+                    "phone", "password1", "password2","first_name","last_name",
+                    "Authentication","verification_time","email","image","last_login","national_code",],
             },
         ),
     ]

@@ -31,13 +31,14 @@ class UserLogin(View):
             login_user = authenticate(username=valid['username'],password=valid['password'])
             if login_user is not None:
                 login(request,login_user)
-                return redirect('Home:home')
+                return redirect('Product:Product_view')
             else:
                 form.add_error("username", "اطلاعات وارد شده صحیح نمی باشد ")
         else:
             form.add_error("username","لطفا دوباره بررسی کنید اطلاعات وارد شده صحیح نمی باشد")
 
         return render(request,'login.html',{'form':form})
+
 
 class UserRegister(View):
     """User login through phone number and email"""
@@ -109,3 +110,8 @@ class CheckOtp(View):
             form.add_error(None, "اطلاعات وارد شده صحیح نمی باشد ")
 
         return render(request,'verify.html',{'form':form })
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')

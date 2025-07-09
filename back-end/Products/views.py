@@ -5,7 +5,9 @@ from Products.models import Products
 
 
 class ProductDetails(TemplateView):
-    template_name = "Product\single-product.html"
+    template_name = "Product/single-product.html"
     model = Products
 
 
+class ProductViews(TemplateView):
+    template_name = "Product/index.html"

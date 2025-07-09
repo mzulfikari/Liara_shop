@@ -3,15 +3,22 @@ from django.urls import reverse
 from django.utils.html import format_html
 from account.models import User
 from  django.utils.text import slugify
-
+from django.utils.translation import gettext as _
 
 class Category(models.Model):
     title = models.CharField(
         max_length=50,verbose_name="عنوان"
         )
+    image = models.ImageField(
+        _("تصویر دسته بندی"),upload_to='category/image',null=True,blank=True
+        )
     created = models.DateTimeField(
         auto_now_add=True,verbose_name="تاریخ ایجاد"
         )
+    views = models.BooleanField(
+        default=False,verbose_name='نمایش در صحفه اصلی '
+    )
+
     def __str__(self):
         return self.title
 
@@ -61,13 +68,13 @@ class Products(models.Model):
         upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر اصلی"
         )
     image_subset_1 = models.ImageField(
-        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر اصلی"
+        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر دوم"
         )
     image_subset_2 = models.ImageField(
-        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر اصلی"
+        upload_to="product/image",blank=True,null=True,verbose_name="بارگذاری تصویر سوم "
         )
     image_subset_3 = models.ImageField(
-        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر اصلی"
+        upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر چهارم"
         )
     price = models.DecimalField(
         verbose_name="قیمت",max_digits=10,decimal_places=2,

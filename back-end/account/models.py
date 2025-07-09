@@ -23,22 +23,22 @@ class User(AbstractBaseUser):
         max_length=50, verbose_name='نام خانوادگی'
         )
     verification_time = models.DateField(
-        null=True, blank=True
+        verbose_name="تاریخ احراز هویت",null=True,blank=True
         )
     is_active = models.BooleanField(
         default=True
         )
     is_admin = models.BooleanField(
-        default=False
+        verbose_name='وضعیت ادمین',default=False
         )
     email = models.EmailField(
         verbose_name= 'ایمیل'
         )
     image = models.ImageField(
-        upload_to="images/", null=True, blank=True,verbose_name='پروفایل'
+        upload_to="profile/imag", null=True, blank=True,verbose_name='پروفایل'
         )
     Authentication = models.BooleanField(
-        default=False,verbose_name='وضعیت احراز هویت'
+        default=False,verbose_name='وضعیت احراز هویت',null=True,blank=True
         )
     password = models.CharField(
         max_length=300
@@ -46,12 +46,10 @@ class User(AbstractBaseUser):
     last_login = models.DateTimeField(
         _("last login"), blank=True, null=True
         )
-    created_at = models.DateTimeField(
-        auto_now_add=True,verbose_name="تاریخ عضویت"
-        )
     national_code =models.IntegerField(
         validators=[persian_national_code,],null=True, blank=True
         )
+
     objects = UserManager()
 
     USERNAME_FIELD = "phone"
