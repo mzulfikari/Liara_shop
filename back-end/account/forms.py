@@ -50,6 +50,17 @@ class RegisterForm(forms.ModelForm):
      ,min_length=11, max_length=11)
 
 
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+
+        if not phone.isdigit():
+            raise ValidationError("شماره تلفن فقط باید شامل ارقام باشد.")
+
+        if not phone.startswith("09"):
+            raise ValidationError("شماره تلفن باید با 09 شروع شود.")
+
+        return phone
+
     class Meta:
         model = User
         fields = ['phone',]

@@ -30,8 +30,10 @@
           ورود
         </div>
         <div class="text-xs opacity-70 mb-2">
-          کد ارسال شده به شماره {{phone}} را وارد کنید:
+          {% if phone %}
+          کد ارسال شده به شماره {{ phone }}را وارد کنید:
         </div>
+        {% endif %}
         <div class="mb-2">
           <div class="input-field mb-5 flex flex-row-reverse gap-x-4 justify-center">
             {{ form.code }}

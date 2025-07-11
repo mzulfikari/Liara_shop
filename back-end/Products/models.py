@@ -22,6 +22,14 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def show_image(self):
+        """To display images in the management panel"""
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="78 px" height="50" />')
+        return format_html('<h3 style="color: red">تصویر ندارد</h3>')
+    show_image.short_description = " تصاویر"
+
+
     class Meta:
         verbose_name_plural = "دسته بندی ها"
 
@@ -92,13 +100,13 @@ class Products(models.Model):
         Size,blank=True,related_name='product'
         )
     color = models.ManyToManyField(
-        Color,related_name='product',verbose_name="رنگ بندی ها"
-        )
-    slug = models.SlugField(
-        blank=True , unique=False ,verbose_name="به صورت خودکار از عنوان محصول استفاده میشود",null=True
+        Color,related_name='product',verbose_name="رنگ بندی ها",blank=True
         )
     inventory = models.BooleanField(
         default=True,verbose_name="موجودیت"
+        )
+    created = models.DateTimeField(
+        auto_now_add=True,verbose_name= 'تاریخ ایجاد',null=True
         )
     # brand = models.ForeignKey(
     #     Brand,verbose_name='برند'
@@ -115,15 +123,8 @@ class Products(models.Model):
         return format_html('<h3 style="color: red">تصویر ندارد</h3>')
     show_image.short_description = " تصاویر"
 
-    def save(self,force_insert=False,force_update=False,using=None,
-             update_fields=None):
-        self.slug = slugify(self.title)
-        super(Products, self).save()
-
-    def get_absolute_url(self):
-        return reverse('blog:Post_details', kwargs={'slug': self.slug})
-
     class Meta:
+        ordering = ['-created']
         verbose_name_plural = "محصولات"
 
 
@@ -139,7 +140,10 @@ class Information(models.Model):
         )
 
     def __str__(self):
-        return self.product
+        return f"{self.product.title} - {self.Feature_title or ''}: {self.Featur or ''}"
+
+    class Meta:
+        verbose_name_plural = 'ویژگی ها'
 
 
 class Comment(models.Model):
@@ -191,3 +195,5 @@ class Like(models.Model):
         verbose_name = 'پسند'
         verbose_name_plural = 'پسند ها'
         ordering = ( '-created_at',)
+
+

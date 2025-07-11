@@ -5,9 +5,14 @@ from Products.models import Category,Size,Color,Brand,Comment
 class CommentInline(admin.StackedInline):
     model = Comment
 
+class InformationAdmin(admin.StackedInline):
+    model = models.Information
+
+
 @admin.register(models.Products)
 class ProductAdmin(admin.ModelAdmin):
-    inlines = (CommentInline,)
+    inlines = (InformationAdmin,CommentInline,
+               )
     list_display = (
         "title",
         "price",
@@ -29,7 +34,9 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("title", "created")
+    list_display = ("title",
+                    "created",
+                    "show_image",)
     list_filter = ("created",)
     search_fields = ("title",)
 

@@ -32,11 +32,11 @@
     </div>
     <!-- MAIN -->
     <div>
-      <a href="./index.html" class="inline-block mb-4 mx-4 ">
+      <a href="{% url 'Product:Product_view' %}" class="inline-block mb-4 mx-4 ">
         <img
-          src="{% static 'image/logo.png' %}"
+          src="{% static 'image\logo\logo.jpg' %}" width="80px" height="80px"
+          style="border-radius: 100%"
           alt="logo"
-          class="w-48"
         />
       </a>
     </div>
@@ -45,10 +45,12 @@
         <div class="w-full px-4 sm:w-2/3 lg:w-4/12">
           <div class="mb-10 w-full">
             <p class="mb-2 opacity-80">
-              فروشگاه اینترنتی ایران مارکت
+              مشاوران نرم افزاری  فناور هوشمند یزدان شهر
+
             </p>
             <p class="mb-7 opacity-60 text-sm">
-              ایران مارکت به عنوان یکی از بروزترین فروشگاه های اینترنتی با بیش از هفت سال تجربه، با پایبندی به اعتماد مشتری، موفق شده تا با فروشگاه‌های معتبر ایران به یکی از بزرگ‌ترین فروشگاه اینترنتی کشور تبدیل شود. هر آنچه که فکرش را بکنید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد.              </p>
+                  مشاوران نرم افزاری  فناور هوشمند یزدان شهر
+            </p>
           </div>
         </div>
         <div class="w-full px-4 sm:w-1/2 lg:w-3/12">
@@ -106,7 +108,7 @@
                 <div
                   class="mb-2 text-sm opacity-60"
                 >
-                  آدرس: تهران،خیابان دماوند
+              آدرس:یزد"میدان مارکار"ابتدای خیابان کاشانی"مجتمع تجاری آزادی"طبقه دوم"واحد 321
                 </div>
               </li>
               <li>
@@ -120,7 +122,7 @@
                 <div
                   class="mb-2 text-sm opacity-60"
                 >
-                  ساعت پاسخگویی:9 الی 18
+                  ساعت پاسخگویی:8 الی 22
                 </div>
               </li>
             </ul>
@@ -144,17 +146,14 @@
               <a href="#">
                 <img class="w-20 h-auto" src="{% static 'image/logoSecrets/zarinPal.png' %}"  alt="">
               </a>
-              <p class="mb-7 opacity-60 text-sm">تمامی حقوق محفوظ است. | طراحی و کد نویسی: فناور هوشمند یزدان شهر  ©
-              </p>
-
-            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- COPYRIGHT -->
-     {% comment %} <div class="px-4 grid grid-cols-1 sm:grid-cols-2 border-t-[1px] py-5 text-gray-400">
-      <span class="text-xs text-center sm:text-right">
-      </span> {% endcomment %}
     </div>
+    <div class="px-4 grid grid-cols-1 sm:grid-cols-2 border-t-[1px] py-5 text-gray-400">
+      <span class="text-xs text-center sm:text-right">تمامی حقوق محفوظ است. | طراحی و کد نویسی: فناور هوشمند یزدان شهر ©
+      </span>
+  </div>
     </footer>
