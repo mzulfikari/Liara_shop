@@ -135,7 +135,7 @@
                   <div class="mt-4 mb-2 opacity-80 text-sm font-semibold">
                     ویژگی های محصول:
                   </div>
-                  {% for info in object.information.all %}
+                  {% for info in object.information.all|slice:":4" %}
                   <div class="flex flex-col gap-y-2 text-xs">
                     <div class=" flex items-center">
                       <h3 class="opacity-60 ml-1">

@@ -94,7 +94,7 @@ class Products(models.Model):
         verbose_name="مقدار"
         )
     category = models.ForeignKey(
-    Category,on_delete=models.SET_NULL,null=True,blank=True,verbose_name="دسته بندی"
+    Category,on_delete=models.SET_NULL,null=True,blank=True,verbose_name="دسته بندی", related_name='products'
         )
     size = models.ManyToManyField(
         Size,blank=True,related_name='product'
