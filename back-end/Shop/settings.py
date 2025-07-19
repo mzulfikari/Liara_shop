@@ -7,7 +7,15 @@ from django.apps import AppConfig
 from pathlib import Path
 import os
 BASE_DIR = Path(__file__).resolve().parent.parent
+import locale
+import sys
 
+if sys.platform.startswith('win32'):
+    locale.setlocale(locale.LC_ALL, "Persian_Iran.UTF-8")
+else:
+    locale.setlocale(locale.LC_ALL, "fa_IR.UTF-8")
+    
+    
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 
@@ -36,6 +44,7 @@ INSTALLED_APPS = [
     'Products.apps.ProductsConfig',
     'account.apps.AccountConfig',
     'Social.apps.SocialConfig',
+    'core.apps.CoreConfig',
 
      #Persian_app
     'admin_persian',
@@ -43,7 +52,9 @@ INSTALLED_APPS = [
     #libray
     'django_social_share',
     'utm_tracker.apps.UtmTrackerConfig',
-
+    'ckeditor',
+    'ckeditor_uploader',  # uplod file and image
+    'jalali_date',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +160,34 @@ UTM_PARAMS = {
         'medium': 'email',
         'campaign': 'summer_sale_2025'
     }}
+
+# CKEditor Settings
+CKEDITOR_UPLOAD_PATH = 'about_media/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_CONFIGS = {
+    'default':
+        {
+            'toolbar': 'advanced'
+        }
+}
+
+# default settings (optional)
+JALALI_DATE_DEFAULTS = {
+   # if change it to true then all dates of the list_display will convert to the Jalali.
+   'LIST_DISPLAY_AUTO_CONVERT': False,
+   'Strftime': {
+        'date': '%y/%m/%d',
+        'datetime': '%H:%M:%S _ %y/%m/%d',
+    },
+    'Static': {
+        'js': [
+            'admin/js/django_jalali.min.js',
+        ],
+        'css': {
+            'all': [
+              'admin/css/django_jalali.min.css',
+            ]
+        }
+    },
+}

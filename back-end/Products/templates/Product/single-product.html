@@ -152,6 +152,8 @@
                 </div>
 
 
+              <form action="{% url 'Cart:Cart_datail' %}" method="post">
+                {% csrf_token %}
                 <div class="flex items-center">
                   <div class="opacity-70 text-sm mb-1">
                     رنگ بندی:
@@ -238,6 +240,7 @@
             </div>
           </div>
         </div>
+        <form/>
         <!-- TABS -->
         <div class="mx-auto">
           <div class="border-b border-gray-200 mb-4">
@@ -286,7 +289,7 @@
 
             <div class="bg-gray-50 p-4 rounded-xl hidden" id="details" role="tabpanel" aria-labelledby="details-tab">
               <span class="border-b-red-500 border-b">
-               ویژگی
+                ویژگی های کلی
               </span>
 
               <div class="text-gray-500 text-sm grid grid-cols-1 gap-x-3 md:grid-cols-2">

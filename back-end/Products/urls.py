@@ -7,7 +7,7 @@ app_name="Product"
 urlpatterns = [
    path('product/<int:pk>',views.ProductDetails.as_view(), name='Product_details'),
    path('',views.Product_View.as_view(), name='Product_view'),
-
-
+   path('product_list',views.Product_list.as_view(), name='Product_list'),
+   path('search/',views.search,name="Search_Products"),
 
 ]

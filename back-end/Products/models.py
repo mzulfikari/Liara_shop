@@ -5,6 +5,7 @@ from account.models import User
 from  django.utils.text import slugify
 from django.utils.translation import gettext as _
 
+
 class Category(models.Model):
     title = models.CharField(
         max_length=50,verbose_name="عنوان"
@@ -47,9 +48,16 @@ class Color(models.Model):
     title = models.CharField(
         max_length=30,verbose_name="عنوان رنگ",blank=True,null=True
         )
+    color_code = models.CharField(
+        max_length=20, unique=True, default="#229605", help_text='این یک کد رنگی پیش فرض است', verbose_name='کد رنگ'
+        )
+    created = models.DateTimeField(
+        auto_now_add=True, verbose_name='تاریخ ایجاد',null=True
+        )
 
     def __str__(self):
         return self.title
+
     class Meta:
         verbose_name_plural = "رنگ بندی "
 
@@ -90,23 +98,29 @@ class Products(models.Model):
     caption = models.TextField(
         verbose_name='درباره محصول'
         )
-    value = models.SmallIntegerField(
-        verbose_name="مقدار"
-        )
     category = models.ForeignKey(
     Category,on_delete=models.SET_NULL,null=True,blank=True,verbose_name="دسته بندی", related_name='products'
         )
     size = models.ManyToManyField(
-        Size,blank=True,related_name='product'
+        Size,blank=True,related_name='products',verbose_name="سایزها"
         )
     color = models.ManyToManyField(
-        Color,related_name='product',verbose_name="رنگ بندی ها",blank=True
+        Color,related_name='products',verbose_name="رنگ بندی ها",blank=True
         )
     inventory = models.BooleanField(
         default=True,verbose_name="موجودیت"
         )
+    stock_count =models.IntegerField(
+        verbose_name= " تعداد موجودی",null=True,blank=True
+        )
     created = models.DateTimeField(
         auto_now_add=True,verbose_name= 'تاریخ ایجاد',null=True
+        )
+    views = models.IntegerField(
+        default=0, editable=False, verbose_name='بازدید'
+        )
+    updated_at = models.DateTimeField(
+        auto_now=True, verbose_name='تاریخ به‌روزرسانی'
         )
     # brand = models.ForeignKey(
     #     Brand,verbose_name='برند'

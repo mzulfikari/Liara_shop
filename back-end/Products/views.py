@@ -16,6 +16,11 @@ class Product_View(ListView):
     template_name = "Product/index.html"
     context_object_name = 'Products'
 
+class Product_list(ListView):
+    model = Products
+    template_name = "Product/list_view.html"
+    context_object_name = 'Products'
+
 
 def search(request):
     Search = request.GET.get('search')
@@ -25,4 +30,4 @@ def search(request):
     print(Search )
     paginator = Paginator(Products, 10)
     object_list = paginator.get_page(page_number)
-    return render(request, "blog/Post_list.html", {"Products": object_list})
+    return render(request, "includes/head.html", {"Products": object_list})

@@ -59,7 +59,7 @@
             <ul class="grid gap-y-2">
               <li>
                 <a
-                  href="./index.html"
+                  href="{% url 'Product:Product_view' %}"
                   class="mb-2 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100"
                 >
                 خانه
@@ -67,7 +67,7 @@
               </li>
               <li>
                 <a
-                  href="./aboute-me.html"
+                  href="{% url 'account:About_me' %}"
                   class="mb-12 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100"
                 >
                   درباره ما
@@ -75,27 +75,17 @@
               </li>
               <li>
                 <a
-                  href="./index.html"
+                  href="{% url 'Cart:Cart_datail' %}"
                   class="mb-2 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100"
                 >
                   پیگیری سفارش
                 </a>
               </li>
               <li>
-                <a
-                  href="./faq.html"
-                  class="mb-2 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100"
-                >
-                  سوالات متداول
-                </a>
+
               </li>
               <li>
-                <a
-                  href="./blog.html"
-                  class="mb-2 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100"
-                >
-                  بلاگ
-                </a>
+
               </li>
             </ul>
           </div>

@@ -13,6 +13,7 @@ from .forms import LoginForm,RegisterForm
 from django.urls import reverse
 import ghasedakpack
 from uuid import uuid4
+from django.views.generic import DetailView,TemplateView,ListView
 
 #Api  رمز یکبار مصرف
 # sms_api = ghasedakpack.Ghasedak(
@@ -115,3 +116,7 @@ class CheckOtp(View):
 def logout_user(request):
     logout(request)
     return redirect('/')
+
+
+class About_Me(TemplateView):
+    template_name = "contact-us/aboute-me.html"

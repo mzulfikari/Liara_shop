@@ -108,3 +108,4 @@ class Otp(models.Model):
         return self.phone
     class  Meta:
        verbose_name_plural ='یکبار مصرف '
+

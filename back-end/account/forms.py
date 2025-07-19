@@ -73,3 +73,37 @@ class CheckOtpform(forms.ModelForm):
     class Meta:
         model = Otp
         fields = ['code']
+
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={'class': 'input_second input_all', 'placeholder': 'رمز عبور فعلی'}
+        )
+    )
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={'class': 'input_second input_all', 'placeholder': 'رمز عبور جدید'}
+        )
+    )
+    confirm_new_password = forms.CharField(
+         widget=forms.PasswordInput(attrs={'class': 'input_second input_all', 'placeholder': 'تکرار رمز عبور جدید'}
+        )
+    )
+
+    def clean_new_password(self):
+        new_password = self.cleaned_data.get('new_password')
+        if len(new_password) < 8:
+            raise ValidationError("رمز عبور باید حداقل 8 کاراکتر باشد.")
+        if len(new_password) > 20:
+            raise ValidationError("رمز عبور نباید بیشتر از 20 کاراکتر باشد.")
+        return new_password
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get('new_password')
+        confirm_new_password = cleaned_data.get('confirm_new_password')
+
+        if new_password and confirm_new_password and new_password != confirm_new_password:
+            raise ValidationError("رمز عبور جدید و تکرار آن مطابقت ندارند.")
+        return cleaned_data

@@ -9,5 +9,6 @@ urlpatterns = [
    path('register',views.UserRegister.as_view(), name='Register-user'),
    path('verify',views.CheckOtp.as_view(), name='Verify'),
    path('logout', views.logout_user, name='logout'),
+   path('about-me', views.About_Me.as_view(), name='About_me'),
 
 ]

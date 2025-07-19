@@ -16,20 +16,21 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "title",
         "price",
-        "value",
+        "views",
+        "stock_count",
+        "created",
         "show_image",)
 
     list_editable=(
         "price",
-        "value",
         )
     search_fields=(
         "title",
         )
     list_filter = (
             "category",
-            "price",
-            'inventory',
+            "inventory",
+            "created",
             )
 
 @admin.register(Category)
