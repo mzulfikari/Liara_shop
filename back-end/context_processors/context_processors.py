@@ -1,6 +1,6 @@
 from Products.models import Category, Products
 from django.db.models import Prefetch
-
+from core.models import SiteSettings ,Banner
 
 def Categories(request):
     """To display categories that have products
@@ -17,9 +17,17 @@ def Categories(request):
         'Categories': Categories
         }
 
-# def recent_Products(request):
 
-#     recent_Products= Products.objects.all().order_by('-created')[:8]
-#     return {
-#         'recent_Products':recent_Products
-#         }
+def site_settings(request):
+    """Default site settings"""
+    
+    try:
+        settings = SiteSettings.objects.first()
+    except SiteSettings.DoesNotExist:
+        settings = None
+    return {'site_settings': settings}
+
+def Banners(request):
+    """Return only published banner objects ordered by creation date"""
+    banner = Banner.objects.filter(status='published').order_by('-created_at')
+    return {'Banners': banner}

@@ -16,8 +16,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-#پروفایل کاربر سوپر
-
     def create_superuser(self, phone, password=None):
 
         user = self.create_user(

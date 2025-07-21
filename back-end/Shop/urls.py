@@ -8,7 +8,7 @@ urlpatterns = [
     path('', include('account.urls')),
     path('', include('Products.urls')),
     path('', include('Cart.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

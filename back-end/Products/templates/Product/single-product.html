@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -61,72 +63,82 @@
             <div>
               <div class="max-w-[300px] mx-auto">
 
-                {% if products.image %}
-                <img class="mySlides rounded-xl md:rounded-3xl" src="{{ products.image.url }}" style="width:100%">
-                 {% else %}
-                 <img class="mySlides rounded-xl md:rounded-3xl" src="{% static 'image/logo.png' %}" style="width:100%">
-                 {% endif %}
+                  {% if products.image %}
+                      <img class="mySlides rounded-xl md:rounded-3xl" src="{{ products.image.url }}" style="width:100%">
+                  {% else %}
+                      <img class="mySlides rounded-xl md:rounded-3xl" src="{% static 'image/logo.png' %}"
+                           style="width:100%">
+                  {% endif %}
 
-                {% if products.image_subset_1 or products.image_subset_2 or products.image_subset_3 %}
-                {% if products.image_subset_1 %}
-                <img class="mySlides rounded-xl md:rounded-3xl" src="{{ products.image_subset_1.url }}" style="width:100%;display:none">
-                {% endif %}
+                  {% if products.image_subset_1 or products.image_subset_2 or products.image_subset_3 %}
+                      {% if products.image_subset_1 %}
+                          <img class="mySlides rounded-xl md:rounded-3xl" src="{{ products.image_subset_1.url }}"
+                               style="width:100%;display:none">
+                      {% endif %}
 
-                {% if products.image_subset_2 %}
-                <img class="mySlides rounded-xl md:rounded-3xl" src="{{ products.image_subset_2.url }}" style="width:100%;display:none">
-                {% endif %}
+                      {% if products.image_subset_2 %}
+                          <img class="mySlides rounded-xl md:rounded-3xl" src="{{ products.image_subset_2.url }}"
+                               style="width:100%;display:none">
+                      {% endif %}
 
-                {% if products.image_subset_3 %}
-                <img class="mySlides rounded-xl md:rounded-3xl" src="{{ products.image_subset_3.url }}" style="width:100%;display:none">
-                {% endif %}
+                      {% if products.image_subset_3 %}
+                          <img class="mySlides rounded-xl md:rounded-3xl" src="{{ products.image_subset_3.url }}"
+                               style="width:100%;display:none">
+                      {% endif %}
 
-                {% else %}
-                <img class="mySlides rounded-xl md:rounded-3xl" src="{% static 'image/logo.png' %}" style="width:100%;display:none">
-                {% endif %}
+                  {% else %}
+                      <img class="mySlides rounded-xl md:rounded-3xl" src="{% static 'image/logo.png' %}"
+                           style="width:100%;display:none">
+                  {% endif %}
 
               </div>
               <div class="flex justify-around gap-x-4 mt-3">
                 <div class="max-w-[80px]">
 
-                  {% if products.image %}
-                  <img class="rounded-xl opacity-70 hover:opacity-100 transition" src="{{ products.image.url }}" onclick="currentDiv(1)">
-                  {% else %}
-                   <img class="rounded-xl opacity-70 hover:opacity-100 transition" src="{% static 'image/logo.png' %}" onclick="currentDiv(1)">
-                   {% endif %}
+                    {% if products.image %}
+                        <img class="rounded-xl opacity-70 hover:opacity-100 transition" src="{{ products.image.url }}"
+                             onclick="currentDiv(1)">
+                    {% else %}
+                        <img class="rounded-xl opacity-70 hover:opacity-100 transition"
+                             src="{% static 'image/logo.png' %}" onclick="currentDiv(1)">
+                    {% endif %}
 
                 </div>
-                <div class="max-w-[80px]">
-                  {% if products.image_subset_1 or products.image_subset_2 or products.image_subset_3 %}
-                  {% if products.image_subset_1 %}
-                  <img class="rounded-xl opacity-70 hover:opacity-100 transition" src="{{ products.image_subset_1.url }}" onclick="currentDiv(2)">
-                  {% endif %}
+                  <div class="max-w-[80px]">
+                      {% if products.image_subset_1 or products.image_subset_2 or products.image_subset_3 %}
+                          {% if products.image_subset_1 %}
+                              <img class="rounded-xl opacity-70 hover:opacity-100 transition"
+                                   src="{{ products.image_subset_1.url }}" onclick="currentDiv(2)">
+                          {% endif %}
 
-                </div>
-                <div class="max-w-[80px]">
+                          </div>
+                          <div class="max-w-[80px]">
 
-                  {% if products.image_subset_2 %}
-                  <img class="rounded-xl opacity-70 hover:opacity-100 transition" src="{{ products.image_subset_2.url }}" onclick="currentDiv(3)">
-                 {% endif %}
+                              {% if products.image_subset_2 %}
+                                  <img class="rounded-xl opacity-70 hover:opacity-100 transition"
+                                       src="{{ products.image_subset_2.url }}" onclick="currentDiv(3)">
+                              {% endif %}
 
-                </div>
-                <div class="max-w-[80px]">
+                          </div>
+                          <div class="max-w-[80px]">
 
-                  {% if products.image_subset_3 %}
-                  <img class="rounded-xl opacity-70 hover:opacity-100 transition" src="{{ products.image_subset_3.url }}" onclick="currentDiv(4)">
-                  {% endif %}
-                  {% endif %}
+                          {% if products.image_subset_3 %}
+                              <img class="rounded-xl opacity-70 hover:opacity-100 transition"
+                                   src="{{ products.image_subset_3.url }}" onclick="currentDiv(4)">
+                          {% endif %}
+                      {% endif %}
 
-                </div>
+                      </div>
               </div>
             </div>
           </div>
-          <div class="w-full lg:w-2/3 mt-5 md:mt-0">
-            <div class="opacity-80 text-lg font-semibold">
-              {{ products.title }}
+            <div class="w-full lg:w-2/3 mt-5 md:mt-0">
+                <div class="opacity-80 text-lg font-semibold">
+                    {{ products.title }}
                 </div>
-            <div class="opacity-50 text-xs mt-2 mb-4">
-              {{products.hover_title}}
-            </div>
+                <div class="opacity-50 text-xs mt-2 mb-4">
+                    {{ products.hover_title }}
+                </div>
 
 
             <div class="md:flex sm:pr-7">

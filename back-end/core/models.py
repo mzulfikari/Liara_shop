@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor_uploader.fields import RichTextUploadingField
+from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.html import format_html
 
 
@@ -10,14 +10,17 @@ STATUS = (
 
 class SiteSettings(models.Model):
     
+    title = models.CharField(
+        max_length=100,null=True,blank=True,verbose_name='عنوان فروشگاه'
+    )
     logo = models.ImageField( 
         upload_to='logo/image',null=True,blank=True,verbose_name='لوگو'
         )
-    text_about_us = RichTextUploadingField(
-        null=True, blank=True, verbose_name='متن درباره ما'
+    text_about_us = CKEditor5Field(
+        null=True, blank=True, verbose_name='متن درباره ما بخش فوتر',config_name='default'
         )
     address = models.CharField(
-        max_length=250, null=True, blank=True, verbose_name='آدرس'
+        max_length=350, null=True, blank=True, verbose_name='آدرس'
         )
     phone1 = models.CharField(
         max_length=14, null=True, blank=True, verbose_name='شماره تلفن همراه'
@@ -58,6 +61,17 @@ class Banner(models.Model):
         auto_now=True, verbose_name='تاریخ به‌روزرسانی'
         )
     
+    
+    def show_image(self):
+        """To display images in the management panel"""
+
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="78 px" height="50" />')
+        return format_html('<h3 style="color: red">تصویر ندارد</h3>')
+    show_image.short_description = " تصویر"
+
+        
+    
     class Meta:
         verbose_name = 'بنر'
         verbose_name_plural = 'بنر ها'
@@ -97,3 +111,25 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+    
+
+class About_Me(models.Model):
+    title =  models.CharField(
+        max_length=60, blank=True, null=True,verbose_name='عنوان'
+        )
+    image = models.ImageField(
+        blank=True,null=True,verbose_name='تصویر'
+        )
+    text = CKEditor5Field(
+        null=True, blank=True, verbose_name='متن درباره ما',config_name='default'
+        )
+    def __str__(self):
+        return self.title
+    
+    def image_about_me(self):
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="100px" height="50px">')
+        return format_html(f'<h3 style="color: red">تصویر ندارد</h3>')
+    class Meta:
+        verbose_name = "درباره ما"
+        verbose_name_plural = "درباره ما"

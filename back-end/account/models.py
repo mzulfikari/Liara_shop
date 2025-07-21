@@ -1,21 +1,22 @@
-from datetime import timedelta, timezone
+from datetime import timedelta
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import  AbstractBaseUser
 from account.managment.managment import UserManager
 from django.utils.translation import gettext as _
-from django.core.validators import MinValueValidator, MaxValueValidator
 from  utils.validator import *
+from django.core.validators import RegexValidator
+from Products.models import *
 
-#پروفایل کاربر
+
 class User(AbstractBaseUser):
     """User profile that authenticates and
     logs in with a phone number or email"""
-
     phone = models.CharField(
-        verbose_name="شماره تلفن",
-        max_length=255,
-        unique=True,
-    )
+       verbose_name="شماره تلفن",
+       max_length=255,
+       unique=True,validators=[RegexValidator(regex='^09\d{9}$', message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد')]
+        )
     first_name = models.CharField(
         max_length=50,verbose_name='نام'
         )
@@ -23,7 +24,7 @@ class User(AbstractBaseUser):
         max_length=50, verbose_name='نام خانوادگی'
         )
     verification_time = models.DateField(
-        verbose_name="تاریخ احراز هویت",null=True,blank=True
+        verbose_name="تاریخ عضویت ",null=True,blank=True
         )
     is_active = models.BooleanField(
         default=True
@@ -37,18 +38,18 @@ class User(AbstractBaseUser):
     image = models.ImageField(
         upload_to="profile/imag", null=True, blank=True,verbose_name='پروفایل'
         )
-    Authentication = models.BooleanField(
-        default=False,verbose_name='وضعیت احراز هویت',null=True,blank=True
-        )
     password = models.CharField(
         max_length=300
-        )
-    last_login = models.DateTimeField(
-        _("last login"), blank=True, null=True
         )
     national_code =models.IntegerField(
         validators=[persian_national_code,],null=True, blank=True
         )
+    card_number = models.CharField(
+        max_length=16, 
+        validators=[RegexValidator(regex=r'^\d{16}$',
+        message='شماره کارت باید 16 رقم باشد',
+        code='invalid_card_number')],
+        null=True, blank=True, verbose_name='شماره کارت')
 
     objects = UserManager()
 
@@ -70,7 +71,9 @@ class User(AbstractBaseUser):
         return self.is_admin
 
     class  Meta:
-        verbose_name_plural = 'کاربران'
+        verbose_name = 'پروفایل'
+        verbose_name_plural = 'پروفایل ها'
+
 
 
 #ریجستر و احراز هویت شماره تلفن
@@ -108,4 +111,5 @@ class Otp(models.Model):
         return self.phone
     class  Meta:
        verbose_name_plural ='یکبار مصرف '
+
 

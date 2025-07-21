@@ -163,7 +163,10 @@ class Information(models.Model):
 class Comment(models.Model):
     """Implementation of the questions section,
     which features questions and answers after login"""
-
+    STATUS = (
+    ("draft", "پیش نویس شود"),
+    ("published", "منتشر شود")
+    )
     products = models.ForeignKey(
         Products, on_delete=models.CASCADE, related_name="comments",verbose_name="محصول"
         )
@@ -179,11 +182,14 @@ class Comment(models.Model):
     created_at =models.DateTimeField(
         auto_now_add=True,verbose_name="تاریخ ایجاد"
         )
+    status = models.CharField(
+        choices=STATUS, max_length=10, default='published', verbose_name='وضعیت'
+        )
 
     def __str__(self):
         return self.products.title
     class Meta:
-        verbose_name_plural = 'کامنت ها'
+        verbose_name_plural = 'نظرات'
 
 
 class Like(models.Model):

@@ -11,7 +11,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 
 @admin.register(models.Banner)
 class BannerAdmin(admin.ModelAdmin):
-    list_display = ['title', 'image','status','get_created_at_jalali']
+    list_display = ['title', 'show_image','status','get_created_at_jalali']
 
     def short_title(self, obj):
         if len(obj.title) > 20:
@@ -37,3 +37,7 @@ class ContactUsAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     @admin.display(description='تاریخ ارسال', ordering='date_send')
     def get_date_send_jalali(self, obj):
         return datetime2jalali(obj.date_send).strftime('%a, %d %b  %Y _ %H:%M')
+    
+@admin.register(models.About_Me)
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'image_about_me']

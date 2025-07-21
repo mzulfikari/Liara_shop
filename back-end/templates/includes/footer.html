@@ -34,7 +34,7 @@
     <div>
       <a href="{% url 'Product:Product_view' %}" class="inline-block mb-4 mx-4 ">
         <img
-          src="{% static 'image\logo\logo.jpg' %}" width="80px" height="80px"
+          src="{{ site_settings.logo.url }}" width="80px" height="80px"
           style="border-radius: 100%"
           alt="logo"
         />
@@ -49,10 +49,12 @@
 
             </p>
             <p class="mb-7 opacity-60 text-sm">
-                  مشاوران نرم افزاری  فناور هوشمند یزدان شهر
+                  {{ site_settings.text_about_us }}  
             </p>
+            
           </div>
         </div>
+          
         <div class="w-full px-4 sm:w-1/2 lg:w-3/12">
           <div class="mb-10 w-full">
             <h4 class="mb-2 opacity-80">لینک های مفید:</h4>
@@ -97,15 +99,22 @@
               <li>
                 <div
                   class="mb-2 text-sm opacity-60"
-                >
-              آدرس:یزد"میدان مارکار"ابتدای خیابان کاشانی"مجتمع تجاری آزادی"طبقه دوم"واحد 321
+                > آدرس:
+              {{ site_settings.address}}
                 </div>
               </li>
               <li>
                 <div
                   class="mb-2 text-sm opacity-60"
-                >
-                  تلفن:09111111111
+                >شماره تلفن همراه:
+               {{ site_settings.phone1}}
+                </div>
+              </li>
+               <li>
+                <div
+                  class="mb-2 text-sm opacity-60"
+                >شماره تلفن ثابت:
+               {{ site_settings.phone2}}
                 </div>
               </li>
               <li>
@@ -138,12 +147,16 @@
               </a>
           </div>
         </div>
+        <!-- COPYRIGHT -->
+        <p class="mb-7 opacity-60 text-sm">
+                 تمامی حقوق محفوظ است. | طراحی و کد نویسی: فناور هوشمند یزدان شهر ©
+            </p>
       </div>
     </div>
     <!-- COPYRIGHT -->
-    </div>
+    {% comment %} </div>
     <div class="px-4 grid grid-cols-1 sm:grid-cols-2 border-t-[1px] py-5 text-gray-400">
       <span class="text-xs text-center sm:text-right">تمامی حقوق محفوظ است. | طراحی و کد نویسی: فناور هوشمند یزدان شهر ©
       </span>
-  </div>
+  </div> {% endcomment %}
     </footer>

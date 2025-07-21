@@ -46,8 +46,17 @@ class LoginForm(forms.Form):
        return username
 
 class RegisterForm(forms.ModelForm):
-    phone = forms.CharField (widget=forms.TextInput(attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'})
-     ,min_length=11, max_length=11)
+    first_name = forms.CharField (
+    widget=forms.TextInput(attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}),
+    max_length=11)
+    
+    last_name = forms.CharField (
+    widget=forms.TextInput(attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'})
+    ,min_length=11, max_length=11)
+    
+    phone = forms.CharField (
+    widget=forms.TextInput(attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'})
+    ,min_length=11, max_length=11)
 
 
     def clean_phone(self):

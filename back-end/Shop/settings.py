@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     #libray
     'django_social_share',
     'utm_tracker.apps.UtmTrackerConfig',
-    'ckeditor',
+    'django_ckeditor_5',
     'ckeditor_uploader',  # uplod file and image
     'jalali_date',
 ]
@@ -81,6 +81,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'context_processors.context_processors.Categories',
+                'context_processors.context_processors.site_settings',
+                'context_processors.context_processors.Banners',
             ],
         },
     },
@@ -161,16 +163,23 @@ UTM_PARAMS = {
         'campaign': 'summer_sale_2025'
     }}
 
-# CKEditor Settings
-CKEDITOR_UPLOAD_PATH = 'about_media/'
-CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-CKEDITOR_CONFIGS = {
-    'default':
-        {
-            'toolbar': 'advanced'
-        }
+CKEDITOR_5_FILE_UPLOAD_PATH = 'about_media/'
+CKEDITOR_5_IMAGE_BACKEND = 'pillow'
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'link', 'blockQuote', 'codeBlock', '|',
+            'numberedList', 'bulletedList', '|',
+            'indent', 'outdent', 'alignment', '|',
+            'insertTable', 'mediaEmbed', 'imageUpload', '|',
+            'undo', 'redo'
+        ],
+        'language': 'fa',
+    }
 }
+
 
 # default settings (optional)
 JALALI_DATE_DEFAULTS = {
