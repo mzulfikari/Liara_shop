@@ -36,7 +36,10 @@ class UserChangeForm(forms.ModelForm):
         fields = ["phone", "password", "first_name","last_name", "is_active", "is_admin"]
 
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class':'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}))
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class':'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center',
+            "placeholder":"شماره نام کاربری را وارد کنید"
+            }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}))
 
     def clean_username(self):

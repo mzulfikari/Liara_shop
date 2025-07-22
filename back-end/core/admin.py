@@ -6,7 +6,7 @@ from jalali_date.admin import ModelAdminJalaliMixin
 
 @admin.register(models.SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
-    list_display = ['phone1', 'phone2', 'email1','instagram_link', 'telegram_link']
+    list_display = ['phone1', 'phone2','instagram_link','telegram_link','show_image']
 
 
 @admin.register(models.Banner)

@@ -38,6 +38,17 @@ class SiteSettings(models.Model):
         max_length=250, null=True, blank=True, default='https://t.me/username', verbose_name='لینک تلگرام'
         )
     
+    def __str__(self):
+        return self.title
+    
+    def show_image(self):
+        """To display images in the management panel"""
+
+        if self.logo:
+            return format_html(f'<img src="{self.logo.url}" width="78 px" height="50" />')
+        return format_html('<h3 style="color: red">تصویر ندارد</h3>')
+    show_image.short_description = " تصویر"
+
 
     class Meta:
         verbose_name = 'تنظیمات سایت'

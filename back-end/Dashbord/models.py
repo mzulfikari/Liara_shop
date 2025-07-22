@@ -10,15 +10,24 @@ class Address(models.Model):
         User, on_delete=models.CASCADE, related_name='addresses', verbose_name='کاربر'
         )
     receiver_name = models.CharField(
-        max_length=100, verbose_name='نام تحویل گیرنده'
+        max_length=100, verbose_name='نام و نام خانوداگی تحویل گیرنده'
         )
     title = models.CharField(
         max_length=100, verbose_name='عنوان آدرس'
         )
+    full_address = models.TextField(
+        max_length=300, verbose_name='آدرس کامل'
+        )
     phone_number = models.CharField(
         max_length=11, validators=[RegexValidator(regex='^09\d{9}$',
         message='شماره موبایل باید با 09 شروع شده و 11 رقم باشد')],
-        verbose_name='شماره موبایل'
+        verbose_name='شماره موبایل گیرنده'
+        )
+    city = models.CharField(
+        max_length=50, verbose_name='شهر'
+        )
+    province = models.CharField(
+        max_length=50, verbose_name='استان'
         )
     is_default = models.BooleanField(
         default=False, verbose_name='آدرس پیش‌ فرض'

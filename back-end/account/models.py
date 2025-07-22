@@ -24,7 +24,7 @@ class User(AbstractBaseUser):
         max_length=50, verbose_name='نام خانوادگی'
         )
     verification_time = models.DateField(
-        verbose_name="تاریخ عضویت ",null=True,blank=True
+        verbose_name="تاریخ عضویت ",auto_now_add=True
         )
     is_active = models.BooleanField(
         default=True
@@ -42,7 +42,7 @@ class User(AbstractBaseUser):
         max_length=300
         )
     national_code =models.IntegerField(
-        validators=[persian_national_code,],null=True, blank=True
+        validators=[persian_national_code,],null=True, blank=True,verbose_name='کد ملی'
         )
     card_number = models.CharField(
         max_length=16, 

@@ -3,10 +3,12 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from account.models import Otp, User
 from account.forms import UserChangeForm, UserCreationForm
+from jalali_date.admin import ModelAdminJalaliMixin
+from jalali_date import datetime2jalali, date2jalali
 
 admin.site.site_header = 'پنل مدیریت فروشگاه'
 
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(ModelAdminJalaliMixin,BaseUserAdmin):
 
     form = UserChangeForm
     add_form = UserCreationForm
@@ -18,10 +20,9 @@ class UserAdmin(BaseUserAdmin):
         ("مشخصات  کاربر لاگین ", {"fields": ["phone", "password","first_name","last_name","image","email"]}),
         ("وضعیت کاربر", {"fields": ["is_admin","is_active"]}),
         ("آخرین ورود", {"fields": ["last_login"]}),
-        (" احراز هویت", {"fields": ["verification_time","Authentication"]}),
-
     ]
-
+    readonly_fields = ['get_verification_time_jalali']
+    
     add_fieldsets = [
         (
             None,
@@ -36,6 +37,11 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ["phone"]
     ordering = ["phone"]
     filter_horizontal = []
+    
+    @admin.display(description='تاریخ عضویت', ordering='verification_time')
+    def get_verification_time_jalali(self, obj):
+        return datetime2jalali(obj.verification_time).strftime('%a, %d %b  %Y _ %H:%M')
+    
 
 @admin.register(Otp)
 class OTPAdmin(admin.ModelAdmin):

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'Social.apps.SocialConfig',
     'core.apps.CoreConfig',
+    'Dashbord.apps.DashbordConfig',
 
      #Persian_app
     'admin_persian',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'ckeditor_uploader',  # uplod file and image
     'jalali_date',
+    'colorfield',
 ]
 
 MIDDLEWARE = [

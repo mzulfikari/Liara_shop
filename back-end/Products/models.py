@@ -4,7 +4,7 @@ from django.utils.html import format_html
 from account.models import User
 from  django.utils.text import slugify
 from django.utils.translation import gettext as _
-
+from colorfield.fields import ColorField
 
 class Category(models.Model):
     title = models.CharField(
@@ -46,10 +46,10 @@ class Size(models.Model):
 
 class Color(models.Model):
     title = models.CharField(
-        max_length=30,verbose_name="عنوان رنگ",blank=True,null=True
+        max_length=30,verbose_name="عنوان رنگ", help_text='لطفا عنوان را خالی نگذارید',
         )
-    color_code = models.CharField(
-        max_length=20, unique=True, default="#229605", help_text='این یک کد رنگی پیش فرض است', verbose_name='کد رنگ'
+    color_code = ColorField(
+        max_length=20, unique=True, default="#229605", help_text='این یک کد رنگی است', verbose_name='کد رنگ'
         )
     created = models.DateTimeField(
         auto_now_add=True, verbose_name='تاریخ ایجاد',null=True
@@ -93,7 +93,7 @@ class Products(models.Model):
         upload_to="product/image",blank=True,null=True,verbose_name=" بارگذاری تصویر چهارم"
         )
     price = models.DecimalField(
-        verbose_name="قیمت",max_digits=10,decimal_places=2,
+        verbose_name="قیمت",max_digits=10,decimal_places=0,
         )
     caption = models.TextField(
         verbose_name='درباره محصول'
@@ -105,7 +105,7 @@ class Products(models.Model):
         Size,blank=True,related_name='products',verbose_name="سایزها"
         )
     color = models.ManyToManyField(
-        Color,related_name='products',verbose_name="رنگ بندی ها",blank=True
+        Color,related_name='colors',verbose_name="رنگ بندی ها",blank=True
         )
     inventory = models.BooleanField(
         default=True,verbose_name="موجودیت"
