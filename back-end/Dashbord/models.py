@@ -43,6 +43,9 @@ class Address(models.Model):
         validators=[RegexValidator(regex='^\d{10}$',
         message='کد پستی باید 10 رقم باشد')], verbose_name='کد پستی'
         )
+    email = models.EmailField(
+        verbose_name="ایمیل تحویل گیرنده",null=True,blank=True
+    )
     
     def save(self, *args, **kwargs):
         if self.is_default:
