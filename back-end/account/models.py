@@ -9,6 +9,7 @@ from django.core.validators import RegexValidator
 from Products.models import *
 
 
+
 class User(AbstractBaseUser):
     """User profile that authenticates and
     logs in with a phone number or email"""
@@ -27,13 +28,13 @@ class User(AbstractBaseUser):
         verbose_name="تاریخ عضویت ",auto_now_add=True
         )
     is_active = models.BooleanField(
-        default=True
+        default=True,verbose_name='فعال'
         )
     is_admin = models.BooleanField(
         verbose_name='وضعیت ادمین',default=False
         )
     email = models.EmailField(
-        verbose_name= 'ایمیل'
+        verbose_name= 'ایمیل',null=True,blank=True
         )
     image = models.ImageField(
         upload_to="profile/imag", null=True, blank=True,verbose_name='پروفایل'
@@ -41,8 +42,8 @@ class User(AbstractBaseUser):
     password = models.CharField(
         max_length=300
         )
-    national_code =models.IntegerField(
-        validators=[persian_national_code,],null=True, blank=True,verbose_name='کد ملی'
+    national_code =models.CharField(
+        validators=[persian_national_code,],null=True, blank=True,verbose_name='کد ملی' ,max_length=10
         )
     card_number = models.CharField(
         max_length=16, 
@@ -86,30 +87,49 @@ class Otp(models.Model):
         )
     phone = models.CharField(
     max_length=11,
-    validators=[persian_phone_number_validation,],
+    validators=[RegexValidator(regex='^09\d{9}$', message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد')],
     verbose_name='شماره تلفن'
         )
 
     code = models.SmallIntegerField(
         verbose_name='کد یکبار مصرف'
         )
-    created_at = models.DateTimeField(
-        auto_now_add=True, verbose_name="تاریخ ایجاد"
+    code_expiry = models.DateTimeField(
+        verbose_name='تاریخ انقضای کد',default=timezone.now() + timedelta(minutes=2),
         )
-    expiry_minutes = models.IntegerField(
-        default=2,verbose_name='مدت زمان اعتبار',
-         # حداکثر مقدار
+    is_used = models.BooleanField(
+        default=False, verbose_name='استفاده شده؟'
         )
-
-#بررسی مدت اعتبار کد احراز هویت
-    @property
-    def is_expired(self):
-
-        return timezone.now() > self.created_at + timedelta(minutes=self.expiry_minutes)
-
+    
+    
     def __str__(self):
-        return self.phone
-    class  Meta:
-       verbose_name_plural ='یکبار مصرف '
+        return self.code
+
+    def is_valid(self, code):
+        if self.code == code and not self.is_used and self.code_expiry:
+            if timezone.now() <= self.code_expiry:
+                return True
+            else:
+                self.delete()
+                return False
+        return False
+
+    def set_code(self, code):
+        self.code = code
+        self.code_expiry = timezone.now() + timedelta(minutes=2)
+        self.save()
+
+    @classmethod
+    def clean_expired_codes(cls):
+        cls.objects.filter(models.Q(is_used=True) | models.Q(code_expiry__lt=timezone.now())).delete()
+
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        User.objects.create(user=instance)
+
+
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 

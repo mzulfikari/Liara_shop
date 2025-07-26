@@ -2,8 +2,8 @@ from django import forms
 from .models import Address
 from django.forms.widgets import TextInput
 from django.core.exceptions import ValidationError
-
-
+from django.contrib import messages
+from account.models import User
 
 class TelInput(TextInput):
     input_type = 'tel'
@@ -27,9 +27,8 @@ class AddressAdd(forms.ModelForm):
             "placeholder":
             " نام و نام خانوادگی تحویل گیرنده"
             }),
-            'phone_number': forms.TextInput(
-            attrs={'type': 
-            'tel',
+            'phone_number': forms.NumberInput(
+            attrs={
             'class':
             "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
             "placeholder":
@@ -67,8 +66,7 @@ class AddressAdd(forms.ModelForm):
             ),
             'is_default': forms.CheckboxInput(
             attrs={'class':
-            "form-check-input",
-            # "placeholder":"Enter your email"
+            "form-checkbox h-5 w-5 text-blue-600 focus:ring-blue-500 cursor-pointer mr-1",
             })}
 
 
@@ -76,8 +74,8 @@ class AddressAdd(forms.ModelForm):
         title = self.cleaned_data.get('title')
         if len(title) < 3:
             raise ValidationError("عنوان آدرس باید حداقل 3 کاراکتر باشد.")
-        if len(title) > 100:
-            raise ValidationError("عنوان آدرس باید حداکثر 100 کاراکتر باشد.")
+        if len(title) > 30:
+            raise ValidationError("عنوان آدرس باید حداکثر 30 کاراکتر باشد.")
         return title
 
     def clean_full_address(self):
@@ -91,17 +89,17 @@ class AddressAdd(forms.ModelForm):
     def clean_city(self):
         city = self.cleaned_data.get('city')
         if len(city) < 2:
-            raise ValidationError("شهر باید حداقل 2 کاراکتر باشد.")
+            raise ValidationError("استان باید حداقل 2 کاراکتر باشد.")
         if len(city) > 50:
-            raise ValidationError("شهر باید حداکثر 50 کاراکتر باشد.")
+            raise ValidationError("استان باید حداکثر 50 کاراکتر باشد.")
         return city
 
     def clean_province(self):
         province = self.cleaned_data.get('province')
         if len(province) < 2:
-            raise ValidationError("استان باید حداقل 2 کاراکتر باشد.")
+            raise ValidationError("شهرستان باید حداقل 2 کاراکتر باشد.")
         if len(province) > 50:
-            raise ValidationError("استان باید حداکثر 50 کاراکتر باشد.")
+            raise ValidationError("شهرستان باید حداکثر 50 کاراکتر باشد.")
         return province
 
     def clean_postal_code(self):
@@ -125,7 +123,56 @@ class AddressAdd(forms.ModelForm):
         if len(receiver_name.split()) < 2:
             raise ValidationError("لطفا نام و نام خانوادگی تحویل گیرنده را وارد کنید.")
         return receiver_name
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email is None:
+            email = ''
+        if email:
+            if not email.endswith('@gmail.com'):
+                raise ValidationError("لطفاً یک ایمیل معتبر با دامنه @gmail.com وارد کنید.")
+            if len(email) < 15:
+                raise ValidationError("ایمیل باید حداقل 15 کاراکتر باشد.")
+            if len(email) > 100:
+                raise ValidationError("ایمیل باید حداکثر 100 کاراکتر باشد.")
+        return email
 
     
-  
+class Change_Profile(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('phone','first_name','last_name','email','national_code','card_number',)
+        
+        widgets = {
+            'first_name': forms.TextInput(
+            attrs={'class':
+            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
+            
+            }),
+             'last_name': forms.TextInput(
+            attrs={'class':
+            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
+            
+            }),
+             'phone': forms.TextInput(
+            attrs={'class':
+            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
+            
+            }),
+             'email': forms.TextInput(
+            attrs={'class':
+            "text-sm block w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
+            
+            }),
+             'national_code': forms.TextInput(
+            attrs={'class':
+            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
+            
+            }),
+             'card_number': forms.TextInput(
+            attrs={'class':
+            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
+            
+            }),
+        }
   

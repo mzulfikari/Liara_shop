@@ -1,13 +1,18 @@
+import re
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 from account.models import User , Otp
-from django.core import validators
+
+
+
 
 class UserCreationForm(forms.ModelForm):
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password1 = forms.CharField(
+    label="Password", widget=forms.PasswordInput
+    )
     password2 = forms.CharField(
-        label="Password confirmation", widget=forms.PasswordInput
+    label="Password confirmation", widget=forms.PasswordInput
     )
 
     class Meta:
@@ -35,33 +40,110 @@ class UserChangeForm(forms.ModelForm):
         model = User
         fields = ["phone", "password", "first_name","last_name", "is_active", "is_admin"]
 
+
+
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(
-        attrs={'class':'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center',
-            "placeholder":"شماره نام کاربری را وارد کنید"
-            }))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}))
+    username = forms.CharField(
+    widget=forms.TextInput(
+    attrs={'class':'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center',
+    "placeholder":"شماره همراه یا ایمیل "
+    }))
+    password = forms.CharField(
+    widget=forms.PasswordInput(
+    attrs={'class':'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'
+    }))
 
     def clean_username(self):
-       username = self.cleaned_data.get('username')
-       if len(username) > 100:
-            raise ValidationError('اطلاعات وارد شده صحیح نمی باشد',code='invalid phone' )
-       return username
+        username = self.cleaned_data.get('username')
 
+        if not username:
+           raise ValidationError("لطفاً ایمیل یا شماره همراه را وارد کنید.")
+
+        phone_pattern = r"^09\d{9}$"
+        email_pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+
+        if re.match(phone_pattern, username):
+            return username
+
+        if re.match(email_pattern, username):
+          return username
+
+        raise ValidationError("فرمت وارد شده صحیح نیست. لطفاً ایمیل یا شماره همراه معتبر وارد کنید.")
+
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+
+        if not password:
+            raise ValidationError("رمز عبور الزامی است.")
+
+        if len(password) < 8:
+            raise ValidationError("رمز عبور باید حداقل ۸ کاراکتر باشد.")
+        
+        return password
+
+    
+   
 class RegisterForm(forms.ModelForm):
     first_name = forms.CharField (
-    widget=forms.TextInput(attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}),
-    max_length=11)
-    
+    widget=forms.TextInput(
+    attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}
+    ))
     last_name = forms.CharField (
-    widget=forms.TextInput(attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'})
-    ,min_length=11, max_length=11)
-    
+    widget=forms.TextInput(
+    attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}),
+    )
     phone = forms.CharField (
-    widget=forms.TextInput(attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'})
-    ,min_length=11, max_length=11)
+    widget=forms.TextInput(
+    attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}),
+    min_length=11, max_length=11
+    )
+    password = forms.CharField (
+    widget=forms.PasswordInput(
+    attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}),
+    min_length=8, max_length=20
+    )
 
+    def clean_first_name (self):
+        first_name = self.cleaned_data.get('first_name')
 
+        if not first_name:
+            raise ValidationError("لطفاً نام را وارد کنید.")
+
+        if not re.match(r'^[آ-یa-zA-Z\s]+$', first_name):
+            raise ValidationError("نام فقط می‌تواند شامل حروف باشد.")
+
+        if len(first_name.strip().split()) < 1:
+            raise ValidationError("نام معتبر نیست.")
+
+        return first_name
+ 
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+
+        if not last_name:
+            raise ValidationError("لطفاً نام خانوادگی را وارد کنید.")
+
+        if not re.match(r'^[آ-یa-zA-Z\s]+$', last_name):
+            raise ValidationError("نام خانوادگی فقط می‌تواند شامل حروف باشد.")
+
+        if len(last_name) < 3:
+            raise ValidationError("نام خانوادگی باید حداقل 3 حرف باشد.")
+
+        return last_name
+ 
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+
+        if not password:
+            raise ValidationError("رمز عبور الزامی است.")
+
+        if len(password) < 8:
+            raise ValidationError("رمز عبور باید حداقل ۸ کاراکتر باشد.")
+        
+        return password
+
+ 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
 
@@ -73,15 +155,33 @@ class RegisterForm(forms.ModelForm):
 
         return phone
 
+   
     class Meta:
         model = User
-        fields = ['phone',]
+        fields = ['first_name','last_name','phone','password']
+
 
 
 class CheckOtpform(forms.ModelForm):
-    code = forms.CharField(widget=forms.TextInput(attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'})
-     ,max_length=4)
+    code = forms.CharField(
+    widget=forms.TextInput(
+    attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'})
+    ,max_length=4)
 
+    def clean_code(self):
+        code = self.cleaned_data.get('code')
+
+        if not code:
+            raise ValidationError("لطفاً کد تأیید را وارد کنید.")
+
+        if not code.isdigit():
+            raise ValidationError("کد باید فقط شامل ارقام باشد.")
+
+        if len(code) != 4:
+            raise ValidationError("کد باید دقیقاً ۴ رقم باشد.")
+
+        return code
+    
     class Meta:
         model = Otp
         fields = ['code']
@@ -90,12 +190,14 @@ class CheckOtpform(forms.ModelForm):
 class ChangePasswordForm(forms.Form):
     old_password = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={'class': 'input_second input_all', 'placeholder': 'رمز عبور فعلی'}
+        attrs={'class': 'input_second input_all',
+        'placeholder': 'رمز عبور فعلی'}
         )
     )
     new_password = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={'class': 'input_second input_all', 'placeholder': 'رمز عبور جدید'}
+        attrs={'class': 'input_second input_all',
+        'placeholder': 'رمز عبور جدید'}
         )
     )
     confirm_new_password = forms.CharField(

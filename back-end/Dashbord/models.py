@@ -3,6 +3,9 @@ from django.core.validators import RegexValidator
 from account.models import User
 from django.utils import timezone
 from Products.models import Products
+from django.contrib import messages
+
+
 
 class Address(models.Model):
     
@@ -24,10 +27,10 @@ class Address(models.Model):
         verbose_name='شماره موبایل گیرنده'
         )
     city = models.CharField(
-        max_length=50, verbose_name='شهر'
+        max_length=50, verbose_name='اشتان'
         )
     province = models.CharField(
-        max_length=50, verbose_name='استان'
+        max_length=50, verbose_name='شهرستان'
         )
     is_default = models.BooleanField(
         default=False, verbose_name='آدرس پیش‌ فرض'
@@ -46,6 +49,9 @@ class Address(models.Model):
     email = models.EmailField(
         verbose_name="ایمیل تحویل گیرنده",null=True,blank=True
     )
+    
+    def __str__(self):
+        return self.receiver_name
     
     def save(self, *args, **kwargs):
         if self.is_default:
@@ -93,8 +99,9 @@ class Notification(models.Model):
         cls.objects.filter(models.Q(expiration_date__isnull=False) & models.Q(expiration_date__lt=now)).delete()
         
 class Favorites(models.Model):
-    """ User like system """
     
+    """ User like system """
+
     user = models.ForeignKey(
         User, verbose_name="کاربر", on_delete=models.CASCADE
         )

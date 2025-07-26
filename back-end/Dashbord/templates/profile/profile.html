@@ -73,7 +73,7 @@
                   تاریخ عضویت:
                 </div>
                 <div class="text-sm opacity-90">
-                  {{ profile.verification_time}}
+                  {{ profile.verification_time|to_jalali:'%Y/%m/%d' }}
                 </div>
               </div>
             </div>
@@ -104,14 +104,16 @@
               </div>
             </div>
             <span class="opacity-90">
-              <button class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">ویرایش اطلاعات</button>
+              <button type="button"
+                  onclick="window.location.href='{% url 'Profile:ChangeProfile' %}'"
+                   class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">ویرایش اطلاعات</button>
             </span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  {% comment %} {% endif %} {% endcomment %}
+
   <!-- FOOTER -->
   {% include 'includes/footer.html' %}
 </body>
@@ -123,4 +125,35 @@
   <script src="{% static 'js/navbar.js' %}"></script>
   <!-- SHOW MODAL SEARCH -->
   <script src="{% static 'js/searchBox.js' %}"></script>
+
+<script>
+  document.getElementById('edit-profile-btn').addEventListener('click', function () {
+  fetch('/profile/change/', {  // آدرس View
+    method: 'GET',
+  })
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('edit-profile-container').innerHTML = html;
+    bindFormSubmit(); // اجرای هندلر برای ارسال فرم
+  });
+});
+
+function bindFormSubmit() {
+  const form = document.getElementById('edit-profile-form');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    fetch('/profile/change/', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('form-result').innerHTML = html;
+    });
+  });
+}
+</script>
+
 </html>

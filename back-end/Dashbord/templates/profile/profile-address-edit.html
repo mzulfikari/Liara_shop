@@ -2,117 +2,242 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ویرایش آدرس</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اضافه کردن آدرس</title>
 
-  <link rel="stylesheet" href="{% static 'css/output.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
 
-  <style>
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  </style>
-  
+<style>
+input::-webkit-outer-spin-button,
+ input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+ margin: 0;
+ }
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+ </style>
+
+
+
 </head>
 <body class="bg-gray-50">
-  <!-- NAVBAR -->
-  <div>
+<!-- NAVBAR -->
+<div>
     <!-- TOP -->
-  {% include 'includes/head.html' %}
+    {% include 'includes/head.html' %}
     <!-- OPACITY SCREEN FOR SEARCH INPUT FOCUS -->
     <div class="absolute w-full h-screen bg-gray-200 opacity-40 z-40 hidden" id="opacitiScreen" onclick="closeScreen()">
     </div>
-  </div>
-  <form  action="" method="POST" >
-    {% csrf_token %} 
-  <!-- MAIN -->
-  {% include 'includes/profile_navbar.html' %}
-  
-        <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
-          <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
-             <div class="mb-4">
-            
-              <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700"> عنوان آدرس </label>
-              {{ form.title }}
-              
+</div>
+<form action="" method="POST">
+    {% csrf_token %}
+    <!-- MAIN -->
+    {% include 'includes/profile_navbar.html' %}
+
+    <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
+        <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
+            <div class="mb-4">
+
+                <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700"> عنوان آدرس </label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <ul class="list-none m-0 p-0">
+                            {% for error in form.title.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+
             </div>
 
             <div class="mb-4">
-              <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">نام و نام خانوادگی تحویل گیرنده</label>
-             {{ form.receiver_name }}
+                <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">نام و نام خانوادگی تحویل گیرنده</label>
+                {{ form.receiver_name }}
+                {% if form.receiver_name.errors %}
+                    <div class="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <ul class="list-none m-0 p-0">
+                            {% for error in form.receiver_name.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
+                
+           
             <div class="mb-4">
-              <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">شماره موبایل </label>
-            {{ form.phone_number }}
+                <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">شماره موبایل </label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <div class="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <ul class="list-none m-0 p-0">
+                            {% for error in form.phone_number.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
+
+
             <div class="mb-4">
-              <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700"> شهر</label>
-              {{ form.city }}
+                <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700"> شهر</label>
+                {{ form.city }}
+                 {% if form.city.errors %}
+                    <div class="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <ul class="list-none m-0 p-0">
+                            {% for error in form.city.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
+
+
             <div class="mb-4">
-              <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700"> شهرستان</label>
-              {{ form.province }}
+                <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">شهرستان</label>
+                {{ form.province }}
+                {% if form.province.errors %}
+                    <div class="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <ul class="list-none m-0 p-0">
+                            {% for error in form.province.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            
             </div>
-            {% comment %} <div class="w-full">
-              <div class="mb-2">
-                <label for="select" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">استان</label>
-                <select name="select" class="text-sm block w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 outline-none transition-all">
-                  <option value="">خراسان رضوی</option>
-                  <option value="">تهران</option>
-                  <option value="">آذرباییجان شرقی</option>
-                  <option value="">آذرباییجان غربی</option>
-                </select>
-              </div>
-            </div> {% endcomment %}
-            {% comment %} <div class="w-full">
-              <div class="mb-2">
-                <label for="select" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">شهر</label>
-                <select name="select" class="text-sm block w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 outline-none transition-all">
-                  <option value="">سبزوار</option>
-                  <option value="">قوچان</option>
-                  <option value="">مشهد</option>
-                  <option value="">تربت جام</option>
-                </select>
-              </div>
-            </div> {% endcomment %}
+            {% comment %}
+                <div class="w-full">
+                    <div class="mb-2">
+                        <label for="select"
+                               class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">استان</label>
+                        <select name="select"
+                                class="text-sm block w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 outline-none transition-all">
+                            <option value="">خراسان رضوی</option>
+                            <option value="">تهران</option>
+                            <option value="">آذرباییجان شرقی</option>
+                            <option value="">آذرباییجان غربی</option>
+                        </select>
+                    </div>
+                </div> {% endcomment %}
+            {% comment %}
+                <div class="w-full">
+                    <div class="mb-2">
+                        <label for="select" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">شهر</label>
+                        <select name="select"
+                                class="text-sm block w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 outline-none transition-all">
+                            <option value="">سبزوار</option>
+                            <option value="">قوچان</option>
+                            <option value="">مشهد</option>
+                            <option value="">تربت جام</option>
+                        </select>
+                    </div>
+                </div> {% endcomment %}
+            
+            
+                <div class="mb-4">
+                <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">کدپستی</label>
+                {{ form.postal_code }}
+                 {% if form.postal_code.errors %}
+                    <div class="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <ul class="list-none m-0 p-0">
+                            {% for error in form.postal_code.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+           
+            </div>
+
+
             <div class="mb-4">
-              <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">کدپستی</label>
-              {{ form.postal_code }}
+                <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">ایمیل</label>
+                {{ form.email }}
+                 {% if form.email.errors %}
+                    <div class="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <ul class="list-none m-0 p-0">
+                            {% for error in form.email.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
+
+
             <div class="mb-4">
-              <label for="username" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">ایمیل</label>
-              {{ form.email }}
+                <label for="mailTicket" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700"> آدرس
+                    کامل</label>
+                {{ form.full_address }}
+                 {% if form.full_address.errors %}
+                    <div class="flex items-center gap-2 text-red-600 text-sm mt-1">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <ul class="list-none m-0 p-0">
+                            {% for error in form.full_address.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            
+
+
             </div>
-            <div class="mb-4">
-              <label for="mailTicket" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700"> آدرس کامل</label>
-              {{ form.full_address }}
+            <div class="flex items-center space-x-reverse space-x-3 mt-4">
+                {{ form.is_default }}
+                <label for="id_is_default" class="text-sm text-gray-700 cursor-pointer">آدرس پیش‌فرض</label>
             </div>
+
             <span class="opacity-90">
-              <button type="submit" class="px-7 py-2 text-center text-white bg-blue-500 align-middle border-0 rounded-lg shadow-md text-sm">ثبت</button>
-              <button class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">لغو</button>
-            </span>
+              <button type="submit"
+                      class="px-7 py-2 text-center text-white bg-blue-500 align-middle border-0 rounded-lg shadow-md text-sm">ثبت</button>
+              <button
+                      type="button"
+                      onclick="window.location.href='{% url 'Profile:Address' %}'"
+                      class="px-7 py-2 text-center text-white bg-red-500 hover:bg-red-600 align-middle border-0 rounded-lg shadow-md text-sm">لغو</button>
+             </span>
+
           </div>
-        </div>
-      </div>
-    </div>
+       </div>
+     </div>
   </div>
-  {{ form.errors }}
- 
-  </form>
-  <!-- FOOTER -->
-  {% include 'includes/footer.html' %}
+</div>
+
+</form>
+<!-- FOOTER -->
+{% include 'includes/footer.html' %}
 </body>
-  <!--DROPDOWNS FOR NAVBAR-->
-  <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
-  </script>
-  <!--MOBILE NAVBAR-->
-  <script src="{% static 'js/navbar.js' %}"></script>
-  <!-- SHOW MODAL SEARCH -->
-  <script src="{% static 'js/searchBox.js' %}"></script>
+<!--DROPDOWNS FOR NAVBAR-->
+<script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
+</script>
+<!--MOBILE NAVBAR-->
+<script src="{% static 'js/navbar.js' %}"></script>
+<!-- SHOW MODAL SEARCH -->
+<script src="{% static 'js/searchBox.js' %}"></script>
 </html>

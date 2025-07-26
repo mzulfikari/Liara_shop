@@ -13,7 +13,7 @@ from .forms import LoginForm,RegisterForm
 from django.urls import reverse
 import ghasedakpack
 from uuid import uuid4
-from django.views.generic import DetailView,TemplateView,ListView
+from django.views.generic import TemplateView
 
 #Api  رمز یکبار مصرف
 # sms_api = ghasedakpack.Ghasedak(
@@ -53,6 +53,7 @@ class UserRegister(View):
         phone = request.POST.get('phone')
         form = RegisterForm(request.POST)
         if form.is_valid():
+          
             valid = form.cleaned_data
             randcode = randint(1000,9999)
             #دریافت رمز یکبار مصرف
@@ -65,7 +66,8 @@ class UserRegister(View):
                 code=randcode,
                 token=token
                 )
-            # print(randcode)   # print(randcode) # =>  برای پرینت کد ارسال شده
+            
+            
             return redirect(reverse('account:Verify') + f'?token={token}')
         else:
                 form.add_error('phone', "اطلاعات وارد شده صحیح نمی باشد ")
@@ -99,13 +101,20 @@ class CheckOtp(View):
                     form.add_error('code', "کد منقضی شده است")
                     return render(request, 'verify.html', {'form': form})
              user , is_created = User.objects.get_or_create(phone=otp.phone,)
+             
+             User.objects.create_user(
+                phone=form.cleaned_data.get('phone'),
+                last_name=form.cleaned_data.get('last_name'),
+                first_name=form.cleaned_data.get('first_name'),
+                password=form.cleaned_data.get('password')
+                )
 
              login(request,
                    user,
                    backend="django.contrib.auth.backends.ModelBackend")
              return redirect('/')
 
-            Otp.delete()
+            otp.delete()
 
         else:
             form.add_error(None, "اطلاعات وارد شده صحیح نمی باشد ")

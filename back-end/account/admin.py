@@ -17,7 +17,7 @@ class UserAdmin(ModelAdminJalaliMixin,BaseUserAdmin):
     list_display = ["phone","first_name","last_name", "is_admin","email"]
     list_filter = ["is_admin"]
     fieldsets = [
-        ("مشخصات  کاربر لاگین ", {"fields": ["phone", "password","first_name","last_name","image","email"]}),
+        ("مشخصات  کاربر لاگین ", {"fields": ["phone", "password","first_name","last_name","image","email","national_code"]}),
         ("وضعیت کاربر", {"fields": ["is_admin","is_active"]}),
         ("آخرین ورود", {"fields": ["last_login"]}),
     ]

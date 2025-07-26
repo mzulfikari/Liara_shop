@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #jalali_date
+    'jalali_date',
+
     #My_app
     'Products.apps.ProductsConfig',
     'account.apps.AccountConfig',
@@ -47,7 +50,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'Dashbord.apps.DashbordConfig',
 
-     #Persian_app
+    #Persian_app
     'admin_persian',
 
     #libray
@@ -55,7 +58,6 @@ INSTALLED_APPS = [
     'utm_tracker.apps.UtmTrackerConfig',
     'django_ckeditor_5',
     'ckeditor_uploader',  # uplod file and image
-    'jalali_date',
     'colorfield',
 ]
 

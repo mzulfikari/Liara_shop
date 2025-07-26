@@ -4,9 +4,10 @@ from . import views
 app_name = 'Profile'
 
 urlpatterns = [
-    path('profile_view',views.UserProfile,name='Profile_View'),
-    path('profile/address_add',views.Address_Add.as_view(),name='Address_add'),
-    
-    
+    path('profile/view',views.UserProfile,name='Profile_View'),
+    path('profile/address',views.AddressView.as_view(),name='Address'),
+    path('profile/address/add',views.Address_Add.as_view(),name='Address_add'),
+    path('profile/change',views.Change_profile,name='ChangeProfile'),
+       
 ]
     
