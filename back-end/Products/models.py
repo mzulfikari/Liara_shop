@@ -21,9 +21,17 @@ class Category(models.Model):
     views = models.BooleanField(
         default=False,verbose_name='نمایش در صحفه اصلی '
     )
-    # slug = AutoSlugField(
-    #     populate_from='title',verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان دسته بندی استلفاده می شود'
-    #     )
+    slug = models.SlugField(
+       verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان دسته بندی استلفاده می شود'
+        )
+    
+    def save(self,force_insert=False,force_update=False,using=None,
+             update_fields=None):
+        self.slug = slugify(self.title)
+        super(Category, self).save()
+
+    def get_absolute_url(self):
+        return reverse('blog:Post_details', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title
@@ -130,10 +138,15 @@ class Products(models.Model):
     # brand = models.ForeignKey(
     #     Brand,verbose_name='برند'
     # )
-      # slug = AutoSlugField(
-    #     populate_from='title',verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود'
-    #     )
-
+    slug = models.SlugField(
+        verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود'
+        )
+    
+    
+    def save(self,force_insert=False,force_update=False,using=None,
+             update_fields=None):
+        self.slug = slugify(self.title)
+        super(Products, self).save()
 
     def __str__(self):
         return self.title

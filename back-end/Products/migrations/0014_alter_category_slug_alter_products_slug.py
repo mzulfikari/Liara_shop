@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='slug',
-            field=autoslug.fields.AutoSlugField(default='temp-slug', editable=False, populate_from='title'),
+            field=autoslug.fields.AutoSlugField(default='temp-slug', editable=False, populate_from='title',blank=True),
         ),
         migrations.AlterField(
             model_name='products',
             name='slug',
-            field=autoslug.fields.AutoSlugField(default='temp-slug', editable=False, populate_from='title'),
+            field=autoslug.fields.AutoSlugField(default='temp-slug', editable=False, populate_from='title',blank=True),
         ),
     ]
