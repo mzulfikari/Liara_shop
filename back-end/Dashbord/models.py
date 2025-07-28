@@ -22,12 +22,12 @@ class Address(models.Model):
         max_length=300, verbose_name='آدرس کامل'
         )
     phone_number = models.CharField(
-        max_length=11, validators=[RegexValidator(regex='^09\d{9}$',
+        max_length=11, validators=[RegexValidator(regex=r'^09\d{9}$',
         message='شماره موبایل باید با 09 شروع شده و 11 رقم باشد')],
         verbose_name='شماره موبایل گیرنده'
         )
     city = models.CharField(
-        max_length=50, verbose_name='اشتان'
+        max_length=50, verbose_name='استان'
         )
     province = models.CharField(
         max_length=50, verbose_name='شهرستان'
@@ -43,12 +43,14 @@ class Address(models.Model):
         )
     postal_code = models.CharField(
         max_length=10, 
-        validators=[RegexValidator(regex='^\d{10}$',
+        validators=[RegexValidator(regex=r'^\d{10}$',
         message='کد پستی باید 10 رقم باشد')], verbose_name='کد پستی'
         )
     email = models.EmailField(
         verbose_name="ایمیل تحویل گیرنده",null=True,blank=True
     )
+    
+    
     
     def __str__(self):
         return self.receiver_name
@@ -99,19 +101,22 @@ class Notification(models.Model):
         cls.objects.filter(models.Q(expiration_date__isnull=False) & models.Q(expiration_date__lt=now)).delete()
         
 class Favorites(models.Model):
-    
     """ User like system """
 
     user = models.ForeignKey(
-        User, verbose_name="کاربر", on_delete=models.CASCADE
+        User, verbose_name="کاربر", on_delete=models.CASCADE,related_name='Like'
         )
     product = models.ForeignKey(
-        Products,verbose_name="محصول مربوطه", on_delete=models.CASCADE
+        Products,verbose_name="محصول مربوطه", on_delete=models.CASCADE,related_name='Like'
         )
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
-
+    created_at = models.DateTimeField(
+    auto_now_add=True, verbose_name='تاریخ ایجاد'
+        )   
+    
+   
     class Meta:
         verbose_name = 'لیست علاقه ‌مندی'
         verbose_name_plural = 'لیست‌ های علاقه ‌مندی'
         unique_together = ('user', 'product')
+        ordering = ('-created_at',)
 

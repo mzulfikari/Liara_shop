@@ -5,11 +5,12 @@ from django.core.exceptions import ValidationError
 from django.contrib import messages
 from account.models import User
 
-class TelInput(TextInput):
-    input_type = 'tel'
 
 class AddressAdd(forms.ModelForm):
-    user = forms.IntegerField(required=False)
+    user = forms.IntegerField(
+        required=False
+        )
+
     class Meta:
      model = Address
      fields = ('title','receiver_name','phone_number','city','province','postal_code','full_address','is_default','email',)
@@ -38,7 +39,7 @@ class AddressAdd(forms.ModelForm):
             attrs={'class':
             "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
             "placeholder":
-            "شهر"
+            "استان"
             }),
             'province': forms.TextInput(
             attrs={'class':
@@ -56,8 +57,8 @@ class AddressAdd(forms.ModelForm):
             attrs={'class':
             "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
             "placeholder":
-            "ایمیل را وارد کنید (الزامی نیست)"}
-            ),
+            "ایمیل را وارد کنید (الزامی نیست)"
+            }),
             'full_address': forms.Textarea(
             attrs={'class':
             "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
@@ -139,40 +140,143 @@ class AddressAdd(forms.ModelForm):
 
     
 class Change_Profile(forms.ModelForm):
+    
     class Meta:
         model = User
-        fields = ('phone','first_name','last_name','email','national_code','card_number',)
+        fields = ('phone','first_name','last_name','email','national_code','card_number','image')
         
-        widgets = {
-            'first_name': forms.TextInput(
-            attrs={'class':
-            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
-            
-            }),
-             'last_name': forms.TextInput(
-            attrs={'class':
-            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
-            
-            }),
-             'phone': forms.TextInput(
-            attrs={'class':
-            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
-            
-            }),
-             'email': forms.TextInput(
-            attrs={'class':
-            "text-sm block w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
-            
-            }),
-             'national_code': forms.TextInput(
-            attrs={'class':
-            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
-            
-            }),
-             'card_number': forms.TextInput(
-            attrs={'class':
-            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
-            
-            }),
-        }
-  
+    phone = forms.CharField(
+    required=False,
+    widget=forms.TextInput(attrs={
+    'class': "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300"
+    }))
+ 
+    first_name = forms.CharField(
+    required=False,
+    widget=forms.TextInput(attrs={
+    'class': "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300"
+    }))
+ 
+    last_name = forms.CharField(
+    required=False,
+    widget=forms.TextInput(attrs={
+    'class': "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300"
+    }))
+ 
+    email = forms.CharField(
+    required=False,
+    widget=forms.TextInput(attrs={
+    'class': "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300"
+    }))
+ 
+    national_code = forms.CharField(
+    required=False,
+    widget=forms.TextInput(attrs={
+    'class': "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300"
+    }))
+ 
+    card_number = forms.CharField(
+    required=False,
+    widget=forms.TextInput(attrs={
+    'class': "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300"
+    }))
+ 
+    image = forms.ImageField(
+    required=False,
+    widget=forms.ClearableFileInput(attrs={
+    'class': 'hidden',
+    'accept': 'image/*',
+    'id': 'dropzone-file',
+    }))
+ 
+       
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        if first_name is None:
+            first_name = ''
+        if len(first_name) > 50:
+            raise ValidationError("نام باید حداکثر 50 کاراکتر باشد.")
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+        if last_name is None:
+            last_name = ''
+        if len(last_name) > 100:
+            raise ValidationError("نام خانوادگی باید حداکثر 100 کاراکتر باشد.")
+        return last_name
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email is None:
+            email = ''
+        if email:
+            if not email.endswith('@gmail.com'):
+                raise ValidationError("لطفاً یک ایمیل معتبر با دامنه @gmail.com وارد کنید.")
+            if len(email) < 15:
+                raise ValidationError("ایمیل باید حداقل 15 کاراکتر باشد.")
+            if len(email) > 100:
+                raise ValidationError("ایمیل باید حداکثر 100 کاراکتر باشد.")
+        return email
+
+   
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if phone is None:
+            phone = ''
+        if phone:
+            if not phone.startswith('09'):
+                raise ValidationError("شماره تلفن باید با 09 شروع شود.")
+            if len(phone) != 11:
+                raise ValidationError("شماره تلفن باید 11 رقم باشد.")
+        return phone
+
+    def clean_card_number(self):
+        card_number = self.cleaned_data.get('card_number')
+        if card_number is None:
+            card_number = ''
+        if card_number:
+            if len(card_number) != 16:
+                raise ValidationError("شماره کارت باید 16 رقم باشد.")
+            if not card_number.isdigit():
+                raise ValidationError("شماره کارت باید فقط شامل اعداد باشد.")
+        return card_number
+    
+class Change_Password(forms.Form):
+    
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(
+        attrs={'class': 
+        'text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300',
+        'placeholder': 'رمز عبور فعلی'})
+    )
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(
+        attrs={'class':
+        'text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300',
+        'placeholder': 'رمز عبور جدید'})
+    )
+    confirm_new_password = forms.CharField(
+        widget=forms.PasswordInput(
+        attrs={'class': 
+        'text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300', 
+        'placeholder': 'تکرار رمز عبور جدید'})
+    )
+
+    def clean_new_password(self):
+        new_password = self.cleaned_data.get('new_password')
+        if len(new_password) < 8:
+            raise ValidationError("رمز عبور باید حداقل 8 کاراکتر باشد.")
+        if len(new_password) > 20:
+            raise ValidationError("رمز عبور نباید بیشتر از 20 کاراکتر باشد.")
+        return new_password
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get('new_password')
+        confirm_new_password = cleaned_data.get('confirm_new_password')
+
+        if new_password and confirm_new_password and new_password != confirm_new_password:
+            raise ValidationError("رمز عبور جدید و تکرار آن مطابقت ندارند.")
+        return cleaned_data
+    

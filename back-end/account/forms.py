@@ -84,7 +84,7 @@ class LoginForm(forms.Form):
 
     
    
-class RegisterForm(forms.ModelForm):
+class RegisterForm(forms.Form):
     first_name = forms.CharField (
     widget=forms.TextInput(
     attrs={'class': 'w-full drop-shadow-lg outline-none rounded-2xl py-2 text-center'}
@@ -156,9 +156,6 @@ class RegisterForm(forms.ModelForm):
         return phone
 
    
-    class Meta:
-        model = User
-        fields = ['first_name','last_name','phone','password']
 
 
 

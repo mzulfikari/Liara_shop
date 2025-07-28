@@ -1,9 +1,11 @@
+from django.contrib.auth import authenticate , login, logout
+from django.contrib.auth import update_session_auth_hash
 from pyexpat.errors import messages
 from django.shortcuts import get_object_or_404, render,redirect
-from django.views.generic import ListView,View,TemplateView
+from django.views.generic import ListView,View
 from django.urls import reverse
 from account.models import User
-from .forms import AddressAdd,Change_Profile
+from .forms import AddressAdd, Change_Password,Change_Profile
 from .models import *
 
 
@@ -23,7 +25,48 @@ def Change_profile(request):
         if form.is_valid():
             form.save()
             return redirect('Profile:Address')
-    return render(request , "profile/profile-change-password.html",{"form": form})
+    return render(request , "profile/profile-change.html",{"form": form})
+
+
+class ChangePassword(View):
+    def get(self, request):
+        form = Change_Password()
+        context = {
+            'profile': request.user,  
+            'form': form,
+        }
+        return render(request, 'profile/change-password.html', context)
+
+
+# class ChangePassword(View):
+    
+#  def post(self, request):
+#      form = Change_Password(request.POST)
+#      profile = get_object_or_404(User,user=request.user)
+
+#      if request.method == 'POST':
+#         form = Change_Password(request.POST)
+#         if form.is_valid():
+#             old_password = form.cleaned_data['old_password']
+#             new_password = form.cleaned_data['new_password']
+
+#             if request.user.check_password(old_password):
+#                 request.user.set_password(new_password)
+#                 request.user.save()
+#                 update_session_auth_hash(request, request.user)
+#                 logout(request)
+#                 messages.success(request, 'رمز عبور شما با موفقیت تغییر یافت. لطفاً با رمز عبور جدید وارد شوید.')
+#                 return redirect('account:Login-user')
+#             else:
+#                 form.add_error('old_password', 'رمز عبور فعلی نادرست است.')
+#      else:
+#         form = Change_Password()
+
+#      context = {
+#         'profile': profile,
+#         'form': form,
+#     }
+#      return render(request, 'profile/change-password.html', context)
 
 
 class AddressView(ListView):
@@ -51,6 +94,7 @@ class AddressView(ListView):
         return redirect('Profile:Address')
         
 
+
 class Address_Add(View):
     
     def post(self,request):
@@ -73,5 +117,6 @@ class Address_Add(View):
     def get (self,request):
         form = AddressAdd()
         return render (request,'profile/profile-address-edit.html',{'form':form})
-            
-
+     
+     
+  

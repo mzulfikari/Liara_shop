@@ -41,3 +41,5 @@ class ContactUsAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
 @admin.register(models.About_Me)
 class ContactUsAdmin(admin.ModelAdmin):
     list_display = ['title', 'image_about_me']
+    
+    

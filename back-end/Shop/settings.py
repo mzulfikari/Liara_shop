@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'ckeditor_uploader',  # uplod file and image
     'colorfield',
+    'widget_tweaks',
+    
 ]
 
 MIDDLEWARE = [

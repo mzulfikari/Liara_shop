@@ -5,6 +5,8 @@ from account.models import User
 from  django.utils.text import slugify
 from django.utils.translation import gettext as _
 from colorfield.fields import ColorField
+from autoslug import AutoSlugField
+from  django.utils.text import slugify
 
 class Category(models.Model):
     title = models.CharField(
@@ -19,6 +21,9 @@ class Category(models.Model):
     views = models.BooleanField(
         default=False,verbose_name='نمایش در صحفه اصلی '
     )
+    # slug = AutoSlugField(
+    #     populate_from='title',verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان دسته بندی استلفاده می شود'
+    #     )
 
     def __str__(self):
         return self.title
@@ -125,6 +130,10 @@ class Products(models.Model):
     # brand = models.ForeignKey(
     #     Brand,verbose_name='برند'
     # )
+      # slug = AutoSlugField(
+    #     populate_from='title',verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود'
+    #     )
+
 
     def __str__(self):
         return self.title
@@ -192,28 +201,5 @@ class Comment(models.Model):
         verbose_name_plural = 'نظرات'
 
 
-class Like(models.Model):
-    """
-    Implementation of users'
-    like section is a feature that is considered to
-    be viewed after login
-    """
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="likes"
-        )
-    products = models.ForeignKey(
-        Products, on_delete=models.CASCADE, related_name="likes"
-        )
-    created_at = models.DateTimeField(
-        auto_now_add=True
-        )
-
-    def __str__(self):
-        return f"{self.user.username} - {self.products.title}"
-
-    class Meta:
-        verbose_name = 'پسند'
-        verbose_name_plural = 'پسند ها'
-        ordering = ( '-created_at',)
 
 
