@@ -16,7 +16,7 @@ class User(AbstractBaseUser):
     phone = models.CharField(
        verbose_name="شماره تلفن",
        max_length=255,
-       unique=True,validators=[RegexValidator(regex='^09\d{9}$', message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد')]
+       unique=True,validators=[RegexValidator(regex=r'^09\d{9}$', message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد')]
         )
     first_name = models.CharField(
         max_length=50,verbose_name='نام'
@@ -87,7 +87,7 @@ class Otp(models.Model):
         )
     phone = models.CharField(
     max_length=11,
-    validators=[RegexValidator(regex='^09\d{9}$', message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد')],
+    validators=[RegexValidator(regex=r'^09\d{9}$', message='شماره تلفن باید با 09 شروع شده و 11 رقم باشد')],
     verbose_name='شماره تلفن'
         )
 
@@ -102,8 +102,9 @@ class Otp(models.Model):
         )
     
     
-    def __str__(self):
-        return self.code
+    class  Meta:
+        verbose_name = 'رمز یکبار مصرف'
+        verbose_name_plural = ' احراز هویت Otp'
 
     def is_valid(self, code):
         if self.code == code and not self.is_used and self.code_expiry:
@@ -131,5 +132,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+    
+    
+
 
 
