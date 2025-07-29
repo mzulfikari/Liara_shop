@@ -1,14 +1,17 @@
-from django.contrib.auth import authenticate , login, logout
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import  logout
 from pyexpat.errors import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render,redirect
 from django.views.generic import ListView,View
-from django.urls import reverse
 from account.models import User
 from .forms import AddressAdd, Change_Password,Change_Profile
 from .models import *
+from django.db.models import Q
+from django.contrib.auth import update_session_auth_hash
 
 
+@login_required
 def UserProfile(request):
     user = request.user
     context = {
@@ -17,6 +20,7 @@ def UserProfile(request):
     return render(request, 'profile/profile.html', context)
 
 
+@login_required
 def Change_profile(request):
     user = request.user
     form = Change_Profile(instance=user)
@@ -27,49 +31,30 @@ def Change_profile(request):
             return redirect('Profile:Address')
     return render(request , "profile/profile-change.html",{"form": form})
 
-
-class ChangePassword(View):
-    def get(self, request):
-        form = Change_Password()
-        context = {
-            'profile': request.user,  
-            'form': form,
-        }
-        return render(request, 'profile/change-password.html', context)
-
-
-# class ChangePassword(View):
     
-#  def post(self, request):
-#      form = Change_Password(request.POST)
-#      profile = get_object_or_404(User,user=request.user)
+class NotificationList(LoginRequiredMixin,View):
+  
+   def get(self,request): 
+    user = request.user
+    
+    Notification.delete_expired_notifications()
 
-#      if request.method == 'POST':
-#         form = Change_Password(request.POST)
-#         if form.is_valid():
-#             old_password = form.cleaned_data['old_password']
-#             new_password = form.cleaned_data['new_password']
+    now = timezone.now()
+    notifications = Notification.objects.filter(
+        is_active=True
+    ).filter(
+        Q(is_for_all_users=True) | Q(users=user)
+    ).filter(
+        Q(expiration_date__isnull=True) | Q(expiration_date__gte=now)
+    ).distinct().order_by('-created_at')
 
-#             if request.user.check_password(old_password):
-#                 request.user.set_password(new_password)
-#                 request.user.save()
-#                 update_session_auth_hash(request, request.user)
-#                 logout(request)
-#                 messages.success(request, 'رمز عبور شما با موفقیت تغییر یافت. لطفاً با رمز عبور جدید وارد شوید.')
-#                 return redirect('account:Login-user')
-#             else:
-#                 form.add_error('old_password', 'رمز عبور فعلی نادرست است.')
-#      else:
-#         form = Change_Password()
-
-#      context = {
-#         'profile': profile,
-#         'form': form,
-#     }
-#      return render(request, 'profile/change-password.html', context)
+   
+    return render(request, 'profile/notification.html', {
+        'notifications': notifications,
+    })
 
 
-class AddressView(ListView):
+class AddressView(LoginRequiredMixin,ListView):
     template_name = 'profile/profile-address.html'
     model = Address
     context_object_name = 'Address'
@@ -91,11 +76,13 @@ class AddressView(ListView):
             address.is_default = True
             address.save()
            
-        return redirect('Profile:Address')
+        return redirect(
+            'Profile:Address'
+            )
         
 
 
-class Address_Add(View):
+class Address_Add(LoginRequiredMixin,View):
     
     def post(self,request):
         user = request.user
@@ -116,7 +103,32 @@ class Address_Add(View):
         
     def get (self,request):
         form = AddressAdd()
-        return render (request,'profile/profile-address-edit.html',{'form':form})
+        return render (request,'profile/profile-address-edit.html',{
+            'form':form
+            })
      
-     
-  
+@login_required    
+def change_password(request):
+    
+    user = request.user 
+    if request.method == 'POST':
+        form = Change_Password(request.POST)
+        if form.is_valid():
+            old_password = form.cleaned_data['old_password']
+            new_password = form.cleaned_data['new_password']
+
+            if user.check_password(old_password):
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)
+                logout(request)
+                messages.success(request, 'رمز عبور شما با موفقیت تغییر یافت. لطفاً با رمز عبور جدید وارد شوید.')
+                return redirect('account:Login-user')
+            else:
+                form.add_error('old_password', 'رمز عبور فعلی نادرست است.')
+    else:
+        form = Change_Password()
+
+    return render(request, 'profile/change-password.html', {
+        'form': form,
+    })

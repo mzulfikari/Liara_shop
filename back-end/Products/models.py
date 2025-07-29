@@ -19,7 +19,7 @@ class Category(models.Model):
         auto_now_add=True,verbose_name="تاریخ ایجاد"
         )
     views = models.BooleanField(
-        default=False,verbose_name='نمایش در صحفه اصلی '
+        default=True,verbose_name='نمایش در صحفه اصلی '
     )
     slug = models.SlugField(
        verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان دسته بندی استلفاده می شود'

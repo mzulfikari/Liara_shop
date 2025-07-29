@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -12,10 +14,10 @@
 </head>
 <body class="bg-gray-50">
   <div class="flex justify-center items-center text-right h-screen w-96 mx-auto">
-    <div class="shadow-xl rounded-2xl p-8 bg-white min-w-full">
+    <div class="shadow-xl rounded-2xl p-8 bg-white">
       <form action="">
         <div class="mb-2">
-          <a href="./index.html">
+          <a href="{% url 'Product:Product_view' %}">
             <img src="{{ site_settings.logo.url }}" alt="" class="w-36 mx-auto">
           </a>
         </div>
@@ -23,10 +25,13 @@
            به ایران مارکت خوش آمدید
         </div>
         <div class="text-xs text-center opacity-70 mb-2">
-         لطفا   حساب کاربری خود را تکمیل کنید  
+           برای دسترسی کامل ابتدا وارد حساب کاربری خود شوید
         </div>
         <div class="text-center mt-5 mb-3">
-          <button class="bg-red-500 hover:bg-red-600 transition text-white opacity-80 rounded-2xl w-full py-2 mb-5" type="submit">
+          <button 
+          type="button"
+          onclick="window.location.href='{% url 'account:Login-user' %}'"
+          class="bg-red-500 hover:bg-red-600 transition text-white opacity-80 rounded-2xl w-full py-2 mb-5">
             تکمیل حساب کاربری
           </button>
           <div class="flex justify-center items-center">

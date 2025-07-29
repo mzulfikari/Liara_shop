@@ -7,7 +7,7 @@ def Categories(request):
      Get categories that have at least one product
      Sort products by creation date and limit the number of products to 8 products"""
 
-    Categories = Category.objects.filter(
+    Categories = Category.objects.filter(views=True,
         products__isnull=False
     ).distinct()
 

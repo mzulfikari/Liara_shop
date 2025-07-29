@@ -8,8 +8,8 @@ urlpatterns = [
     path('profile/address',views.AddressView.as_view(),name='Address'),
     path('profile/address/add',views.Address_Add.as_view(),name='Address_add'),
     path('profile/change',views.Change_profile,name='ChangeProfile'),
-    path('profile/change/password',views.ChangePassword.as_view(),name='ChangePassword'),
+    path('profile/change/password',views.change_password,name='ChangePassword'),
+    path('profile/notifications',views.NotificationList.as_view(),name='Notification'),
     
-       
 ]
     

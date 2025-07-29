@@ -129,3 +129,6 @@ def logout_user(request):
 
 class About_Me(TemplateView):
     template_name = "contact-us/aboute-me.html"
+    
+class Welcome(TemplateView):
+    template_name = "welcome.html"

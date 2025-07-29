@@ -1,6 +1,5 @@
 from django import forms
 from .models import Address
-from django.forms.widgets import TextInput
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 from account.models import User
