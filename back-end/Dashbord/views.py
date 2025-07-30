@@ -9,6 +9,9 @@ from .forms import AddressAdd, Change_Password,Change_Profile
 from .models import *
 from django.db.models import Q
 from django.contrib.auth import update_session_auth_hash
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
+
 
 
 @login_required
@@ -28,7 +31,7 @@ def Change_profile(request):
         form = Change_Profile(instance=user, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Profile:Address')
+            return redirect('Profile:Profile_View')
     return render(request , "profile/profile-change.html",{"form": form})
 
     
@@ -107,28 +110,29 @@ class Address_Add(LoginRequiredMixin,View):
             'form':form
             })
      
-@login_required    
-def change_password(request):
+class ChangePasswordView(LoginRequiredMixin, FormView):
+    template_name = 'profile/change-password.html'
+    form_class = Change_Password
+    success_url = reverse_lazy('account:Login-user')
     
-    user = request.user 
-    if request.method == 'POST':
-        form = Change_Password(request.POST)
-        if form.is_valid():
-            old_password = form.cleaned_data['old_password']
-            new_password = form.cleaned_data['new_password']
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
-            if user.check_password(old_password):
-                user.set_password(new_password)
-                user.save()
-                update_session_auth_hash(request, user)
-                logout(request)
-                messages.success(request, 'رمز عبور شما با موفقیت تغییر یافت. لطفاً با رمز عبور جدید وارد شوید.')
-                return redirect('account:Login-user')
-            else:
-                form.add_error('old_password', 'رمز عبور فعلی نادرست است.')
-    else:
-        form = Change_Password()
+    def form_valid(self, form):
+        user = self.request.user
+        old_password = form.cleaned_data['old_password']
+        new_password = form.cleaned_data['new_password']
 
-    return render(request, 'profile/change-password.html', {
-        'form': form,
-    })
+        if user.check_password(old_password):
+            user.set_password(new_password)
+            user.save()
+            update_session_auth_hash(self.request, user)
+            logout(self.request)
+            messages.success(self.request, 'رمز عبور شما با موفقیت تغییر یافت. لطفاً با رمز عبور جدید وارد شوید.')
+            return super().form_valid(form)
+        
+        else:
+            form.add_error('old_password', 'رمز عبور فعلی نادرست است.')
+            return self.form_invalid(form)

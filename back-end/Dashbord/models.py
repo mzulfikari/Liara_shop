@@ -3,8 +3,6 @@ from django.core.validators import RegexValidator
 from account.models import User
 from django.utils import timezone
 from Products.models import Products
-from django.contrib import messages
-
 
 
 class Address(models.Model):
@@ -119,4 +117,6 @@ class Favorites(models.Model):
         verbose_name_plural = 'لیست‌ های علاقه ‌مندی'
         unique_together = ('user', 'product')
         ordering = ('-created_at',)
+
+        
 

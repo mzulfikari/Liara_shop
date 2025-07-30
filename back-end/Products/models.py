@@ -8,6 +8,7 @@ from colorfield.fields import ColorField
 from autoslug import AutoSlugField
 from  django.utils.text import slugify
 
+
 class Category(models.Model):
     title = models.CharField(
         max_length=50,verbose_name="عنوان"
@@ -164,6 +165,7 @@ class Products(models.Model):
         verbose_name_plural = "محصولات"
 
 
+
 class Information(models.Model):
     product = models.ForeignKey(
         Products,on_delete=models.CASCADE,related_name="information",verbose_name='محصول'
@@ -182,12 +184,15 @@ class Information(models.Model):
         verbose_name_plural = 'ویژگی ها'
 
 
+
 class Comment(models.Model):
     """Implementation of the questions section,
     which features questions and answers after login"""
+    
     STATUS = (
-    ("draft", "پیش نویس شود"),
-    ("published", "منتشر شود")
+    ("Awaiting confirmation", "در انتظار تایید"),
+    ("It was confirmed", "تایید شد"),
+    ("rejected", "در انتظار تایید")
     )
     products = models.ForeignKey(
         Products, on_delete=models.CASCADE, related_name="comments",verbose_name="محصول"
@@ -205,14 +210,13 @@ class Comment(models.Model):
         auto_now_add=True,verbose_name="تاریخ ایجاد"
         )
     status = models.CharField(
-        choices=STATUS, max_length=10, default='published', verbose_name='وضعیت'
+        choices=STATUS, max_length=30, default='published', verbose_name='وضعیت'
         )
 
     def __str__(self):
-        return self.products.title
+        return f"Comment by {self.user} on {self.products.title} "
     class Meta:
         verbose_name_plural = 'نظرات'
-
 
 
 

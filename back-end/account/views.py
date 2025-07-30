@@ -4,7 +4,6 @@ from django.views import View
 from account.models import User,Otp
 from .forms import LoginForm , CheckOtpform
 from random import randint
-from logging.config import listen
 from uuid import uuid4
 from django.db import models
 from django.shortcuts import render , redirect
@@ -14,10 +13,13 @@ from django.urls import reverse
 import ghasedakpack
 from uuid import uuid4
 from django.views.generic import TemplateView
+from django.contrib import messages
+
 
 #Api  رمز یکبار مصرف
 # sms_api = ghasedakpack.Ghasedak(
 #   '6a061b6d44718f16ccf3e790fcb4d8c45957118c275c1983986285c820a5ca34i9sbhbmD3sdJnmyN')
+
 
 class UserLogin(View):
     @staticmethod
@@ -39,8 +41,7 @@ class UserLogin(View):
             form.add_error("username","لطفا دوباره بررسی کنید اطلاعات وارد شده صحیح نمی باشد")
 
         return render(request,'login.html',{'form':form})
-
-
+    
 class UserRegister(View):
     """User login through phone number and email"""
 

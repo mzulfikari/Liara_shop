@@ -243,6 +243,7 @@ class Change_Profile(forms.ModelForm):
     
 class Change_Password(forms.Form):
     
+    
     old_password = forms.CharField(
         widget=forms.PasswordInput(
         attrs={'class': 
@@ -261,6 +262,17 @@ class Change_Password(forms.Form):
         'text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300', 
         'placeholder': 'تکرار رمز عبور جدید'})
     )
+    
+    
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data.get('old_password')
+        if not self.user or not self.user.check_password(old_password):
+            raise ValidationError('رمز عبور فعلی اشتباه است.')
+        return old_password
 
     def clean_new_password(self):
         new_password = self.cleaned_data.get('new_password')
