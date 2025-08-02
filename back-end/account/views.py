@@ -133,3 +133,4 @@ class About_Me(TemplateView):
     
 class Welcome(TemplateView):
     template_name = "welcome.html"
+    

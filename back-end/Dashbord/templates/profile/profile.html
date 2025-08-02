@@ -126,34 +126,5 @@
   <!-- SHOW MODAL SEARCH -->
   <script src="{% static 'js/searchBox.js' %}"></script>
 
-<script>
-  document.getElementById('edit-profile-btn').addEventListener('click', function () {
-  fetch('/profile/change/', {  // آدرس View
-    method: 'GET',
-  })
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('edit-profile-container').innerHTML = html;
-    bindFormSubmit(); // اجرای هندلر برای ارسال فرم
-  });
-});
-
-function bindFormSubmit() {
-  const form = document.getElementById('edit-profile-form');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(form);
-
-    fetch('/profile/change/', {
-      method: 'POST',
-      body: formData
-    })
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('form-result').innerHTML = html;
-    });
-  });
-}
-</script>
 
 </html>

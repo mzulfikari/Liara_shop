@@ -5,7 +5,6 @@ from account.models import User
 from  django.utils.text import slugify
 from django.utils.translation import gettext as _
 from colorfield.fields import ColorField
-from autoslug import AutoSlugField
 from  django.utils.text import slugify
 
 
@@ -14,7 +13,7 @@ class Category(models.Model):
         max_length=50,verbose_name="عنوان"
         )
     image = models.ImageField(
-        _("تصویر دسته بندی"),upload_to='category/image',null=True,blank=True
+      verbose_name="تصویر دسته بندی",upload_to='category/image',null=True,blank=True
         )
     created = models.DateTimeField(
         auto_now_add=True,verbose_name="تاریخ ایجاد"
@@ -23,17 +22,16 @@ class Category(models.Model):
         default=True,verbose_name='نمایش در صحفه اصلی '
     )
     slug = models.SlugField(
-       verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان دسته بندی استلفاده می شود'
+        verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود',blank=True,unique=True
         )
+    
     
     def save(self,force_insert=False,force_update=False,using=None,
              update_fields=None):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.title,allow_unicode=True)
         super(Category, self).save()
 
-    def get_absolute_url(self):
-        return reverse('blog:Post_details', kwargs={'slug': self.slug})
-
+   
     def __str__(self):
         return self.title
 
@@ -140,13 +138,13 @@ class Products(models.Model):
     #     Brand,verbose_name='برند'
     # )
     slug = models.SlugField(
-        verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود'
+        verbose_name='نامک',help_text='مقدار به صورت خودکار از عنوان محصول استلفاده می شود',blank=True,unique=True
         )
     
     
     def save(self,force_insert=False,force_update=False,using=None,
              update_fields=None):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.title, allow_unicode=True)
         super(Products, self).save()
 
     def __str__(self):
@@ -192,7 +190,7 @@ class Comment(models.Model):
     STATUS = (
     ("Awaiting confirmation", "در انتظار تایید"),
     ("It was confirmed", "تایید شد"),
-    ("rejected", "در انتظار تایید")
+    ("rejected", "رد شد")
     )
     products = models.ForeignKey(
         Products, on_delete=models.CASCADE, related_name="comments",verbose_name="محصول"
@@ -214,7 +212,7 @@ class Comment(models.Model):
         )
 
     def __str__(self):
-        return f"Comment by {self.user} on {self.products.title} "
+        return self.products.title
     class Meta:
         verbose_name_plural = 'نظرات'
 

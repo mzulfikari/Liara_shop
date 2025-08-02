@@ -4,8 +4,8 @@ from Products.models import Category,Size,Color,Brand,Comment
 from jalali_date import datetime2jalali, date2jalali
 from jalali_date.admin import ModelAdminJalaliMixin
 
-class CommentInline(admin.StackedInline):
-    model = Comment
+# class CommentInline(admin.StackedInline):
+#     model = Comment
 
 class InformationAdmin(admin.StackedInline):
     model = models.Information
@@ -13,14 +13,14 @@ class InformationAdmin(admin.StackedInline):
 
 @admin.register(models.Products)
 class ProductAdmin(admin.ModelAdmin):
-    inlines = (InformationAdmin,CommentInline,
+    inlines = (InformationAdmin,
                )
     list_display = (
         "title",
         "price",
         "views",
         "stock_count",
-        "created",
+        "get_created_jalali",
         "show_image",)
 
     list_editable=(
@@ -34,14 +34,24 @@ class ProductAdmin(admin.ModelAdmin):
             "inventory",
             "created",
             )
+    
+    @admin.display(description='تاریخ ایجاد', ordering='created')
+    def get_created_jalali(self, obj):
+        return datetime2jalali(obj.created).strftime('%a, %d %b %Y')
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("title",
-                    "created",
+                    "get_created_jalali",
                     "show_image",)
     list_filter = ("created",)
     search_fields = ("title",)
+    
+    @admin.display(description='تاریخ ایجاد', ordering='created')
+    def get_created_jalali(self, obj):
+        return datetime2jalali(obj.created).strftime('%a, %d %b %Y')
+
 
 admin.site.register(Size)
 list_display = (
@@ -55,12 +65,13 @@ admin.site.register(Brand)
 list_display = (
         "title",
         )
+   
 
 @admin.register(models.Comment)
 class CommentAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ['products', 'user', 'body', 'status', 'get_created_at_jalali']
+    list_display = ['products', 'user', 'short_body', 'status', 'get_created_at_jalali']
     list_editable = ['status']
-    actions = ['approve_comments']
+    
 
     def short_product_title(self, obj):
         if len(obj.product.title) > 10:
@@ -78,6 +89,4 @@ class CommentAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     def get_created_at_jalali(self, obj):
         return datetime2jalali(obj.created_at).strftime('%a, %d %b %Y')
     
-    @admin.action(description='تأیید کامنت‌های انتخاب‌شده')
-    def approve_comments(self, request, queryset):
-        queryset.update(active=True)
+   
