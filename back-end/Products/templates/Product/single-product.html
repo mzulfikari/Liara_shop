@@ -5,6 +5,7 @@
 <html lang="fa" dir="rtl">
 
 <head>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,18 @@
   <!-- PRODUCT SLIDER CSS -->
   <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
   <link rel="stylesheet" href="{% static 'css/style.product.slider.css' %}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+  <style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .swal2-styled {
+      color: black !important;
+    }
+  </style>
 
   <!-- TOAST -->
   <link rel="stylesheet" href="{% static '' %}css/toastify.css">
@@ -90,8 +103,6 @@
           <div class="w-full lg:w-1/3">
             <div>
               <span class="flex items-center pr-20 pb-2">
-                <img onclick="showAlertAddTocomparison()" class="w-6 ml-2 cursor-pointer"
-                  src="{% static 'image/comparison.png' %}" alt="" title="">
                 <svg onclick="showAlertAddToFavorit()"
                   class="h-7 w-7 text-red-500 hover:text-red-600 fill-current transition cursor-pointer inline"
                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -286,10 +297,9 @@
                   </div>
                   <span class="flex justify-center items-center opacity-90">
                     {% if  products.stock_count %}
-                    <button 
-                     type="submit"
+                    <button type="submit"
                       class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">افزودن
-                      به سبد خرید  </button>
+                      به سبد خرید </button>
                   </span>
                   {% endif %}
                 </div>
@@ -297,7 +307,7 @@
             </div>
           </div>
         </div>
-      </form>
+        </form>
 
         <!-- TABS -->
         <div class="mx-auto">
@@ -396,8 +406,10 @@
 
                     <div class="pr-5 opacity-70 text-xs">{{ products.comments.count }} نظر</div>
                   </div>
-                  <!-- COMMENT -->
 
+
+                 
+                  <!-- COMMENT -->
                   <div class="bg-gray-50 rounded-xl px-5 py-3 my-2">
 
                     {% for comment in products.comments.all %}
@@ -430,9 +442,8 @@
                       class="mr-auto px-2 sm:px-4 py-2 opacity-80 md:w-auto text-xs sm:text-sm xl:text-base flex justify-center items-center">
                       پاسخ
                     </button>
-
                   </div>
-
+                
                   <!-- RESPONSE -->
                   <div class="bg-gray-100 rounded-xl pl-2 pr-5 sm:pr-8 py-3">
                     <div class="flex items-center">
@@ -454,22 +465,21 @@
                         پاسخ
                       </button>
                     </div>
+                  {% endif %}
+                     {% endfor %}
                   </div>
                 </div>
 
-                {% endif %}
-                {% endfor %}
-
+                {% if  request.user.is_authenticated %}
                 <!-- BOX SENT COMMENT -->
-                {% if  request.user.is_authenticated%}
                 <form id="comment" class="comment" method="POST">
                   {% csrf_token %}
                   <div class="mb-4">
                     <label for="mailTicket" class="inline-block mb-2 ml-1 font-semibold text-xs text-slate-700">نظر
                       شما:</label>
-                    <textarea cols="30" rows="5" class="text-sm block w-full rounded-lg border border-gray-400 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300
-                      name=" body" rows="6" id="body"
-                      placeholder="با ثبت نظر خود ما را در خدمت رسانی بهتر یاری کنید."></textarea>
+                    <textarea cols="30" rows="5" id="body" name="body"
+                      placeholder="با ثبت نظر خود ما را در خدمت رسانی بهتر یاری کنید."
+                      class="text-sm block w-full rounded-lg border border-gray-400 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300"></textarea>
                   </div>
                   <button
                     class="inline-block px-8 py-2 ml-auto font-semibold text-center text-white bg-red-500 rounded-lg shadow-md text-xs"
@@ -478,15 +488,15 @@
             </form>
             {% else %}
             <a href="{% url 'account:Login-user' %}" class="btn-login-prompt">برای ثبت نظر ابتدا باید وارد شوید</a>
-
           </div>
           {% endif %}
-        </div>
+         </div>
+       </div>
       </div>
     </div>
-  </div>
-  </div>
-  </div>
+   </div>
+ </div>
+</div>
 
   <!-- SLIDER -->
   <div class="bg-white rounded-2xl pt-10">
@@ -514,70 +524,92 @@
 <!-- INPUTS ADD NUMBER -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
   function set_value(id) {
     document.getElementById('parent_id').value = id;
     window.location.href = "#body"
   }
-
-   document.getElementById('comment-form')?.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const body = document.getElementById('body').value.trim();
-            if (!body) return;
-
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-            const response = await fetch(window.location.href, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({body: body})
-            });
-
-            const data = await response.json();
-
-            if (data.status === 'success') {
-                const commentList = document.querySelector('.comment-list');
-                const newComment = document.createElement('li');
-                newComment.innerHTML = `
-                    <div class="comment-body">
-                        <div class="comment-author">
-                            <img alt="" src="{% if request.user.profile.image %}{{ request.user.profile.image.url }}{% else %}{% static 'img/default_profile_image.png' %}{% endif %}" class="avatar">
-                            <div class="text-h5">
-                                {% if request.user.first_name and request.user.last_name %}
-                                    {{ request.user.first_name }} {{ request.user.last_name }}
-                                {% else %}
-                                    {{ request.user }}
-                                {% endif %}
-                            </div>
-                        </div>
-                        <p>${body}</p>
-                        <ul class="commentul">
-                            <li>همین حالا</li>
-                        </ul>
-                    </div>
-                `;
-                commentList.prepend(newComment);
-                document.getElementById('body').value = '';
-                const commentsTab = document.querySelector('a[href="#comments"]');
-                if (commentsTab) {
-                    commentsTab.click();
-                    setTimeout(() => {
-                        document.getElementById('comments').scrollIntoView({behavior: 'smooth'});
-                    }, 200);
-                }
-            }
-        });
-
-
-
-
-
 </script>
 
+{% if messages %}
+  <script>
+    const djangoMessages = [
+      {% for message in messages %}
+        { icon: "{{ message.tags }}", title: "{{ message }}" },
+      {% endfor %}
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (djangoMessages.length > 0) {
+        Swal.fire({
+          icon: djangoMessages[0].icon || 'info',
+          title: djangoMessages[0].title,
+          confirmButtonText: 'تایید',
+          confirmButtonColor: '#46A9AE',
+          background: '#fff',
+          showClass: { popup: 'animate__animated animate__fadeInDown' },
+          hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+        });
+      }
+    });
+  </script>
+{% endif %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("#comment");
+
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch(form.action || window.location.href, {
+          method: "POST",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) throw new Error("خطا در ارسال نظر");
+            return response.text();
+          })
+          .then(() => {
+            Swal.fire({
+              title: "نظر شما با موفقیت ثبت شد",
+              text: "پس از تأیید در بخش پرسش‌ها نمایش داده می‌شود.",
+              icon: "success",
+              confirmButtonText: "تأیید",
+              confirmButtonColor: "#e74c3c",
+              background: "#ffffff",
+              showClass: {
+                popup: "animate__animated animate__fadeInDown",
+              },
+              hideClass: {
+                popup: "animate__animated animate__fadeOutUp",
+              }
+            });
+
+            form.reset();
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "خطا",
+              text: "ارسال نظر با مشکل مواجه شد.",
+              icon: "error",
+              confirmButtonText: "تأیید",
+              confirmButtonColor: "#e74c3c",
+            });
+            console.error(error);
+          });
+      });
+    }
+  });
+</script>
 
 
 </html>

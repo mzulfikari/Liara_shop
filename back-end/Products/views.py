@@ -1,3 +1,4 @@
+from django.contrib import messages
 from urllib import request
 from django.shortcuts import render
 from django.views.generic import DetailView,ListView
@@ -13,18 +14,25 @@ class ProductDetails(DetailView):
     slug_url_kwarg = 'slug'
     slug_field = 'slug'  
     
-    # def get(self,requst):
-    #     comments = Products.product_comments.filter(status='published').order_by('-created_at')
+    def post(self, request, pk):
         
-    #     view_products = request.session.get('viewed_products', [])
-    #     if Products.id not in view_products:
-    #      Products.views += 1
-    #      Products.save(update_fields=['views'])
-    #     view_products.append(Products.id)
-    #     request.session['viewed_products'] = view_products
+     if request.user.is_authenticated:
+        self.object = self.get_object()
+        parent_id = request.POST.get('parent_id')
+        body = request.POST.get('body')
         
+        if body:
+         Comment.objects.create(
+        body=body,
+        products=self.object,
+        user=request.user,
+        parent_id=parent_id
+    )
+        else:
+          messages.error(request, "متن نظر نمی‌تواند خالی باشد.")
+        return redirect(request.path)
     
-    
+
 
 class Product_View(ListView):
     model = Products
