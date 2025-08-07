@@ -1,5 +1,6 @@
 {% load static %}
 {% load jalali_tags %}
+{% load filters %}
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -253,7 +254,7 @@
                         رنگ بندی:
                       </div>
                       <div>
-                        موجودیت :
+                      موجودی:
                       </div>
                       <div>
                         قیمت:
@@ -278,10 +279,7 @@
                       {% endif %}
                       <div class="flex text-red-500">
                         <div>
-                          {{ products.price }}
-                        </div>
-                        <div>
-                          تومان
+                          {{ products.price|rial_price }}
                         </div>
                       </div>
 

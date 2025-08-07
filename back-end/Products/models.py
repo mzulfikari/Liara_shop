@@ -208,7 +208,7 @@ class Comment(models.Model):
         auto_now_add=True,verbose_name="تاریخ ایجاد"
         )
     status = models.CharField(
-        choices=STATUS, max_length=30, default='published', verbose_name='وضعیت'
+        choices=STATUS, max_length=30, default='Awaiting confirmation', verbose_name='وضعیت'
         )
 
     def __str__(self):

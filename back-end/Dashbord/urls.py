@@ -11,6 +11,7 @@ urlpatterns = [
     path('profile/change/password',views.ChangePasswordView.as_view(),name='ChangePassword'),
     path('profile/notifications',views.NotificationList.as_view(),name='Notification'),
     path('profile/comment',views.CommentViews.as_view(),name='CommentViews'),
+    path('profile/comment/delete/<int:comment_id>/',views.DeleteCommentView.as_view(),name='DeleteCommentView'),
     
 ]
     

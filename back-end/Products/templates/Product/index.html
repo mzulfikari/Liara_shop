@@ -1,5 +1,6 @@
 {% load static %}
 {% load jalali_tags %}
+{% load filters %}
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -219,8 +220,7 @@
                 </div>
               </span>
               <div class="flex justify-center mt-1 mb-2 text-sm">
-                <div>{{ Product.price }}</div>
-                <div>تومان</div>
+                <div>{{ Product.price|rial_price }}</div>
               </div>
             </div>
           </a>

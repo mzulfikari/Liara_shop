@@ -142,5 +142,15 @@ class CommentViews(ListView):
     template_name = 'profile/profile-comments.html'
     context_object_name = 'comments'
     paginate_by = 6
+    
     def get_queryset(self):
         return Comment.objects.filter(user=self.request.user, parent__isnull=True).order_by('-created_at')
+    
+class DeleteCommentView(View):
+    
+    def get(self,request, *args, **kwargs):
+        comment_id = kwargs.get('comment_id')
+        comment = get_object_or_404(Comment,pk=comment_id,user=request.user)
+        comment.delete()
+        return redirect('Profile:CommentViews')
+        
