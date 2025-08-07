@@ -4,14 +4,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render,redirect
 from django.views.generic import ListView,View
-from account.models import User
 from .forms import AddressAdd, Change_Password,Change_Profile
 from .models import *
 from django.db.models import Q
 from django.contrib.auth import update_session_auth_hash
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
-
+from Products.models import Comment
 
 
 @login_required
@@ -83,8 +82,7 @@ class AddressView(LoginRequiredMixin,ListView):
             'Profile:Address'
             )
         
-
-
+        
 class Address_Add(LoginRequiredMixin,View):
     
     def post(self,request):
@@ -136,3 +134,13 @@ class ChangePasswordView(LoginRequiredMixin, FormView):
         else:
             form.add_error('old_password', 'رمز عبور فعلی نادرست است.')
             return self.form_invalid(form)
+
+
+class CommentViews(ListView):
+    
+    model = Comment
+    template_name = 'profile/profile-comments.html'
+    context_object_name = 'comments'
+    paginate_by = 6
+    def get_queryset(self):
+        return Comment.objects.filter(user=self.request.user, parent__isnull=True).order_by('-created_at')

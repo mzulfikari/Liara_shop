@@ -12,7 +12,7 @@ class AddressAdd(forms.ModelForm):
 
     class Meta:
      model = Address
-     fields = ('title','receiver_name','phone_number','city','province','postal_code','full_address','is_default','email',)
+     fields = ('title','first_name','last_name','phone_number','city','province','postal_code','full_address','is_default','email',)
    
      widgets = {
             'title': forms.TextInput(
@@ -21,7 +21,13 @@ class AddressAdd(forms.ModelForm):
             "placeholder":
             "محل کار , منزل..."
             }),
-            'receiver_name': forms.TextInput(
+            'first_name': forms.TextInput(
+            attrs={'class':
+            "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
+            "placeholder":
+            " نام و نام خانوادگی تحویل گیرنده"
+            }),
+            'last_name': forms.TextInput(
             attrs={'class':
             "text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-normal text-gray-700 outline-none focus:border-red-300",
             "placeholder":
@@ -101,6 +107,22 @@ class AddressAdd(forms.ModelForm):
         if len(province) > 50:
             raise ValidationError("شهرستان باید حداکثر 50 کاراکتر باشد.")
         return province
+    
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        if len(first_name) < 3:
+            raise ValidationError("نام باید حداقل  3 کاراکتر باشد .")
+        if len(first_name) > 50:
+            raise ValidationError("نام باید حداکثر 50 کاراکتر باشد.")
+        return first_name 
+    
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+        if len(last_name) < 3:
+            raise ValidationError("نام خانوداگی باید حداقل  3 کاراکتر باشد .")
+        if len(last_name) > 50:
+            raise ValidationError("نام خانوداگی باید حداکثر 50 کاراکتر باشد.")
+        return last_name
 
     def clean_postal_code(self):
         postal_code = self.cleaned_data.get('postal_code')

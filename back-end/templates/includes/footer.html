@@ -45,8 +45,7 @@
         <div class="w-full px-4 sm:w-2/3 lg:w-4/12">
           <div class="mb-10 w-full">
             <p class="mb-2 opacity-80">
-              مشاوران نرم افزاری  فناور هوشمند یزدان شهر
-
+              {{ site_settings.title }}  
             </p>
             <p class="mb-7 opacity-60 text-sm">
                   {{ site_settings.text_about_us }}  
@@ -69,7 +68,7 @@
               </li>
               <li>
                 <a
-                  href="{% url 'account:About_me' %}"
+                  href="{% url 'Core:About_me' %}"
                   class="mb-12 text-sm hover:text-red-600 transition opacity-60 hover:opacity-100"
                 >
                   درباره ما

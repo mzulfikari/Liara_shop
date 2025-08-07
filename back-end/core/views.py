@@ -7,12 +7,12 @@ from django.views.generic import TemplateView
 
 # def contact(request):
 #     if request.method == 'POST':
-#         form = ContactUsForm(request.POST)
+#         form = ContactUs(request.POST)
 #         if form.is_valid():
 #             form.save()
 #             return redirect('core:home')
 #     else:
-#         form = ContactUsForm()
+#         form = ContactUs()
 
 #     context = {
 #         'form': form
@@ -20,11 +20,21 @@ from django.views.generic import TemplateView
 #     return render(request, 'core/contact.html', context)
 
 
-# def about(request):
-#     return render(request, 'core/about.html')
-
-
-class ProductDetails(TemplateView):
-    template_name = "Product/single-product.html"
+class About_Me(TemplateView):
+    
+    template_name = "contact-us/aboute-me.html"
    
+    
+class Contact_Us(TemplateView):
+    
+    template_name = "contact-us/contact-us.html"
+    
+    
+class Welcome(TemplateView):
+    template_name = "welcome.html"
+    
+
+
+
+
 

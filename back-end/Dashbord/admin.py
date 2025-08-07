@@ -5,7 +5,7 @@ from jalali_date.admin import ModelAdminJalaliMixin
 
 @admin.register(models.Address)
 class Address(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ['user', 'title', 'receiver_name', 'city','get_created_at_jalali']
+    list_display = ['user', 'title', 'first_name','last_name','city','get_created_at_jalali']
 
     @admin.display(description='تاریخ ارسال', ordering='created_at')
     def get_created_at_jalali(self, obj):

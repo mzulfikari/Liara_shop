@@ -1,6 +1,8 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +13,7 @@
   <link rel="stylesheet" href="{% static 'css/font.css' %}">
 
 </head>
+
 <body class="bg-gray-50">
   <!-- NAVBAR -->
   <div>
@@ -21,97 +24,81 @@
     </div>
   </div>
   <!-- MAIN -->
-   {% include 'includes/profile_navbar.html' %}
+  {% include 'includes/profile_navbar.html' %}
 
-   
-        <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead class="hidden md:table-header-group text-xs text-gray-700 bg-gray-50">
-              <tr>
-                <th scope="col" class="py-3">
-                  <span class="sr-only">تصویر</span>
-                </th>
-                <th scope="col" class="md:pr-6 py-3">
-                  نام محصول
-                </th>
-                <th scope="col" class="pr-5 py-3">
-                  نظر
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  وضعیت
-                </th>
-                <th scope="col" class="px-3 py-3">
-                  عملیات
-                </th>
-              </tr>
-            </thead>
-            <tbody class="grid grid-cols-1 sm:grid-cols-2 md:contents gap-5">
-              <tr class="bg-white hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row border-x sm:border-x-0 sm:border-b">
-                <td class="px-2 py-4">
-                  <img src="{% static 'image/productSlider/2.jpg' %}" class="w-48 md:w-28 max-w-full max-h-full rounded-lg" alt="">
-                </td>
-                <td class="md:pr-6 py-4 text-xs opacity-90 text-gray-900">
-                  ساعت اپل مدل a32s پلاس
-                </td>
-                <td class="px-3 py-4 max-w-md text-xs">
-                کیفیت بینظیر حتما پیشنهاد میکنم
-                </td>
-                <td class="px-6 py-4 text-sm opacity-90 text-green-500">
-                  تایید شده
-                </td>
-                <td class="px-3 py-4">
-                  <a href="#" class=" text-red-600">حذف</a>
-                </td>
-              </tr>
-              <tr class="bg-white hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row border-x sm:border-x-0 sm:border-b">
-                <td class="px-2 py-4">
-                  <img src="{% static 'image/productSlider/3.jpg' %}" class="w-48 md:w-28 max-w-full max-h-full rounded-lg" alt="">
-                </td>
-                <td class="md:pr-6 py-4 text-xs opacity-90 text-gray-900">
-                  ریش تراش دایاک
-                </td>
-                <td class="px-3 py-4 max-w-md text-xs">
-                جنس تیغش خوبه؟
-                </td>
-                <td class="px-6 py-4 text-sm opacity-90 text-red-500">
-                  ردشده
-                </td>
-                <td class="px-3 py-4">
-                  <a href="#" class=" text-red-600">حذف</a>
-                </td>
-              </tr>
-              <tr class="bg-white hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row border-x sm:border-x-0 sm:border-b">
-                <td class="px-2 py-4">
-                  <img src="{% static 'image/productSlider/6.jpg' %}" class="w-48 md:w-28 max-w-full max-h-full rounded-lg" alt="">
-                </td>
-                <td class="md:pr-6 py-4 text-xs opacity-90 text-gray-900">
-                  هنذفری بلوتوثی شیائومی
-                </td>
-                <td class="px-3 py-4 max-w-md text-xs">
-                 خوبه کیفیتش؟ نویز داره؟و اینکه ارزش خرید داره یا نه ؟
-                </td>
-                <td class="px-6 py-4 text-sm opacity-90 text-yellow-500">
-                  در انتظار تایید
-                </td>
-                <td class="px-3 py-4">
-                  <a href="#" class=" text-red-600">حذف</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+  <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <thead class="hidden md:table-header-group text-xs text-gray-700 bg-gray-50">
+        <tr>
+          <th scope="col" class="py-3">
+            <span class="sr-only">تصویر</span>
+          </th>
+          <th scope="col" class="md:pr-6 py-3">
+            نام محصول
+          </th>
+          <th scope="col" class="pr-5 py-3">
+            نظر
+          </th>
+          <th scope="col" class="px-6 py-3">
+            وضعیت
+          </th>
+          <th scope="col" class="px-3 py-3">
+            عملیات
+          </th>
+        </tr>
+      </thead>
+
+      {% for comment in comments %}
+      <tbody class="grid grid-cols-1 sm:grid-cols-2 md:contents gap-5">
+        <tr
+          class="bg-white hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row border-x sm:border-x-0 sm:border-b">
+          <td class="px-2 py-4">
+            <img src="{{ comment.products.image.url }}" class="w-48 md:w-28 max-w-full max-h-full rounded-lg" alt="">
+          </td>
+          <td class="md:pr-6 py-4 text-xs opacity-90 text-gray-900">
+            <a href="{% url 'Product:Product_details' comment.products.id %}" class="hover:underline text-blue-600">
+              {{ comment.products.title }}
+            </a>
+          </td>
+          <td class="px-3 py-4 max-w-md text-xs">
+            {{ comment.body|truncatechars:20 }}
+          </td>
+          {% if comment.status == 'It was confirmed' %}
+          <td class="px-6 py-4 text-sm opacity-90 text-green-500">
+            تایید شده
+          </td>
+          {% elif comment.status == 'Awaiting confirmation'  %}
+          <td class="px-6 py-4 text-sm opacity-90 text-yellow-500">
+            در انتظار تایید
+          </td>
+          {% else %}
+          <td class="px-6 py-4 text-sm opacity-90 text-red-500">
+            ردشده
+          </td>
+          {% endif %}
+          <td class="px-3 py-4">
+            <a href="#" class=" text-red-600">حذف</a>
+          </td>
+        </tr>
+        {% endfor %}
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
   </div>
   <!-- FOOTER -->
   {% include 'includes/footer.html' %}
 </body>
-  <!--DROPDOWNS FOR NAVBAR-->
-  <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
-  </script>
-  <!--MOBILE NAVBAR-->
-  <script src="{% static 'js/navbar.js' %}"></script>
-  <!-- SHOW MODAL SEARCH -->
-  <script src="{% static 'js/searchBox.js' %}"></script>
+<!--DROPDOWNS FOR NAVBAR-->
+<script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
+</script>
+<!--MOBILE NAVBAR-->
+<script src="{% static 'js/navbar.js' %}"></script>
+<!-- SHOW MODAL SEARCH -->
+<script src="{% static 'js/searchBox.js' %}"></script>
+
 </html>

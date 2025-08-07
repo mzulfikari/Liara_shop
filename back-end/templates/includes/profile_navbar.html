@@ -94,14 +94,16 @@
               <path d="M13.73 21a2 2 0 0 1-3.46 0" />
 
               {% comment %} {% if notifications %}
-                <circle cx="19" cy="5" r="3" fill="red" />
+              <circle cx="19" cy="5" r="3" fill="red" />
               {% endif %}
-               {% endcomment %}
-               
+              {% endcomment %}
+
             </svg>
           </a>
-          <a href="./profile-comments.html"
-            class="text-sm opacity-80 w-full flex justify-end pr-5 flex-row-reverse items-center hover:text-red-600 transition hover:bg-gray-100 py-3 rounded-2xl">
+          <a href="{% url 'Profile:CommentViews' %}" class="text-sm opacity-80 w-full flex justify-end pr-5 flex-row-reverse items-center hover:text-red-600 transition hover:bg-gray-100 py-3 rounded-2xl
+            {% if request.resolver_match.url_name == 'CommentViews' %}
+              bg-gray-200 text-red-600 
+              {% endif %}">
             نظرات من
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#474747" viewBox="0 0 256 256">
               <path

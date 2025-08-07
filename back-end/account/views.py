@@ -7,7 +7,6 @@ from random import randint
 from uuid import uuid4
 from django.db import models
 from django.shortcuts import render , redirect
-from django.views import View
 from .forms import LoginForm,RegisterForm
 from django.urls import reverse
 import ghasedakpack
@@ -128,9 +127,4 @@ def logout_user(request):
     return redirect('/')
 
 
-class About_Me(TemplateView):
-    template_name = "contact-us/aboute-me.html"
-    
-class Welcome(TemplateView):
-    template_name = "welcome.html"
-    
+

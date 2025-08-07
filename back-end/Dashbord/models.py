@@ -10,8 +10,11 @@ class Address(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='addresses', verbose_name='کاربر'
         )
-    receiver_name = models.CharField(
-        max_length=100, verbose_name='نام و نام خانوداگی تحویل گیرنده'
+    first_name = models.CharField(
+        max_length=100, verbose_name='نام تحویل گیرنده',null=True,blank=True
+        )
+    last_name = models.CharField(
+        max_length=100, verbose_name='نام خانوداگی تحویل گیرنده',null=True,blank=True
         )
     title = models.CharField(
         max_length=100, verbose_name='عنوان آدرس'
@@ -49,9 +52,8 @@ class Address(models.Model):
     )
     
     
-    
     def __str__(self):
-        return self.receiver_name
+        return f"{self.first_name} {self.last_name}"
     
     def save(self, *args, **kwargs):
         if self.is_default:
