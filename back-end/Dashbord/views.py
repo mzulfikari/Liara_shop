@@ -1,5 +1,6 @@
 from django.contrib.auth import  logout
 from pyexpat.errors import messages
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render,redirect
@@ -27,13 +28,15 @@ def Change_profile(request):
     user = request.user
     form = Change_Profile(instance=user)
     if request.method == 'POST':
-        form = Change_Profile(instance=user, data=request.POST)
+        form = Change_Profile(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request, 'اطلاعات با موفقیت ویرایش شد.')
+            print(type(request))
             return redirect('Profile:Profile_View')
     return render(request , "profile/profile-change.html",{"form": form})
 
-    
+
 class NotificationList(LoginRequiredMixin,View):
   
    def get(self,request): 
@@ -141,7 +144,7 @@ class CommentViews(ListView):
     model = Comment
     template_name = 'profile/profile-comments.html'
     context_object_name = 'comments'
-    paginate_by = 6
+    paginate_by = 4
     
     def get_queryset(self):
         return Comment.objects.filter(user=self.request.user, parent__isnull=True).order_by('-created_at')

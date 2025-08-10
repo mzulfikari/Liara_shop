@@ -2,6 +2,7 @@
 {% load jalali_tags %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,7 @@
   <link rel="stylesheet" href="{% static 'css/font.css' %}">
 
 </head>
+
 <body class="bg-gray-50">
   <!-- NAVBAR -->
   <div>
@@ -24,107 +26,200 @@
   <!-- MAIN -->
   {% include 'includes/profile_navbar.html' %}
 
-        <div class="md:w-8/12 lg:w-9/12">
-          <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
-            <div class="border-b pb-3">اطلاعات شخصی</div>
-            <div class="flex border-b pb-2">
-              <div class="w-1/2">
-                <div class="text-xs opacity-80 mb-1">
-                  نام و نام خانوادگی:
-                </div>
-                <div class="text-sm opacity-90">
-                   {{ profile.first_name }}
-                   {{ profile.last_name }}
-                </div>
-              </div>
+  <div class="md:w-8/12 lg:w-9/12">
+    <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
+      <div class="border-b pb-3">اطلاعات شخصی</div>
+      <div class="flex border-b pb-2">
+        <div class="w-1/2">
+          <div class="text-xs opacity-80 mb-1">
+            نام و نام خانوادگی:
+          </div>
+          <div class="text-sm opacity-90">
+            {{ profile.first_name }}
+            {{ profile.last_name }}
+          </div>
+        </div>
 
-              <div class="w-1/2">
+        <div class="w-1/2">
 
+          <div class="text-xs opacity-80 mb-1">
+            ایمیل:
+          </div>
+          {%  if profile.email %}
+          <div class="text-sm opacity-90">
+            {{ profile.email }}
+          </div>
+          {% else %}
+          <div class="text-sm opacity-90">
+            ایمیل ثبت نشده است
+          </div>
+          {% endif %}
 
-                <div class="text-xs opacity-80 mb-1">
-                  ایمیل:
-                </div>
-                  {%  if profile.email %}
-                <div class="text-sm opacity-90">
-                  {{ profile.email }}
-                </div> 
-                {% else %}
-                 <div class="text-sm opacity-90">
-                  ایمیل ثبت نشده است
-                </div>
-              {% endif %}
-              
-              </div>
-            </div>
+        </div>
+      </div>
 
+      <div class="flex border-b pb-2">
+        <div class="w-1/2">
+          <div class="text-xs opacity-80 mb-1">
+            شماره تلفن همراه:
+          </div>
+          <div class="text-sm opacity-90">
+            {{ profile.phone }}
+          </div>
+        </div>
 
-            <div class="flex border-b pb-2">
-              <div class="w-1/2">
-                <div class="text-xs opacity-80 mb-1">
-                  شماره تلفن همراه:
-                </div>
-                <div class="text-sm opacity-90">
-                 {{ profile.phone }}
-                </div>
-              </div>
-
-              <div class="w-1/2">
-                <div class="text-xs opacity-80 mb-1">
-                  تاریخ عضویت:
-                </div>
-                <div class="text-sm opacity-90">
-                  {{ profile.verification_time|to_jalali:'%Y/%m/%d' }}
-                </div>
-              </div>
-            </div>
-
-
-            <div class="flex border-b pb-2">
-              <div class="w-1/2">
-                <div class="text-xs opacity-80 mb-1">
-                  کدملی:
-                </div>
-                {% if profile.national_code %}
-                <div class="text-sm opacity-90">
-                 {{ profile.national_code }}
-                </div>
-                 {% else %}
-                   <div class="text-sm opacity-90">
-                  کد ملی ثبت نشده است
-                </div>
-              {% endif %}
-
-
-              </div>
-              <div class="w-1/2">
-                <div class="text-xs opacity-80 mb-1">
-                </div>
-                <div class="text-sm opacity-90"> 
-                </div>
-              </div>
-            </div>
-            <span class="opacity-90">
-              <button type="button"
-                  onclick="window.location.href='{% url 'Profile:ChangeProfile' %}'"
-                   class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">ویرایش اطلاعات</button>
-            </span>
+        <div class="w-1/2">
+          <div class="text-xs opacity-80 mb-1">
+            تاریخ عضویت:
+          </div>
+          <div class="text-sm opacity-90">
+            {{ profile.verification_time|to_jalali:'%Y/%m/%d' }}
           </div>
         </div>
       </div>
+
+      <div class="flex border-b pb-2">
+        <div class="w-1/2">
+          <div class="text-xs opacity-80 mb-1">
+            کدملی:
+          </div>
+          {% if profile.national_code %}
+          <div class="text-sm opacity-90">
+            {{ profile.national_code }}
+          </div>
+          {% else %}
+          <div class="text-sm opacity-90">
+            کد ملی ثبت نشده است
+          </div>
+          {% endif %}
+
+        </div>
+        <div class="w-1/2">
+          <div class="text-xs opacity-80 mb-1">
+          </div>
+          <div class="text-sm opacity-90">
+          </div>
+        </div>
+      </div>
+      <span class="opacity-90">
+        <button type="button" onclick="window.location.href='{% url 'Profile:ChangeProfile' %}'"
+          class="px-7 py-2 text-center text-white bg-red-500 align-middle border-0 rounded-lg shadow-md text-sm">ویرایش
+          اطلاعات</button>
+      </span>
     </div>
+  </div>
+  </div>
+  </div>
   </div>
 
   <!-- FOOTER -->
   {% include 'includes/footer.html' %}
 </body>
-  <!--DROPDOWNS FOR NAVBAR-->
-  <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
-  </script>
-  <!--MOBILE NAVBAR-->
-  <script src="{% static 'js/navbar.js' %}"></script>
-  <!-- SHOW MODAL SEARCH -->
-  <script src="{% static 'js/searchBox.js' %}"></script>
+<!--DROPDOWNS FOR NAVBAR-->
+<script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
+</script>
+<!--MOBILE NAVBAR-->
+<script src="{% static 'js/navbar.js' %}"></script>
+<!-- SHOW MODAL SEARCH -->
+<script src="{% static 'js/searchBox.js' %}"></script>
+
+<!-- success change profile-->
+{% for message in messages %}
+<div class="django-message" data-message="{{ message }}" data-tags="{{ message.tags }}"></div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% for message in messages %}
+  <div class="django-message" data-message="{{ message }}" data-tags="{{ message.tags }}"></div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% for message in messages %}
+  <div class="django-message" data-message="{{ message }}" data-tags="{{ message.tags }}"></div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% for message in messages %}
+  <div class="django-message" data-message="{{ message }}" data-tags="{{ message.tags }}"></div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+{% for message in messages %}
+  <div class="django-message" data-message="{{ message }}" data-tags="{{ message.tags }}"></div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".django-message").forEach(msgDiv => {
+      const message = msgDiv.dataset.message?.trim();
+      const tags = msgDiv.dataset.tags?.trim();
+
+      if (!message) return;
+
+      let icon = 'info';
+      let title = 'اطلاع‌رسانی';
+      let confirmText = 'باشه';
+
+      if (tags === 'success') {
+        icon = 'success';
+        title = 'عملیات موفق';
+        confirmText = 'بله، تأیید شد';
+      } else if (tags === 'error') {
+        icon = 'error';
+        title = 'خطا در عملیات';
+        confirmText = 'فهمیدم';
+      } else if (tags === 'warning') {
+        icon = 'warning';
+        title = 'هشدار';
+        confirmText = 'متوجه شدم';
+      }
+
+      Swal.fire({
+        title: title,
+        text: message,
+        icon: icon,
+        confirmButtonText: 'تایید',
+        confirmButtonColor: '#3085d6',
+        background: '#ffffff',
+        customClass: {
+          confirmButton: 'custom-confirm-btn'
+        },
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .swal2-confirm.custom-confirm-btn {
+    font-weight: bold;
+    padding: 8px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #3085d6 !important; 
+    color: #fff !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
+
+  .swal2-confirm.custom-confirm-btn:hover {
+    background-color: #5a9bf3 !important; 
+  }
+
+  .swal2-popup {
+    font-family: 'IRANSans', sans-serif;
+    direction: rtl;
+  }
+</style>
 
 
 </html>

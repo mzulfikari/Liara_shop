@@ -40,6 +40,7 @@ class UserLogin(View):
             form.add_error("username","لطفا دوباره بررسی کنید اطلاعات وارد شده صحیح نمی باشد")
 
         return render(request,'login.html',{'form':form})
+   
     
 class UserRegister(View):
     """User login through phone number and email"""

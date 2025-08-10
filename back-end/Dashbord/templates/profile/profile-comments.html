@@ -42,7 +42,7 @@
           شما نظری را ثبت نکرده اید...!
         </div>
       </div>
-      
+
       {% else %}
 
       <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
@@ -87,7 +87,7 @@
               <td class="px-6 py-4 text-sm opacity-90 text-green-500">
                 تایید شده
               </td>
-              {% elif comment.status == 'Awaiting confirmation'  %}
+              {% elif comment.status == 'Awaiting confirmation' %}
               <td class="px-6 py-4 text-sm opacity-90 text-yellow-500">
                 در انتظار تایید
               </td>
@@ -104,8 +104,7 @@
                 </a>
               </td>
             </tr>
-
-            {% endfor %}
+          {% endfor %}
             {% endif %}
             </tr>
           </tbody>
@@ -113,6 +112,39 @@
       </div>
     </div>
   </div>
+  </div>
+  <div class="mb-10">
+    <ul class="flex items-center justify-center gap-x-2 md:gap-x-3 h-8 text-sm">
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 ms-0 text-gray-500 bg-white rounded-lg hover:bg-gray-100">
+          <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-red-600  bg-red-200 rounded-lg hover:bg-gray-100">1</a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">2</a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 rounded-lg text-gray-500 bg-white hover:bg-gray-100">3</a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">...</a>
+      </li>
+       <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">8</a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">
+          <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
   </div>
   <!-- FOOTER -->
   {% include 'includes/footer.html' %}
@@ -136,7 +168,7 @@
         const url = this.getAttribute('data-url');
         Swal.fire({
           title: 'آیا مطمئن هستید؟',
-          text: "این کامنت برای همیشه حذف خواهد شد!",
+          text: "این نظر برای همیشه حذف خواهد شد!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',

@@ -8,7 +8,7 @@ class UserManager(BaseUserManager):
             raise ValueError("لطفا شماره تلفن را وارد کنید")
 
         user = self.model(
-            phone=self.normalize_email(phone),
+            phone=phone,
             password=password,
             **extra_fields
         )
