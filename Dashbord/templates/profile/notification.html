@@ -1,0 +1,105 @@
+{% load static %}
+{% load jalali_tags %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آدرس های من</title>
+
+  <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+
+</head>
+
+<body class="bg-gray-50">
+  <!-- NAVBAR -->
+  <div>
+    <!-- TOP -->
+    {% include 'includes/head.html' %}
+    <!-- OPACITY SCREEN FOR SEARCH INPUT FOCUS -->
+    <div class="absolute w-full h-screen bg-gray-200 opacity-40 z-40 hidden" id="opacitiScreen" onclick="closeScreen()">
+    </div>
+  </div>
+
+  <!-- MAIN -->
+{% include 'includes/profile_navbar.html' %}
+
+  {% if notifications %}
+    {% for notification in notifications %}
+
+  <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
+    <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
+      <div class="mb-4">
+
+        <div class="opacity-80">
+          {{ notification.message }}
+        </div>
+      </div>
+
+      <div class="md:grid grid-cols-2">
+        <div>
+          <div class="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-green-600 mb-1" style="color: #16a34a;">
+            تاریخ ایجاد:
+          </div>
+          <div class="text-sm opacity-90">
+            {{ notification.created_at|to_jalali:'%d %b %Y' }}
+          </div>
+        </div>
+
+        <div>
+          {% if notification.expiration_date %}
+          <div class="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-green-600 mb-1" style="color: #ee2626ff;">
+            اعتبار تا :
+          </div>
+          <div class="text-sm opacity-90">
+            {{ notification.expiration_date|to_jalali:'%d %b %Y' }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% endfor %}
+        {% else %}
+
+      <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
+    <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
+      <div>
+        <div class="opacity-80">
+          <div
+            class="bg-gradient-to-r from-purple-100 via-pink-100 to-red-100 border border-red-200 rounded-2xl p-4 text-center shadow-md">
+            <p class="text-sm md:text-base text-gray-700 font-medium">
+              وقتی اتفاق جدیدی بیفته، اینجا بهت خبر می‌دیم.
+             
+
+            </p>
+          </div>
+        </div>
+      </div>
+
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- FOOTER -->
+  {% include 'includes/footer.html' %}
+</body>
+<!--DROPDOWNS FOR NAVBAR-->
+<script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
+</script>
+<!--MOBILE NAVBAR-->
+<script src="{% static 'js/navbar.js' %}"></script>
+<!-- SHOW MODAL SEARCH -->
+<script src="{% static 'js/searchBox.js' %}"></script>
+
+</html>

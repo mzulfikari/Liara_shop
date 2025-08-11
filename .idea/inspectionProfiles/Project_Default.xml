@@ -25,7 +25,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="43">
+          <list size="40">
             <item index="0" class="java.lang.String" itemvalue="mysqlclient" />
             <item index="1" class="java.lang.String" itemvalue="django-environ" />
             <item index="2" class="java.lang.String" itemvalue="isodate" />
@@ -66,9 +66,6 @@
             <item index="37" class="java.lang.String" itemvalue="idna" />
             <item index="38" class="java.lang.String" itemvalue="requests" />
             <item index="39" class="java.lang.String" itemvalue="ttkbootstrap" />
-            <item index="40" class="java.lang.String" itemvalue="sqlite3" />
-            <item index="41" class="java.lang.String" itemvalue="qdarktheme" />
-            <item index="42" class="java.lang.String" itemvalue="pyqt6-tools" />
           </list>
         </value>
       </option>

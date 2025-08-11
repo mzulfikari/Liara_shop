@@ -1,0 +1,253 @@
+{% load static %}
+{% load jalali_tags %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آدرس های من</title>
+
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+
+    <!-- animate.css-->
+    <style>
+        .swal2-styled {
+            color: black !important;
+        }
+    </style>
+
+</head>
+
+<body class="bg-gray-50">
+    <!-- NAVBAR -->
+    <div>
+        <!-- TOP -->
+        {% include 'includes/head.html' %}
+        <!-- OPACITY SCREEN FOR SEARCH INPUT FOCUS -->
+        <div class="absolute w-full h-screen bg-gray-200 opacity-40 z-40 hidden" id="opacitiScreen"
+            onclick="closeScreen()">
+        </div>
+    </div>
+    <!-- MAIN -->
+    {% include 'includes/profile_navbar.html' %}
+
+    <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
+        {% if not Address %}
+        <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
+            <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
+                <div>
+                    <div class="opacity-80">
+                        <p class="text-sm md:text-base text-gray-700 font-medium">
+                            <span class="text-blue-600 font-semibold">ثبت آدرس، اولین قدم برای دریافت سریع و مطمئن
+                                سفارشاته!</span>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="md:grid grid-cols-2">
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% for address in Address %}
+        <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
+
+            <!-- address -->
+            <div>
+                <div class="opacity-80">
+                    استان {{ address.city }}- شهرستان {{ address.province }}- {{ address.full_address }}
+                </div>
+            </div>
+            <div class="md:grid grid-cols-2">
+                <div>
+
+                    <!-- name and last name  -->
+                    <div class="text-xs opacity-80 mb-1">
+                        نام و نام خانوادگی تحویل گیرنده :
+                    </div>
+                    <div class="text-sm opacity-90">
+                        {{ address.receiver_name }}
+                    </div>
+                </div>
+                <div>
+
+                    <!-- phone -->
+                    <div class="text-xs opacity-80 mb-1">
+                        شماره تماس تحویل گیرنده :
+                    </div>
+                    <div class="text-sm opacity-90">
+                        {{ address.phone_number }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- created_at -->
+            <div class="w-1/2">
+                <div class="text-xs opacity-80 mb-1">
+                    تاریخ ایجاد:
+                </div>
+                <div class="text-sm opacity-90">
+                    {{ address.created_at|to_jalali:'%Y/%m/%d' }}
+                </div>
+            </div>
+            <div class="md:grid grid-cols-2">
+                <div>
+
+                    <!-- postal_code -->
+                    <div class="text-xs opacity-80 mb-1">
+                        کد پستی:
+                    </div>
+                    <div class="text-sm opacity-90">
+                        {{ address.postal_code }}
+                    </div>
+                </div>
+                <div>
+
+                    <!-- email -->
+                    <div class="text-xs opacity-80 mb-1">
+                        ایمیل :
+                    </div>
+                    {% if  address.email %}
+                    <div class="text-sm opacity-90">
+                        {{ address.email }}
+                    </div>
+                    {% else %}
+                    <div class="text-sm opacity-90">
+                        ایمیل ثبت نشده است
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-top: 1rem;">
+                {% if not address.is_default %}
+                <form method="post" action="{% url 'Profile:Address' %}" class="set-default-form" style="margin: 0;">
+                    {% csrf_token %}
+                    <input type="hidden" name="set_default" value="{{ address.id }}">
+                    <button
+                        style="background-color:#F59E0B; color:white; padding:0.5rem 1.25rem; border-radius:0.375rem; box-shadow:0 1px 2px rgba(0,0,0,0.1); font-size:0.875rem; border:none;">
+                        تنظیم به عنوان پیش فرض
+                    </button>
+                </form>
+                {% endif %}
+
+                {% if address.is_default %}
+                <button
+                    style="background-color:#30631c; color:white; padding:0.5rem 1.25rem; border-radius:0.375rem; box-shadow:0 1px 2px rgba(0,0,0,0.1); font-size:0.875rem; border:none; cursor:default;">
+                    آدرس پیش فرض
+                </button>
+                {% endif %}
+
+                <form method="post" action="{% url 'Profile:Address' %}" class="delete-address-form" style="margin: 0;">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_address" value="{{ address.id }}">
+                    <button type="submit"
+                        style="background-color:#ef4444; color:white; padding:0.5rem 1.75rem; border-radius:0.5rem; box-shadow:0 1px 2px rgba(0,0,0,0.2); font-size:0.875rem; border:none;">
+                        حذف آدرس
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="flex max-w-sm">
+            {% if address_list|length < 3 %}
+            <a href="{% url 'Profile:Address_add' %}"
+                class="px-5 py-2 text-white bg-blue-500 rounded shadow text-sm">اضافه آدرس</a>
+            {% else %}
+            <a href="{% url 'Profile:Address_add' %}" class="px-5 py-2 text-white bg-blue-500 rounded shadow text-sm">
+                حداکثر تعداد آدرس مجاز ثبت شده است</a>
+        </div>
+        {% endif %}
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- FOOTER -->
+    {% include 'includes/footer.html' %}
+</body>
+<!--DROPDOWNS FOR NAVBAR-->
+<script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
+</script>
+<!--MOBILE NAVBAR-->
+<script src="{% static 'js/navbar.js' %}"></script>
+<!-- SHOW MODAL SEARCH -->
+<script src="{% static 'js/searchBox.js' %}"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- animate.css-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+<!-- animate.css-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".delete-address-form").forEach(form => {
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'حذف آدرس',
+                    text: 'آیا از حذف این آدرس مطمئن هستید؟',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'بله، حذف شود',
+                    cancelButtonText: 'انصراف',
+                    confirmButtonColor: '#e74c3c',
+                    cancelButtonColor: '#46A9AE',
+                    background: '#ffffff',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+<!-- Ajax-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const defaultForms = document.querySelectorAll(".set-default-form");
+        defaultForms.forEach(form => {
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                fetch(form.action, {
+                        method: "POST",
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest",
+                        },
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            console.error("خطا در تنظیم آدرس پیش‌فرض");
+                        }
+                    })
+                    .catch(error => console.error("خطا:", error));
+            });
+        });
+    });
+</script>
+
+</html>

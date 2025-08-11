@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظرات من</title>
+
+  <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+
+  <!-- animate.css-->
+  <style>
+    .swal2-styled {
+      color: black !important;
+    }
+  </style>
+
+</head>
+
+<body class="bg-gray-50">
+  <!-- NAVBAR -->
+  <div>
+    <!-- TOP -->
+    {% include 'includes/head.html' %}
+    <!-- OPACITY SCREEN FOR SEARCH INPUT FOCUS -->
+    <div class="absolute w-full h-screen bg-gray-200 opacity-40 z-40 hidden" id="opacitiScreen" onclick="closeScreen()">
+    </div>
+  </div>
+  <!-- MAIN -->
+  {% include 'includes/profile_navbar.html' %}
+
+  {% if not comments %}
+
+  <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
+    <div class="border rounded-3xl shadow-lg flex flex-col p-5 gap-y-5">
+      <div>
+        <div class="opacity-80">
+          <div class="bg-gradient-to-r from-purple-100 via-pink-100 to-red-100 border border-red-200 rounded-2xl p-4 text-center shadow-md">
+  <p class="text-sm md:text-base text-gray-700 font-medium">
+    نظرت برای ما مهمه—
+    <span class="text-red-500 font-semibold"> تجربه‌ت رو با دیگران به اشتراک بذار</span>
+    رو اینجا ذخیره کن.
+  </p>
+</div>
+        </div>
+      </div>
+
+      {% else %}
+
+      <div class="md:w-8/12 lg:w-9/12 flex flex-col gap-y-5">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead class="hidden md:table-header-group text-xs text-gray-700 bg-gray-50">
+            <tr>
+              <th scope="col" class="py-3">
+                <span class="sr-only">تصویر</span>
+              </th>
+              <th scope="col" class="md:pr-6 py-3">
+                نام محصول
+              </th>
+              <th scope="col" class="pr-5 py-3">
+                نظر
+              </th>
+              <th scope="col" class="px-6 py-3">
+                وضعیت
+              </th>
+              <th scope="col" class="px-3 py-3">
+                عملیات
+              </th>
+            </tr>
+          </thead>
+         
+          {% for comment in comments %}
+          <tbody class="grid grid-cols-1 sm:grid-cols-2 md:contents gap-5">
+            <tr
+              class="bg-white hover:bg-gray-50 grid grid-cols-1 justify-items-center md:table-row border-x sm:border-x-0 sm:border-b">
+              <td class="px-2 py-4">
+                <img src="{{ comment.products.image.url }}" class="w-48 md:w-28 max-w-full max-h-full rounded-lg"
+                  alt="">
+              </td>
+              <td class="md:pr-6 py-4 text-xs opacity-90 text-gray-900">
+                <a href="{% url 'Product:Product_details' comment.products.id %}" class="hover:underline text-blue-600">
+                  {{ comment.products.title }}
+                </a>
+              </td>
+              <td class="px-3 py-4 max-w-md text-xs">
+                {{ comment.body|truncatechars:20 }}
+              </td>
+              {% if comment.status == 'It was confirmed' %}
+              <td class="px-6 py-4 text-sm opacity-90 text-green-500">
+                تایید شده
+              </td>
+              {% elif comment.status == 'Awaiting confirmation' %}
+              <td class="px-6 py-4 text-sm opacity-90 text-yellow-500">
+                در انتظار تایید
+              </td>
+              {% else %}
+              <td class="px-6 py-4 text-sm opacity-90 text-red-500">
+                ردشده
+              </td>
+              {% endif %}
+              <td class="px-3 py-4">
+                <a href="{% url 'Profile:DeleteCommentView' comment.id %}"
+                  class="text-red-600 hover:underline delete-comment"
+                  data-url="{% url 'Profile:DeleteCommentView' comment.id %}">
+                  حذف
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+            {% endif %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="mb-10">
+    <ul class="flex items-center justify-center gap-x-2 md:gap-x-3 h-8 text-sm">
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 ms-0 text-gray-500 bg-white rounded-lg hover:bg-gray-100">
+          <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-red-600  bg-red-200 rounded-lg hover:bg-gray-100">1</a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">2</a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 rounded-lg text-gray-500 bg-white hover:bg-gray-100">3</a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">...</a>
+      </li>
+       <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">8</a>
+      </li>
+      <li>
+        <a href="#" class="flex items-center justify-center transition shadow-lg px-3 h-8 text-gray-500 bg-white rounded-lg hover:bg-gray-100">
+          <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- FOOTER -->
+  {% include 'includes/footer.html' %}
+</body>
+<!--DROPDOWNS FOR NAVBAR-->
+<script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer>
+</script>
+<!--MOBILE NAVBAR-->
+<script src="{% static 'js/navbar.js' %}"></script>
+<!-- SHOW MODAL SEARCH -->
+<script src="{% static 'js/searchBox.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteLinks = document.querySelectorAll('.delete-comment');
+    deleteLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault(); // جلوگیری از رفتن مستقیم به لینک
+        const url = this.getAttribute('data-url');
+        Swal.fire({
+          title: 'آیا مطمئن هستید؟',
+          text: "این نظر برای همیشه حذف خواهد شد!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'بله، حذف شود!',
+          cancelButtonText: 'لغو'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = url;
+          }
+        });
+      });
+    });
+  });
+</script>
+
+</html>
