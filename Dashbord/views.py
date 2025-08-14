@@ -112,6 +112,7 @@ class Address_Add(LoginRequiredMixin,View):
             })
      
 class ChangePasswordView(LoginRequiredMixin, FormView):
+    
     template_name = 'profile/change-password.html'
     form_class = Change_Password
     success_url = reverse_lazy('account:Login-user')

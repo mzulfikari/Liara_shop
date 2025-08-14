@@ -2,7 +2,7 @@ from django.contrib import messages
 from urllib import request
 from django.shortcuts import render
 from django.views.generic import DetailView,ListView
-from Products.models import Products,Comment
+from Products.models import Products,Comment,Color
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404,render,redirect
 
@@ -13,6 +13,12 @@ class ProductDetails(DetailView):
     context_object_name = 'products'
     slug_url_kwarg = 'slug'
     slug_field = 'slug'  
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        product = self.get_object()
+        context['colors'] = product.color.all()  # نه product.colors و نه product.Color
+        return context
     
     def post(self, request, pk):
         

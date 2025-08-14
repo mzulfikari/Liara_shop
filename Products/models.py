@@ -68,7 +68,7 @@ class Color(models.Model):
         )
 
     def __str__(self):
-        return self.title
+      return f"{self.title} ({self.color_code})"
 
     class Meta:
         verbose_name_plural = "رنگ بندی "
@@ -117,7 +117,7 @@ class Products(models.Model):
         Size,blank=True,related_name='products',verbose_name="سایزها"
         )
     color = models.ManyToManyField(
-        Color,related_name='colors',verbose_name="رنگ بندی ها",blank=True
+        Color,related_name='products',verbose_name="رنگ بندی ها",blank=True
         )
     inventory = models.BooleanField(
         default=True,verbose_name="موجودیت"
