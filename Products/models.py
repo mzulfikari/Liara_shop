@@ -8,6 +8,11 @@ from colorfield.fields import ColorField
 from  django.utils.text import slugify
 
 
+class ProductStatusType(models.IntegerChoices):
+    publish = 1 ,("نمایش")
+    draft = 2 ,("عدم نمایش")
+
+
 class Category(models.Model):
     title = models.CharField(
         max_length=50,verbose_name="عنوان"
@@ -119,8 +124,8 @@ class Products(models.Model):
     color = models.ManyToManyField(
         Color,related_name='products',verbose_name="رنگ بندی ها",blank=True
         )
-    inventory = models.BooleanField(
-        default=True,verbose_name="موجودیت"
+    status = models.IntegerField(
+        choices=ProductStatusType.choices,default=ProductStatusType.draft.value,verbose_name="وضعیت نمایش"
         )
     stock_count =models.IntegerField(
         verbose_name= " تعداد موجودی",null=True,blank=True

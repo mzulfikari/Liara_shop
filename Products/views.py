@@ -2,7 +2,7 @@ from django.contrib import messages
 from urllib import request
 from django.shortcuts import render
 from django.views.generic import DetailView,ListView
-from Products.models import Products,Comment,Color
+from Products.models import Products,Comment,Color, ProductStatusType,Category
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404,render,redirect
 
@@ -11,13 +11,11 @@ class ProductDetails(DetailView):
     template_name = "Product/single-product.html"
     model = Products
     context_object_name = 'products'
-    slug_url_kwarg = 'slug'
-    slug_field = 'slug'  
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = self.get_object()
-        context['colors'] = product.color.all()  # نه product.colors و نه product.Color
+        context['colors'] = product.color.all() 
         return context
     
     def post(self, request, pk):
@@ -39,28 +37,38 @@ class ProductDetails(DetailView):
         return redirect(request.path)
     
 
-
 class Product_View(ListView):
     model = Products
     template_name = "Product/index.html"
     context_object_name = 'Products'
+    queryset = Products.objects.filter(
+        status=ProductStatusType.publish.value)
+    paginate_by = 8
 
 
 class Product_list(ListView):
     model = Products
     template_name = "Product/list_view.html"
-    context_object_name = 'Products'
+    paginate_by = 2
     
-
-def search(request):
-    Search = request.GET.get('search')
-    Products_lists = Products.objects.filter(title__icontains = Search)
-    page_number = request.GET.get('page')
-    print(Products_lists)
-    print(Search )
-    paginator = Paginator(Products, 10)
-    object_list = paginator.get_page(page_number)
-    return render(request, "includes/head.html", {"Products": object_list})
-
-
+    def get_queryset(self):
+        queryset = Products.objects.filter(
+        status=ProductStatusType.publish.value)
+        if search_q:=self.request.GET.get("q"):
+            queryset = queryset.filter(title__icontains=search_q)    
+        if category_id:=self.request.GET.getlist("category_id"):
+            queryset = queryset.filter(category__id__in=category_id).distinct()
+        return queryset
+    
+    
+    def get_context_data(self, **kwargs):
+       context = super().get_context_data(**kwargs)
+       context["categories"] = Category.objects.all()
+       context["selected_categories"] = self.request.GET.getlist("category_id")
+       return context
+   
+        
+    
+    
+    
 
