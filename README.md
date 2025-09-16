@@ -1,1 +1,1 @@
-![توضیح تصویر](Liara_shop/docs/image/Screenshot_2025-09-17_020448.png)
+![توضیح تصویر](docs/image/Screenshot%202025-09-17%20020448.png)
