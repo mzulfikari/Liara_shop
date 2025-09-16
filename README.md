@@ -92,10 +92,9 @@
    git clone https://github.com/mzulfikari/Liara_shop.git
    cd Liara_shop
 
-
-   python -m venv venv
+  ``` python -m venv venv
 source venv/bin/activate  # در ویندوز: venv\Scripts\activate
-
+ ``` 
 
 pip install -r requirements.txt
 
