@@ -86,7 +86,7 @@
 
 
 ## 📌 مراحل نصب 
-1. کلون کردن ریپازیتوری:
+1.**کلون کردن ریپازیتوری :**
    ```bash
    git clone https://github.com/mzulfikari/Liara_shop.git
    cd Liara_shop
