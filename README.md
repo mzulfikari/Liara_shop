@@ -85,25 +85,7 @@
 
 
 
-## 📌 مراحل نصب
-
-1. کلون کردن ریپازیتوری:```
-```bash
-git clone https://github.com/mzulfikari/Liara_shop.git
-cd Liara_shop
-
-python -m venv venv
-source venv/bin/activate
-venv\Scripts\activate
- ``` 
-
-pip install -r requirements.txt
-
-
-python manage.py migrate
-
-
-python manage.py runserver
-
-
-حالا می‌توانید با مراجعه به آدرس http://127.0.0.1:8000/ فروشگاه را مشاهده کنید.
+## 📌 مراحل نصب1. کلون کردن ریپازیتوری:
+   ```bash
+   git clone https://github.com/mzulfikari/Liara_shop.git
+   cd Liara_shop
