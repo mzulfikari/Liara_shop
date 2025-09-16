@@ -88,12 +88,13 @@
 ## 📌 مراحل نصب
 
 1. کلون کردن ریپازیتوری:
-   ```bash
-   git clone https://github.com/mzulfikari/Liara_shop.git
-   cd Liara_shop
+```bash
+git clone https://github.com/mzulfikari/Liara_shop.git
+cd Liara_shop
 
-  ``` python -m venv venv
-source venv/bin/activate  # در ویندوز: venv\Scripts\activate
+```python -m venv venv
+source venv/bin/activate
+venv\Scripts\activate
  ``` 
 
 pip install -r requirements.txt
