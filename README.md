@@ -98,19 +98,19 @@ python -m venv venv
 # برای Unix / Mac
 source venv/bin/activate
 # برای ویندوز
-venv\Scripts\activate
+venv\Scripts\activate```
 3️⃣ نصب وابستگی‌ها
 ```bash
 Copy code
-pip install -r requirements.txt
+pip install -r requirements.txt```
 4️⃣ اجرای مهاجرت‌ها
 ```bash
 Copy code
-python manage.py migrate
+python manage.py migrate```
 5️⃣ اجرای سرور توسعه
 ```bash
 Copy code
-python manage.py runserver
+python manage.py runserver```
 6️⃣ دسترسی به وب‌سایت
 در مرورگر خود به آدرس زیر بروید:
 http://127.0.0.1:8000/
