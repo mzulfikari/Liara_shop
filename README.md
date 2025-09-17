@@ -92,7 +92,7 @@
 git clone https://github.com/mzulfikari/Liara_shop.git
 cd Liara_shop
 2️⃣ ایجاد محیط مجازی (اختیاری ولی توصیه شده)
-```bash
+```
 Copy code
 python -m venv venv
 # برای Unix / Mac
@@ -100,15 +100,15 @@ source venv/bin/activate
 # برای ویندوز
 venv\Scripts\activate```
 3️⃣ نصب وابستگی‌ها
-```bash
+```
 Copy code
 pip install -r requirements.txt```
 4️⃣ اجرای مهاجرت‌ها
-```bash
+```
 Copy code
 python manage.py migrate```
 5️⃣ اجرای سرور توسعه
-```bash
+```
 Copy code
 python manage.py runserver```
 6️⃣ دسترسی به وب‌سایت
