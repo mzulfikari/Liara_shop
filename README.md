@@ -90,3 +90,11 @@
    ```bash
    git clone https://github.com/mzulfikari/Liara_shop.git
    cd Liara_shop
+
+
+```bash
+python -m venv venv
+# برای Unix / Mac
+source venv/bin/activate
+# برای ویندوز
+venv\Scripts\activate
