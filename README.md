@@ -91,10 +91,10 @@
 ```bash
 git clone https://github.com/mzulfikari/Liara_shop.git
 cd Liara_shop
-2️⃣ ایجاد محیط مجازی (اختیاری ولی توصیه شده)
-```
+```2️⃣ ایجاد محیط مجازی (اختیاری ولی توصیه شده)
 
-```python -m venv venv
+
+python -m venv venv```
 # برای Unix / Mac
 source venv/bin/activate
 # برای ویندوز
