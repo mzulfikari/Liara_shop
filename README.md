@@ -85,3 +85,6 @@
 
 
 
+## 📬 تماس با ما
+[![Telegram](https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg)](https://t.me/mzulfiqari)
+[![Gmail](https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png)](mzulfikari1382@gmail.com)
