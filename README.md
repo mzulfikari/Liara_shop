@@ -88,11 +88,11 @@
 ## 📬 تماس با ما
 <div align="right" style="font-family:Arial, sans-serif;">
   <a href="https://t.me/mzulfiqari" target="_blank" style="text-decoration:none; display:flex; align-items:center; margin-bottom:10px;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="30" style="transition: transform 0.3s, filter 0.3s;" onmouseover="this.style.transform='scale(1.2)'; this.style.filter='brightness(1.3)';" onmouseout="this.style.transform='scale(1)'; this.style.filter='brightness(1)';" alt="Telegram"/>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="30" alt="Telegram"/>
     <span style="margin-left:8px; color:#0088cc; font-weight:bold;">@mzulfiqari</span>
   </a>
   <a href="mailto:mzulfikari1382@gmail.com" style="text-decoration:none; display:flex; align-items:center;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" width="30" style="transition: transform 0.3s, filter 0.3s;" onmouseover="this.style.transform='scale(1.2)'; this.style.filter='brightness(1.3)';" onmouseout="this.style.transform='scale(1)'; this.style.filter='brightness(1)';" alt="Gmail"/>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" width="30" alt="Gmail"/>
     <span style="margin-left:8px; color:#D14836; font-weight:bold;">mzulfikari1382@gmail.com</span>
   </a>
 </div>
