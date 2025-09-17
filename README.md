@@ -86,15 +86,27 @@
 
 
 ## 📌 مراحل نصب 
-1.**کلون کردن ریپازیتوری :**
-   ```bash
-   git clone https://github.com/mzulfikari/Liara_shop.git
-   cd Liara_shop
-
-
+1.### 1️⃣ کلون کردن مخزن
 ```bash
+git clone https://github.com/mzulfikari/Liara_shop.git
+cd Liara_shop
+2️⃣ ایجاد محیط مجازی (اختیاری)
+bash
+Copy code
 python -m venv venv
 # برای Unix / Mac
 source venv/bin/activate
 # برای ویندوز
 venv\Scripts\activate
+3️⃣ نصب وابستگی‌ها
+bash
+Copy code
+pip install -r requirements.txt
+4️⃣ اجرای مهاجرت‌ها
+bash
+Copy code
+python manage.py migrate
+5️⃣ اجرای سرور توسعه
+bash
+Copy code
+python manage.py runserver
