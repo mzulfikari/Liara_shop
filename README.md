@@ -86,5 +86,12 @@
 
 
 ## 📬 تماس با ما
-[![Telegram](https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg)](https://t.me/mzulfiqari)
-[![Gmail](https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png)](mzulfikari1382@gmail.com)
+<p align="center">
+  <a href="https://t.me/mzulfiqari" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="40" style="transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';" alt="Telegram"/>
+  </a>
+  &nbsp;&nbsp;
+  <a href="mailto:mzulfikari1382@gmail.com">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" width="40" style="transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';" alt="Gmail"/>
+  </a>
+</p>
