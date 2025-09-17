@@ -85,13 +85,14 @@
 
 
 
-## 📌 مراحل نصب 
-1.### 1️⃣ کلون کردن مخزن
+## 🚀 مراحل نصب
+
+### 1️⃣ کلون کردن مخزن
 ```bash
 git clone https://github.com/mzulfikari/Liara_shop.git
 cd Liara_shop
-2️⃣ ایجاد محیط مجازی (اختیاری)
-bash
+2️⃣ ایجاد محیط مجازی (اختیاری ولی توصیه شده)
+```bash
 Copy code
 python -m venv venv
 # برای Unix / Mac
@@ -99,14 +100,17 @@ source venv/bin/activate
 # برای ویندوز
 venv\Scripts\activate
 3️⃣ نصب وابستگی‌ها
-bash
+```bash
 Copy code
 pip install -r requirements.txt
 4️⃣ اجرای مهاجرت‌ها
-bash
+```bash
 Copy code
 python manage.py migrate
 5️⃣ اجرای سرور توسعه
-bash
+```bash
 Copy code
 python manage.py runserver
+6️⃣ دسترسی به وب‌سایت
+در مرورگر خود به آدرس زیر بروید:
+http://127.0.0.1:8000/
