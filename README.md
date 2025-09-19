@@ -84,6 +84,15 @@
 بعد از طرق پسورد از حساب کاربری خود خارج می شود و سپس باید با رمز عبور جدید لاگین کنید
 
 
+
+## 💻 برنامه نویسان
+**Front end :**
+اکرام تایجک
+
+
+
+
+
 ## 📬 تماس با ما
 
 <p align="right">
@@ -99,3 +108,4 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" width="30" style="vertical-align:middle; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';" alt="Gmail"/>
   </a>
 </p>
+
