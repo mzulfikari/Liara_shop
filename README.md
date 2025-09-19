@@ -88,9 +88,9 @@
 ## 💻  برنامه‌نویسان
 
 ### 👨‍💻 فرانت اند: 
-** اکرام تاجیک* — 🔗 [GitHub](https://github.com/ekramtajik)
+** اکرام تاجیک** — 🔗 [GitHub](https://github.com/ekramtajik)
 ### 🧑‍💻 بک اند:
-**** — مرتضی ذوالفقاری 🔗 [GitHub](https://github.com/mortezazolfaghari)
+** — مرتضی ذوالفقاری** 🔗 [GitHub](https://github.com/mortezazolfaghari)
 
 ## 📬 تماس با ما
 
