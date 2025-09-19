@@ -85,11 +85,15 @@
 
 
 
-## 💻 برنامه نویسان
-**Front end :**
-اکرام تایجک
+## 💻 Developers | برنامه‌نویسان
 
+### 👨‍💻 Front-end | فرانت‌اند
+**Ekram Tajik | اکرام تاجیک**  
+🔗 [GitHub Profile](https://github.com/ekramtajik)
 
+### 🧑‍💻 Back-end | بک‌اند
+**Morteza Zolfaghari | مرتضی ذوالفقاری**  
+🔗 [GitHub Profile](https://github.com/mortezazolfaghari)
 
 
 
