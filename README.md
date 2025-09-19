@@ -85,34 +85,12 @@
 
 
 
-## 💻 Developers | برنامه‌نویسان
+## 💻  برنامه‌نویسان
 
-<table>
-  <tr>
-    <td align="left">👨‍💻 Front-end</td>
-    <td align="right">فرانت‌اند</td>
-  </tr>
-  <tr>
-    <td><strong>Ekram Tajik</strong></td>
-    <td align="right"><strong>اکرام تاجیک</strong></td>
-  </tr>
-  <tr>
-    <td>🔗 <a href="https://github.com/ekramtajik">GitHub Profile</a></td>
-    <td align="right">🔗 <a href="https://github.com/ekramtajik">پروفایل گیت‌هاب</a></td>
-  </tr>
-  <tr>
-    <td align="left">🧑‍💻 Back-end</td>
-    <td align="right">بک‌اند</td>
-  </tr>
-  <tr>
-    <td><strong>Morteza Zolfaghari</strong></td>
-    <td align="right"><strong>مرتضی ذوالفقاری</strong></td>
-  </tr>
-  <tr>
-    <td>🔗 <a href="https://github.com/mortezazolfaghari">GitHub Profile</a></td>
-    <td align="right">🔗 <a href="https://github.com/mortezazolfaghari">پروفایل گیت‌هاب</a></td>
-  </tr>
-</table>
+### 👨‍💻 فرانت اند: 
+** اکرام تاجیک* — 🔗 [GitHub](https://github.com/ekramtajik)
+### 🧑‍💻 بک اند:
+**** — مرتضی ذوالفقاری 🔗 [GitHub](https://github.com/mortezazolfaghari)
 
 ## 📬 تماس با ما
 
