@@ -91,21 +91,22 @@
 اکرام تاجیک🔗 [GitHub](https://github.com/ekramtajik)
 ### 🧑‍💻 بک اند:
 مرتضی ذوالفقاری🔗 [GitHub](https://github.com/mzulfikari)
-
-## 📬 تماس با ما
-
-<p align="right">
-  <a href="https://t.me/mzulfiqari" target="_blank" style="text-decoration:none;">
-    <span style="color:#0088cc; font-weight:bold;">@mzulfiqari</span>
-    <span style="color:#0088cc display: block; font-weight:bold;">@thisekram</span>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="30" style="vertical-align:middle; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';" alt="Telegram"/>
-  </a>
-</p>
-
 <p align="right">
   <a href="mailto:mzulfikari1382@gmail.com" style="text-decoration:none;">
     <span style="color:#D14836; font-weight:bold;">mzulfikari1382@gmail.com</span>
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" width="30" style="vertical-align:middle; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';" alt="Gmail"/>
   </a>
 </p>
+<p align="right">
+  <a href="https://t.me/mzulfiqari" target="_blank" style="text-decoration:none;">
+    <span style="color:#0088cc; font-weight:bold;">@mzulfiqari</span>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="30" style="vertical-align:middle; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';" alt="Telegram"/>
+  </a>
+</p>
+
+
+## 📬 تماس با ما
+
+
+
 
